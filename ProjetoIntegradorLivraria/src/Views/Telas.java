@@ -20,6 +20,10 @@ public class Telas extends javax.swing.JFrame {
     public Telas() {
         initComponents();
         lblObrigatorioNome.setVisible(false);
+        lblObrigatorioCPF.setVisible(false);
+        lblObrigatorioEmail.setVisible(false);
+        lblObrigatorioEndereco.setVisible(false);
+        lblObrigatorioSexo.setVisible(false);
     }
 
     /**
@@ -52,6 +56,10 @@ public class Telas extends javax.swing.JFrame {
         lblDataNascimento = new javax.swing.JLabel();
         txtNascimento = new javax.swing.JTextField();
         lblObrigatorioNome = new javax.swing.JLabel();
+        lblObrigatorioEndereco = new javax.swing.JLabel();
+        lblObrigatorioSexo = new javax.swing.JLabel();
+        lblObrigatorioCPF = new javax.swing.JLabel();
+        lblObrigatorioEmail = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -87,6 +95,11 @@ public class Telas extends javax.swing.JFrame {
         });
 
         txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEnderecoFocusLost(evt);
+            }
+        });
 
         txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -125,12 +138,24 @@ public class Telas extends javax.swing.JFrame {
         lblObrigatorioNome.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioNome.setText("*campo obrigatório");
 
+        lblObrigatorioEndereco.setForeground(new java.awt.Color(255, 0, 0));
+        lblObrigatorioEndereco.setText("*campo obrigatório");
+
+        lblObrigatorioSexo.setForeground(new java.awt.Color(255, 0, 0));
+        lblObrigatorioSexo.setText("*campo obrigatório");
+
+        lblObrigatorioCPF.setForeground(new java.awt.Color(255, 0, 0));
+        lblObrigatorioCPF.setText("*campo obrigatório");
+
+        lblObrigatorioEmail.setForeground(new java.awt.Color(255, 0, 0));
+        lblObrigatorioEmail.setText("*campo obrigatório");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblSexo)
                     .addComponent(lblTelefone)
@@ -139,31 +164,40 @@ public class Telas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNome)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                    .addComponent(txtEndereco)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jrdMasculino)
                         .addGap(50, 50, 50)
                         .addComponent(jrdFeminino)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblEmail)
-                            .addComponent(lblEstadoCivil)
-                            .addComponent(lblDataNascimento)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblObrigatorioEndereco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEmail))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblObrigatorioNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblCPF)))
+                        .addComponent(lblCPF))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblEstadoCivil))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblObrigatorioSexo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(lblDataNascimento)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(cboEstadoCivil, 0, 222, Short.MAX_VALUE)
                     .addComponent(fmtCPF, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNascimento))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblObrigatorioCPF)
+                    .addComponent(lblObrigatorioEmail))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,13 +208,16 @@ public class Telas extends javax.swing.JFrame {
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCPF)
                     .addComponent(fmtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblObrigatorioNome))
+                    .addComponent(lblObrigatorioNome)
+                    .addComponent(lblObrigatorioCPF))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEndereco)
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmail)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObrigatorioEndereco)
+                    .addComponent(lblObrigatorioEmail))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefone)
@@ -193,7 +230,8 @@ public class Telas extends javax.swing.JFrame {
                     .addComponent(jrdMasculino)
                     .addComponent(jrdFeminino)
                     .addComponent(lblDataNascimento)
-                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObrigatorioSexo))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
 
@@ -203,7 +241,7 @@ public class Telas extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1021, Short.MAX_VALUE)
+            .addGap(0, 1082, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +254,7 @@ public class Telas extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1021, Short.MAX_VALUE)
+            .addGap(0, 1082, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +267,7 @@ public class Telas extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1021, Short.MAX_VALUE)
+            .addGap(0, 1082, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +280,7 @@ public class Telas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1087, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,10 +288,16 @@ public class Telas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void fmtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtCPFFocusLost
-
+        
+        if(fmtCPF.getText().isEmpty()){
+            fmtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioCPF.setVisible(true);
+        }
+        
         String cpf = fmtCPF.getText();        
         String cpfSemPonto = cpf.replace(".", "");        
         String cpfSemTraco = cpfSemPonto.replace("-", "");
@@ -281,6 +325,14 @@ public class Telas extends javax.swing.JFrame {
         txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblObrigatorioNome.setVisible(false);
     }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtEnderecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusLost
+        // TODO add your handling code here:
+        if(txtEndereco.getText().isEmpty()){
+            txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioEndereco.setVisible(true);
+        }
+    }//GEN-LAST:event_txtEnderecoFocusLost
 
     /**
      * @param args the command line arguments
@@ -334,7 +386,11 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblEstadoCivil;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblObrigatorioCPF;
+    private javax.swing.JLabel lblObrigatorioEmail;
+    private javax.swing.JLabel lblObrigatorioEndereco;
     private javax.swing.JLabel lblObrigatorioNome;
+    private javax.swing.JLabel lblObrigatorioSexo;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtEmail;

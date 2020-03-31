@@ -10,7 +10,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -27,7 +27,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="0" pref="1087" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -54,7 +54,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="lblSexo" min="-2" max="-2" attributes="0"/>
                           <Component id="lblTelefone" min="-2" max="-2" attributes="0"/>
@@ -64,28 +64,34 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtNome" max="32767" attributes="0"/>
-                          <Component id="txtEndereco" pref="283" max="32767" attributes="0"/>
-                          <Component id="txtTelefone" pref="283" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Component id="txtEndereco" max="32767" attributes="0"/>
+                          <Component id="txtTelefone" min="-2" pref="283" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jrdMasculino" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jrdFeminino" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEstadoCivil" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblDataNascimento" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblObrigatorioEndereco" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="lblObrigatorioNome" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="lblCPF" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="lblEstadoCivil" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lblObrigatorioSexo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="44" max="32767" attributes="0"/>
+                              <Component id="lblDataNascimento" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -95,7 +101,12 @@
                           <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtNascimento" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="106" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblObrigatorioCPF" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblObrigatorioEmail" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -109,6 +120,7 @@
                           <Component id="lblCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="fmtCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblObrigatorioNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblObrigatorioCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -116,6 +128,8 @@
                           <Component id="txtEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblObrigatorioEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblObrigatorioEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -131,6 +145,7 @@
                           <Component id="jrdFeminino" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblObrigatorioSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="186" max="32767" attributes="0"/>
                   </Group>
@@ -207,6 +222,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEnderecoFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtEmail">
               <Properties>
@@ -312,6 +330,38 @@
                 <Property name="text" type="java.lang.String" value="*campo obrigat&#xf3;rio"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="lblObrigatorioEndereco">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="*campo obrigat&#xf3;rio"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblObrigatorioSexo">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="*campo obrigat&#xf3;rio"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblObrigatorioCPF">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="*campo obrigat&#xf3;rio"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblObrigatorioEmail">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="*campo obrigat&#xf3;rio"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -326,7 +376,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1021" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1082" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -348,7 +398,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1021" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1082" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -370,7 +420,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1021" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1082" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
