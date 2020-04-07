@@ -6,24 +6,29 @@
 package Views;
 
 import Models.Cliente;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author joaom
  */
-public class Telas extends javax.swing.JFrame {
-
+public class Clientes extends javax.swing.JFrame {
+    public Connection conn;
+    public Statement st;
     /**
      * Creates new form Telas
      */
-    public Telas() {
+    public Clientes() {
         initComponents();
         lblObrigatorioNome.setVisible(false);
         lblObrigatorioCPF.setVisible(false);
         lblObrigatorioEmail.setVisible(false);
         lblObrigatorioEndereco.setVisible(false);
         lblObrigatorioSexo.setVisible(false);
+        
     }
 
     /**
@@ -36,7 +41,6 @@ public class Telas extends javax.swing.JFrame {
     private void initComponents() {
 
         GroupSexo = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblEndereco = new javax.swing.JLabel();
@@ -62,9 +66,6 @@ public class Telas extends javax.swing.JFrame {
         fmtNascimento = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,6 +111,7 @@ public class Telas extends javax.swing.JFrame {
         txtTelefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         GroupSexo.add(jrdMasculino);
+        jrdMasculino.setSelected(true);
         jrdMasculino.setText("Masculino");
         jrdMasculino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +141,11 @@ public class Telas extends javax.swing.JFrame {
                 fmtCPFFocusLost(evt);
             }
         });
+        fmtCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fmtCPFActionPerformed(evt);
+            }
+        });
 
         lblEstadoCivil.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEstadoCivil.setText("Estado Civil:");
@@ -166,7 +173,7 @@ public class Telas extends javax.swing.JFrame {
         lblObrigatorioEmail.setText("*campo obrigatório");
 
         try {
-            fmtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            fmtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -292,56 +299,21 @@ public class Telas extends javax.swing.JFrame {
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro Cliente", jPanel1);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1082, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Cadastro Produto", jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1082, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Vendas", jPanel3);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1082, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Relatório", jPanel4);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 2, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 15, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         pack();
@@ -350,43 +322,65 @@ public class Telas extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
-        boolean validandoCampos=true;
+        int validandoCampos=0;
         
-        char c = fmtCPF.getText().charAt(0);
-        String s = Character.toString(c);
+        Models.Cliente novoCliente = new Cliente();
+        
+        String cpfFormatado = novoCliente.formatarCPF(fmtCPF.getText());
+        System.out.println(cpfFormatado); 
+       char primeiroDigitoCPF = cpfFormatado.charAt(0);
+        String s = Character.toString(primeiroDigitoCPF);
         
         if(txtEndereco.getText().isEmpty()){
             txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioEndereco.setVisible(true);
-            validandoCampos=false;
+            validandoCampos++;
         }
 
         if(txtNome.getText().isEmpty()){
             txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioNome.setVisible(true);
-            validandoCampos=false;
+            validandoCampos++;
         }
 
         if(!(jrdFeminino.isSelected() || jrdMasculino.isSelected())){
             lblObrigatorioSexo.setVisible(true);
-            validandoCampos=false;
+            validandoCampos++;
         }
 
         if(txtEmail.getText().isEmpty()){
             txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioEmail.setVisible(true);
-            validandoCampos=false;
+            validandoCampos++;
         }
         
         if(s.equals(" ")){
             fmtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioCPF.setVisible(true);
-            validandoCampos=false;
+            validandoCampos++;
         }
         
-        if (validandoCampos) {
-            // AQUI ENTRA A LIGAÇÃO COM BANCO DE DADOS PARA INSERIR
-            // NOVO CLIENTE NO BANCO DE DADOS.
+        if (validandoCampos == 0) {
+            try {
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria","root","");
+                st = (Statement) conn.createStatement();
+                
+                String adicionarCliente = String.format("INSERT INTO cliente (cpf, nome, sexo, dt_nascimento, estado_civil, telefone, endereco,email) "
+                        + "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')", 
+                        cpfFormatado,
+                        txtNome.getText(),
+                        GroupSexo.getSelection().getActionCommand().toString(),
+                        fmtNascimento.getText(), 
+                        cboEstadoCivil.getSelectedItem().toString(),
+                        txtTelefone.getText(),
+                        txtEndereco.getText(),
+                        txtEmail.getText());
+                
+                st.executeUpdate(adicionarCliente);
+                st.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -397,12 +391,12 @@ public class Telas extends javax.swing.JFrame {
             lblObrigatorioCPF.setVisible(true);
         }
 
-        String cpf = fmtCPF.getText();
-        String cpfSemPonto = cpf.replace(".", "");
-        String cpfSemTraco = cpfSemPonto.replace("-", "");
+        //String cpf = fmtCPF.getText();
+        //String cpfSemPonto = cpf.replace(".", "");
         boolean isValid;
 
         Models.Cliente novoCliente = new Cliente();
+        String cpfSemTraco = novoCliente.formatarCPF(fmtCPF.getText());
 
         isValid  = novoCliente.isValid(cpfSemTraco);
 
@@ -438,11 +432,13 @@ public class Telas extends javax.swing.JFrame {
     private void jrdMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdMasculinoActionPerformed
         // TODO add your handling code here:
         lblObrigatorioSexo.setVisible(false);
+        jrdMasculino.setActionCommand("M");
     }//GEN-LAST:event_jrdMasculinoActionPerformed
 
     private void jrdFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdFemininoActionPerformed
         // TODO add your handling code here:
         lblObrigatorioSexo.setVisible(false);
+        jrdFeminino.setActionCommand("F");
     }//GEN-LAST:event_jrdFemininoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -468,6 +464,10 @@ public class Telas extends javax.swing.JFrame {
         jrdMasculino.setSelected(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void fmtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fmtCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fmtCPFActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -485,20 +485,21 @@ public class Telas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Telas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Telas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Telas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Telas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Telas().setVisible(true);
+                new Clientes().setVisible(true);
             }
         });
     }
@@ -511,10 +512,6 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField fmtCPF;
     private javax.swing.JFormattedTextField fmtNascimento;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton jrdFeminino;
     private javax.swing.JRadioButton jrdMasculino;
     private javax.swing.JLabel lblCPF;
