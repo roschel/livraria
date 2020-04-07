@@ -149,4 +149,15 @@ public class Cliente {
         return valid;
     }
     
+    
+    
+    public String formatarCPF (String cpf){
+        String cpfFormatado="";
+        
+        String cpfSemPonto = cpf.replace(".", "");
+        cpfFormatado = cpfSemPonto.replace("-", "");
+        
+        return cpfFormatado;
+    }
+    
 }
