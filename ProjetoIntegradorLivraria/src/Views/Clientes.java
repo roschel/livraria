@@ -10,13 +10,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import com.sun.glass.events.KeyEvent;
 
 /**
  *
  * @author joaom
  */
 public class Clientes extends javax.swing.JFrame {
-    public Connection conn;
+    public Connection con;
     public Statement st;
     /**
      * Creates new form Telas
@@ -28,7 +29,8 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioEmail.setVisible(false);
         lblObrigatorioEndereco.setVisible(false);
         lblObrigatorioSexo.setVisible(false);
-        
+        jrdMasculino.setActionCommand("M");
+        jrdFeminino.setActionCommand("F");
     }
 
     /**
@@ -54,7 +56,6 @@ public class Clientes extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         jrdMasculino = new javax.swing.JRadioButton();
         jrdFeminino = new javax.swing.JRadioButton();
-        fmtCPF = new javax.swing.JFormattedTextField();
         lblEstadoCivil = new javax.swing.JLabel();
         cboEstadoCivil = new javax.swing.JComboBox<>();
         lblDataNascimento = new javax.swing.JLabel();
@@ -66,11 +67,13 @@ public class Clientes extends javax.swing.JFrame {
         fmtNascimento = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtCPF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de clientes");
+        setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de cliente"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 426));
 
         lblNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -92,9 +95,13 @@ public class Clientes extends javax.swing.JFrame {
         lblCPF.setText("CPF:");
 
         txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtNome.setPreferredSize(new java.awt.Dimension(20, 18));
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
             }
         });
 
@@ -103,6 +110,9 @@ public class Clientes extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtEnderecoFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEnderecoFocusLost(evt);
+            }
         });
 
         txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -110,12 +120,14 @@ public class Clientes extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtEmailFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
         });
 
         txtTelefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         GroupSexo.add(jrdMasculino);
-        jrdMasculino.setSelected(true);
         jrdMasculino.setText("Masculino");
         jrdMasculino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,26 +140,6 @@ public class Clientes extends javax.swing.JFrame {
         jrdFeminino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrdFemininoActionPerformed(evt);
-            }
-        });
-
-        fmtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        try {
-            fmtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        fmtCPF.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                fmtCPFFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                fmtCPFFocusLost(evt);
-            }
-        });
-        fmtCPF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fmtCPFActionPerformed(evt);
             }
         });
 
@@ -176,6 +168,7 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioEmail.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioEmail.setText("*campo obrigatório");
 
+        fmtNascimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         try {
             fmtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
         } catch (java.text.ParseException ex) {
@@ -184,6 +177,11 @@ public class Clientes extends javax.swing.JFrame {
 
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCadastrarMousePressed(evt);
+            }
+        });
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -198,109 +196,110 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCPFFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCPFFocusLost(evt);
+            }
+        });
+        txtCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCPFKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTelefone)
-                            .addComponent(lblEndereco)
-                            .addComponent(lblNome))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNome)
-                            .addComponent(txtEndereco)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblSexo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jrdMasculino)
-                        .addGap(50, 50, 50)
-                        .addComponent(jrdFeminino)
-                        .addGap(67, 67, 67)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblDataNascimento)
+                        .addComponent(lblEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblNome, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblCPF, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblEndereco)
+                    .addComponent(lblTelefone)
+                    .addComponent(lblSexo))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblObrigatorioSexo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                                .addComponent(lblDataNascimento))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblObrigatorioEndereco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblEmail))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblObrigatorioNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblCPF))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblEstadoCivil)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                            .addComponent(txtEmail)
+                            .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jrdMasculino)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jrdFeminino))
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCPF))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cboEstadoCivil, 0, 222, Short.MAX_VALUE)
-                            .addComponent(fmtCPF, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fmtNascimento))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblObrigatorioCPF)
-                            .addComponent(lblObrigatorioEmail))
-                        .addContainerGap(40, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202))))
+                            .addComponent(lblObrigatorioEmail)
+                            .addComponent(lblObrigatorioNome)
+                            .addComponent(lblObrigatorioEndereco)
+                            .addComponent(lblObrigatorioSexo)
+                            .addComponent(lblObrigatorioCPF)))
+                    .addComponent(cboEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fmtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCadastrar, btnCancelar});
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCPF)
+                    .addComponent(lblObrigatorioCPF)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCPF)
-                    .addComponent(fmtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblObrigatorioNome)
-                    .addComponent(lblObrigatorioCPF))
+                    .addComponent(lblObrigatorioNome))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmail)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObrigatorioEmail))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fmtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDataNascimento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEndereco)
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEmail)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblObrigatorioEndereco)
-                    .addComponent(lblObrigatorioEmail))
+                    .addComponent(lblObrigatorioEndereco))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefone)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEstadoCivil)
-                    .addComponent(cboEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSexo)
                     .addComponent(jrdMasculino)
                     .addComponent(jrdFeminino)
-                    .addComponent(lblObrigatorioSexo)
-                    .addComponent(lblDataNascimento)
-                    .addComponent(fmtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(124, Short.MAX_VALUE))
+                    .addComponent(lblObrigatorioSexo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(btnCadastrar)
+                .addGap(15, 15, 15)
+                .addComponent(btnCancelar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -314,102 +313,108 @@ public class Clientes extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        int validandoCampos=0;
+        txtEmail.setText("");
+        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblObrigatorioEmail.setVisible(false);
+
+        txtNome.setText("");
+        txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblObrigatorioNome.setVisible(false);
+
         
-        Models.Cliente novoCliente = new Cliente();
-        
-        String cpfFormatado = novoCliente.formatarCPF(fmtCPF.getText());
-        char primeiroDigitoCPF = cpfFormatado.charAt(0);
-        String s = Character.toString(primeiroDigitoCPF);
-        
-        if(txtEndereco.getText().isEmpty()){
-            txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-            lblObrigatorioEndereco.setVisible(true);
-            validandoCampos++;
-        }
+        lblObrigatorioCPF.setVisible(false);
 
-        if(txtNome.getText().isEmpty()){
-            txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-            lblObrigatorioNome.setVisible(true);
-            validandoCampos++;
-        }
-
-        if(!(jrdFeminino.isSelected() || jrdMasculino.isSelected())){
-            lblObrigatorioSexo.setVisible(true);
-            validandoCampos++;
-        }
-
-        if(txtEmail.getText().isEmpty()){
-            txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-            lblObrigatorioEmail.setVisible(true);
-            validandoCampos++;
-        }
-        
-        if(s.equals(" ")){
-            fmtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-            lblObrigatorioCPF.setVisible(true);
-            validandoCampos++;
-        }
-        
-        if (validandoCampos == 0) {
-            try {
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria","root","");
-                st = (Statement) conn.createStatement();
-                
-                String adicionarCliente = String.format("INSERT INTO cliente (cpf, nome, sexo, dt_nascimento, estado_civil, telefone, endereco,email) "
-                        + "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')", 
-                        cpfFormatado,
-                        txtNome.getText(),
-                        GroupSexo.getSelection().getActionCommand().toString(),
-                        fmtNascimento.getText(), 
-                        cboEstadoCivil.getSelectedItem().toString(),
-                        txtTelefone.getText(),
-                        txtEndereco.getText(),
-                        txtEmail.getText());
-                
-                st.executeUpdate(adicionarCliente);
-                st.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        }
-    }//GEN-LAST:event_btnCadastrarActionPerformed
-
-    private void fmtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtCPFFocusLost
-
-        if(fmtCPF.getText().isEmpty()){
-            fmtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-            lblObrigatorioCPF.setVisible(true);
-        }
-
-        //String cpf = fmtCPF.getText();
-        //String cpfSemPonto = cpf.replace(".", "");
-        boolean isValid;
-
-        Models.Cliente novoCliente = new Cliente();
-        String cpfSemTraco = novoCliente.formatarCPF(fmtCPF.getText());
-
-        isValid  = novoCliente.isValid(cpfSemTraco);
-
-        if (!isValid){
-            JOptionPane.showMessageDialog(null, "CPF inválido. Tente novamente");
-        }
-    }//GEN-LAST:event_fmtCPFFocusLost
-
-    private void txtEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusGained
-        // TODO add your handling code here:
+        txtEndereco.setText("");
         txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblObrigatorioEndereco.setVisible(false);
-    }//GEN-LAST:event_txtEnderecoFocusGained
+
+        txtTelefone.setText("");
+        jrdFeminino.setSelected(false);
+        jrdMasculino.setSelected(false);
+
+        fmtNascimento.setText("");
+        fmtNascimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
+            st = (com.mysql.jdbc.Statement) con.createStatement();
+            String linhaSql = "insert into cliente (cpf,nome,email,estado_civil,dt_nascimento,endereco,telefone,sexo) " +
+                    " values ("
+                    +"'"+txtCPF.getText()+"'"
+                    +",'"+txtNome.getText()+"'"
+                    +",'"+txtEmail.getText ().toLowerCase()+"'"
+                    +",'"+cboEstadoCivil.getSelectedItem().toString()+"'"
+                    +",'"+fmtNascimento.getText()+"'"
+                    +",'"+txtEndereco.getText()+"'"
+                    +",'"+txtTelefone.getText()+"'"
+                    +",'"+ GroupSexo.getSelection().getActionCommand().toString()+"')";
+            st.executeUpdate(linhaSql);
+            JOptionPane.showMessageDialog(this, "Registro gravado");
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Falha no registro\n"+ e.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
+        // TODO add your handling code here:
+        Models.Cliente novoCliente = new Cliente();
+        boolean eValido;
+        
+        if (txtCPF.getText().length()!=11 || txtCPF.getText().trim().equals("")) {
+            txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioCPF.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório e possui 11 números");
+            txtCPF.requestFocus(true);
+        }
+        
+        eValido=novoCliente.isValid(txtCPF.getText());
+        
+        if (!eValido) {
+            JOptionPane.showMessageDialog(this, "CPF inválido!");
+        }
+
+    }//GEN-LAST:event_txtCPFFocusLost
+
+    private void txtCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        
+        if (((c<'0')||(c>'9')) && (c!=KeyEvent.VK_BACKSPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCPFKeyTyped
+
+    private void txtCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusGained
+        // TODO add your handling code here:
+        txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblObrigatorioCPF.setVisible(false);
+    }//GEN-LAST:event_txtCPFFocusGained
+
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        // TODO add your handling code here:
+        
+        if (txtNome.getText().trim().equals("")) {
+            txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioNome.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Campo NOME é obrigatório");
+            txtNome.requestFocus(true);
+        }
+    }//GEN-LAST:event_txtNomeFocusLost
 
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
         // TODO add your handling code here:
@@ -417,11 +422,25 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioNome.setVisible(false);
     }//GEN-LAST:event_txtNomeFocusGained
 
-    private void fmtCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtCPFFocusGained
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
         // TODO add your handling code here:
-        fmtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblObrigatorioCPF.setVisible(false);
-    }//GEN-LAST:event_fmtCPFFocusGained
+        
+        String user = txtEmail.getText().substring(0, txtEmail.getText().indexOf("@")+1);
+        String domain = txtEmail.getText().substring(txtEmail.getText().indexOf("@")+1, txtEmail.getText().length());
+        
+       
+        if (txtEmail.getText().trim().equals("")) {
+            txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioEmail.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Campo EMAIL é obrigatório");
+            txtEmail.requestFocus(true);
+        }else if(!(user.contains("@")) && !(domain.contains("."))){
+            txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioEmail.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Email inválido.\n Seu e-mail deve conter '@yourdomain.com'");
+            txtEmail.requestFocus(true);
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
         // TODO add your handling code here:
@@ -429,49 +448,41 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioEmail.setVisible(false);
     }//GEN-LAST:event_txtEmailFocusGained
 
+    private void txtEnderecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusLost
+        // TODO add your handling code here:
+        if (txtEndereco.getText().trim().equals("")) {
+            txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioEndereco.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Campo ENDEREÇO é obrigatório");
+            txtEndereco.requestFocus(true);
+        }
+    }//GEN-LAST:event_txtEnderecoFocusLost
+
+    private void txtEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusGained
+        // TODO add your handling code here:
+        txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblObrigatorioEndereco.setVisible(false);
+    }//GEN-LAST:event_txtEnderecoFocusGained
+
+    private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMousePressed
+        // TODO add your handling code here:
+        try {
+            String radioButtons = GroupSexo.getSelection().getActionCommand();
+        } catch (Exception e) {
+            lblObrigatorioSexo.setVisible(true);
+            JOptionPane.showMessageDialog(this, "É necessário escolher um SEXO.");
+        }
+    }//GEN-LAST:event_btnCadastrarMousePressed
+
     private void jrdMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdMasculinoActionPerformed
         // TODO add your handling code here:
         lblObrigatorioSexo.setVisible(false);
-        jrdMasculino.setActionCommand("M");
     }//GEN-LAST:event_jrdMasculinoActionPerformed
 
     private void jrdFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdFemininoActionPerformed
         // TODO add your handling code here:
         lblObrigatorioSexo.setVisible(false);
-        jrdFeminino.setActionCommand("F");
     }//GEN-LAST:event_jrdFemininoActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        txtEmail.setText("");
-        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblObrigatorioEmail.setVisible(false);
-        
-        txtNome.setText("");
-        txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblObrigatorioNome.setVisible(false);
-        
-        fmtCPF.setText("");
-        fmtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblObrigatorioCPF.setVisible(false);
-        
-        txtEndereco.setText("");
-        txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblObrigatorioEndereco.setVisible(false);
-        
-        txtTelefone.setText("");
-        jrdFeminino.setSelected(false);
-        jrdMasculino.setSelected(false);
-        
-        fmtNascimento.setText("");
-        fmtNascimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        
-        
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void fmtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fmtCPFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fmtCPFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -514,7 +525,6 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cboEstadoCivil;
-    private javax.swing.JFormattedTextField fmtCPF;
     private javax.swing.JFormattedTextField fmtNascimento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jrdFeminino;
@@ -532,6 +542,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JLabel lblObrigatorioSexo;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
+    private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
