@@ -8,7 +8,7 @@ package Views;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import com.mysql.jdbc.Statement;
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -439,7 +439,7 @@ public class ProdutoView extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         //int x = evt.getKeyCode();
         
-        if (((c<'0')||(c>'9')) && (c!=KeyEvent.VK_BACKSPACE)) {
+        if (((c<'0')||(c>'9')) && (c!=KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
             JOptionPane.showMessageDialog(this,"Campo preço não permite letras!");
         }
