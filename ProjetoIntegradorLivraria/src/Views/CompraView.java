@@ -41,13 +41,13 @@ public class CompraView extends javax.swing.JFrame {
         cboCampoCliente = new javax.swing.JComboBox<>();
         txtFiltrarCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCliente = new javax.swing.JTable();
+        tbClientes = new javax.swing.JTable();
         livro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cboCampoLivro = new javax.swing.JComboBox<>();
         txtFiltrarLivro = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbLivro = new javax.swing.JTable();
+        tbLivros = new javax.swing.JTable();
         btnVenda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +56,7 @@ public class CompraView extends javax.swing.JFrame {
 
         jLabel1.setText("Filtrar por:");
 
-        cboCampoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCampoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "Nome" }));
 
         txtFiltrarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -64,7 +64,7 @@ public class CompraView extends javax.swing.JFrame {
             }
         });
 
-        tbCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -72,7 +72,7 @@ public class CompraView extends javax.swing.JFrame {
                 "CPF", "Nome"
             }
         ));
-        jScrollPane1.setViewportView(tbCliente);
+        jScrollPane1.setViewportView(tbClientes);
 
         javax.swing.GroupLayout clienteLayout = new javax.swing.GroupLayout(cliente);
         cliente.setLayout(clienteLayout);
@@ -105,9 +105,15 @@ public class CompraView extends javax.swing.JFrame {
 
         jLabel2.setText("Filtrar por:");
 
-        cboCampoLivro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCampoLivro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id", "Título", "Quantidade", "Preço" }));
 
-        tbLivro.setModel(new javax.swing.table.DefaultTableModel(
+        txtFiltrarLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltrarLivroKeyReleased(evt);
+            }
+        });
+
+        tbLivros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -115,7 +121,7 @@ public class CompraView extends javax.swing.JFrame {
                 "Id", "Título", "Quantidade", "Preço"
             }
         ));
-        jScrollPane2.setViewportView(tbLivro);
+        jScrollPane2.setViewportView(tbLivros);
 
         javax.swing.GroupLayout livroLayout = new javax.swing.GroupLayout(livro);
         livro.setLayout(livroLayout);
@@ -197,10 +203,21 @@ public class CompraView extends javax.swing.JFrame {
 
     private void txtFiltrarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarClienteKeyReleased
         // TODO add your handling code here:
-        DefaultTableModel tabela = (DefaultTableModel)tbCliente.getModel();
+        String campo = "";
+        
+        switch(cboCampoCliente.getSelectedIndex()){
+            case 0:
+                campo = "cpf";
+                break;
+            case 1:
+                campo = "nome";
+                break;
+        }
+        
+        DefaultTableModel tabela = (DefaultTableModel)tbClientes.getModel();
         tabela.setRowCount(0);
         
-        ArrayList<Cliente> clientes = CompraCrud.consultarClientes("cpf", txtFiltrarCliente.getText());
+        ArrayList<Cliente> clientes = CompraCrud.consultarClientes(campo, txtFiltrarCliente.getText());
         
         for (Cliente cliente : clientes) {
             tabela.addRow(new Object[]{
@@ -209,6 +226,40 @@ public class CompraView extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_txtFiltrarClienteKeyReleased
+
+    private void txtFiltrarLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarLivroKeyReleased
+        // TODO add your handling code here:
+        String campo = "";
+        
+        switch(cboCampoLivro.getSelectedIndex()){
+            case 0:
+                campo = "id";
+                break;
+            case 1:
+                campo = "titulo";
+                break;
+            case 2:
+                campo = "qtd_estoque";
+                break;
+            case 3:
+                campo = "preco";
+                break;
+        }
+        
+        DefaultTableModel tabela = (DefaultTableModel)tbLivros.getModel();
+        tabela.setRowCount(0);
+        
+        ArrayList<Produto> livros = CompraCrud.consultarLivros(campo, txtFiltrarLivro.getText());
+        
+        for (Produto livro : livros) {
+            tabela.addRow(new Object[]{
+                null,
+                livro.getTitulo(),
+                livro.getQtdEstoque(),
+                livro.getPreco()
+            });
+        }
+    }//GEN-LAST:event_txtFiltrarLivroKeyReleased
 
     /**
      * @param args the command line arguments
@@ -257,8 +308,8 @@ public class CompraView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel livro;
-    private javax.swing.JTable tbCliente;
-    private javax.swing.JTable tbLivro;
+    private javax.swing.JTable tbClientes;
+    private javax.swing.JTable tbLivros;
     private javax.swing.JTextField txtFiltrarCliente;
     private javax.swing.JTextField txtFiltrarLivro;
     // End of variables declaration//GEN-END:variables
