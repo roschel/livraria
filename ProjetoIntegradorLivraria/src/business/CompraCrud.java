@@ -73,7 +73,7 @@ public class CompraCrud {
         try {
             conexao = GerenciadorConexao.abrirConexao();
             
-            instrucaoSQL = conexao.prepareStatement("select * from cliente where " + campo + "like '%" + filtro + "'%");
+            instrucaoSQL = conexao.prepareStatement("select * from cliente where " + campo + " like '%" + filtro + "%'");
             
             rs = instrucaoSQL.executeQuery();
             
@@ -107,7 +107,7 @@ public class CompraCrud {
     }
     
     
-    public static ArrayList<Produto> consultarLivros(){
+    public static ArrayList<Produto> consultarLivros(String campo, String filtro){
         ResultSet rs = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -117,10 +117,14 @@ public class CompraCrud {
         try {
             conexao = GerenciadorConexao.abrirConexao();
             
+            instrucaoSQL = conexao.prepareStatement("select * from livro where " + campo + " like '%" + filtro + "%'");
+            
+            rs = instrucaoSQL.executeQuery();
+            
             while(rs.next()){
                 Produto produto = new Produto();
                 //produto.setId(rs.getInt("id"));
-                produto.setTitulo(rs.getString("nome"));
+                produto.setTitulo(rs.getString("titulo"));
                 produto.setQtdEstoque(rs.getInt("qtd_estoque"));
                 produto.setPreco(rs.getDouble("preco"));
                 
