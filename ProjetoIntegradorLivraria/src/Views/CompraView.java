@@ -6,7 +6,7 @@
 package Views;
 
 import Models.Cliente;
-import business.CompraCrud;
+import DAO.CompraCrud;
 import Models.Compra;
 import Models.Produto;
 import java.util.ArrayList;
