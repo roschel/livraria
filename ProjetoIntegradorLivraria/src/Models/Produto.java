@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class Produto {
 
+    private int id;
     private Date ano;
     private int qtdEstoque;
     private double preco;
@@ -15,6 +16,16 @@ public class Produto {
 
     public Produto() {
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     
     public Date getAno(){
        return this.ano;
