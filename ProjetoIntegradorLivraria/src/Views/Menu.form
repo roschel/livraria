@@ -65,9 +65,6 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnCliente">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Sillas\Documents\NetBeansProjects\livraria\ProjetoIntegradorLivraria\src\img\cliente.png"/>
-        </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" position="4" title="Cliente">
@@ -82,9 +79,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnLivro">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Sillas\Documents\NetBeansProjects\livraria\ProjetoIntegradorLivraria\src\img\produto.png"/>
-        </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" position="4" title="Livro">
@@ -99,9 +93,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnVenda">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Sillas\Documents\NetBeansProjects\livraria\ProjetoIntegradorLivraria\src\img\vendas.png"/>
-        </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" position="4" title="Venda">
@@ -113,9 +104,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnRelatorio">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Sillas\Documents\NetBeansProjects\livraria\ProjetoIntegradorLivraria\src\img\relatorio.png"/>
-        </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" position="4" title="Relat&#xf3;rio">
