@@ -5,10 +5,15 @@
  */
 package Controller;
 
+import Models.Cliente;
+import DAO.ClienteDAO;
 /**
  *
  * @author joaom
  */
 public class ClienteController {
-    
+    public static boolean Salvar(Cliente p){
+        boolean retorno = ClienteDAO.Salvar(p);
+        return retorno;
+    }
 }
