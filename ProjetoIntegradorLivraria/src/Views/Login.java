@@ -5,6 +5,9 @@
  */
 package Views;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author joaom
@@ -36,9 +39,22 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         lblUsuario.setText("Usuário:");
+
+        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusLost(evt);
+            }
+        });
+
+        txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSenhaFocusLost(evt);
+            }
+        });
 
         lblSenha.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         lblSenha.setText("Senha:");
@@ -92,7 +108,34 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
+        // TODO add your handling code here:
+        if (txtUsuario.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Usuário não pdoe estar em branco","Erro",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        if (txtUsuario.getText().length()<4) {
+            JOptionPane.showMessageDialog(null, "Usuário requer no mínimo 4 caracteres.","Erro",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_txtUsuarioFocusLost
+
+    private void txtSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusLost
+        // TODO add your handling code here:
+        if (txtSenha.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Senha não pdoe estar em branco","Erro",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        if (txtSenha.getText().length()<6) {
+            JOptionPane.showMessageDialog(null, "Senha requer no mínimo 6 caracteres.","Erro",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_txtSenhaFocusLost
 
     /**
      * @param args the command line arguments
@@ -105,7 +148,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
