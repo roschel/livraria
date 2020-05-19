@@ -57,6 +57,9 @@ public class Clientes extends javax.swing.JFrame {
         txtCPF1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
+        btnPesquisar = new javax.swing.JButton();
+        btnPesquisar1 = new javax.swing.JButton();
+        btnPesquisar2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblEndereco = new javax.swing.JLabel();
@@ -118,6 +121,27 @@ public class Clientes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblClientes);
 
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar1.setText("Excluir funcionário");
+        btnPesquisar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisar1ActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar2.setText("Editar funcionário");
+        btnPesquisar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisar2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -132,20 +156,38 @@ public class Clientes extends javax.swing.JFrame {
                         .addComponent(lblCPF1)
                         .addGap(18, 18, 18)
                         .addComponent(txtCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 494, Short.MAX_VALUE)))
+                        .addGap(30, 30, 30)
+                        .addComponent(btnPesquisar)
+                        .addGap(0, 387, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(btnPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(375, 375, 375))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnPesquisar1, btnPesquisar2});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCPF1)
-                    .addComponent(txtCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar))
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnPesquisar1, btnPesquisar2});
 
         jTabbedPane1.addTab("Pesquisa de Cliente", jPanel2);
 
@@ -296,7 +338,7 @@ public class Clientes extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(235, 235, 235)
+                .addGap(286, 286, 286)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -327,9 +369,7 @@ public class Clientes extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(cboEstadoCivil, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(fmtNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,8 +379,10 @@ public class Clientes extends javax.swing.JFrame {
                                 .addComponent(lblObrigatorioCPF))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(387, Short.MAX_VALUE))
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +425,7 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jrdMasculino)
                     .addComponent(jrdFeminino)
                     .addComponent(lblObrigatorioSexo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
@@ -432,9 +474,9 @@ public class Clientes extends javax.swing.JFrame {
         jrdMasculino.setSelected(false);
 
         fmtNascimento.setText("");
-        
+
         cboEstadoCivil.setSelectedIndex(0);
-        
+
         jrdFeminino.setSelected(false);
         jrdMasculino.setSelected(false);
 
@@ -442,23 +484,21 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:       
-        Cliente p = new Cliente();
-        p.setCpf(txtCPF.getText());
-        p.setNome(txtNome.getText());
-        p.setData_de_nascimento(fmtNascimento.getText());
-        p.setEmail(txtEmail.getText());
-        p.setEndereço(txtEndereco.getText());
-        p.setEstado_civil(cboEstadoCivil.getSelectedItem().toString());
-        p.setSexo(GroupSexo.getSelection().getActionCommand().toString());
-        p.setTelefone(txtTelefone.getText());
-        
-        
-        boolean retorno = ClienteController.Salvar(p);
-        
+        String cpf = txtCPF.getText();
+        String nome = txtNome.getText();
+        String data_nascimento=fmtNascimento.getText();
+        String email = txtEmail.getText();
+        String endereco = txtEndereco.getText();
+        String estado_civil = cboEstadoCivil.getSelectedItem().toString();
+        String sexo = GroupSexo.getSelection().getActionCommand().toString();
+        String telefone = txtTelefone.getText();
+
+        boolean retorno = ClienteController.Salvar(cpf,nome,data_nascimento,email,endereco,estado_civil,sexo,telefone);
+
         if (retorno) {
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso","Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(null, "Falha no cadastro do Cliente!","Falha",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso", "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Falha no cadastro do Cliente!", "Falha", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -615,9 +655,19 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCPF1KeyTyped
 
-    
-    
-    public void carregarTabela(){
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisar1ActionPerformed
+
+    private void btnPesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisar2ActionPerformed
+
+    public void carregarTabela() {
 //        ArrayList<Cliente> listaClientes = ClienteDAO.consultarClientes();
 //        
 //       
@@ -653,6 +703,7 @@ public class Clientes extends javax.swing.JFrame {
 //        tblClientes.getColumnModel().getColumn(1).setPreferredWidth(300); // Nome
 //        tblClientes.getColumnModel().getColumn(2).setPreferredWidth(100); //CPF
     }
+
     /**
      * @param args the command line arguments
      */
@@ -693,6 +744,9 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.ButtonGroup GroupSexo;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnPesquisar1;
+    private javax.swing.JButton btnPesquisar2;
     private javax.swing.JComboBox<String> cboEstadoCivil;
     private javax.swing.JFormattedTextField fmtNascimento;
     private javax.swing.JPanel jPanel1;
