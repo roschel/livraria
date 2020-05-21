@@ -85,6 +85,7 @@ public class Clientes extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtCPF = new javax.swing.JTextField();
+        btnLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de clientes");
@@ -128,14 +129,14 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setText("Excluir funcionário");
+        btnExcluir.setText("Excluir Cliente");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
             }
         });
 
-        btnEditar.setText("Editar funcionário");
+        btnEditar.setText("Editar Cliente");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -333,55 +334,67 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        btnLimpar.setText("Limpar dados");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(286, 286, 286)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblDataNascimento)
-                                .addComponent(lblEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblNome, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblCPF, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(lblTelefone)
-                            .addComponent(lblSexo)
-                            .addComponent(lblEndereco))
-                        .addGap(18, 18, 18)
+                        .addGap(286, 286, 286)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jrdMasculino)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jrdFeminino))
-                                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblDataNascimento)
+                                        .addComponent(lblEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblNome, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblCPF, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(lblTelefone)
+                                    .addComponent(lblSexo)
+                                    .addComponent(lblEndereco))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblObrigatorioEmail)
-                                    .addComponent(lblObrigatorioNome)
-                                    .addComponent(lblObrigatorioEndereco)
-                                    .addComponent(lblObrigatorioSexo)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cboEstadoCivil, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fmtNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jrdMasculino)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jrdFeminino))
+                                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblObrigatorioEmail)
+                                            .addComponent(lblObrigatorioNome)
+                                            .addComponent(lblObrigatorioEndereco)
+                                            .addComponent(lblObrigatorioSexo)))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cboEstadoCivil, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(fmtNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblObrigatorioCPF))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblObrigatorioCPF))))
+                                .addGap(53, 53, 53)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(122, 122, 122)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(479, 479, 479)
+                        .addComponent(btnLimpar)))
                 .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -425,7 +438,9 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jrdMasculino)
                     .addComponent(jrdFeminino)
                     .addComponent(lblObrigatorioSexo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(btnLimpar)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
@@ -496,7 +511,7 @@ public class Clientes extends javax.swing.JFrame {
         boolean retorno = ClienteController.Salvar(cpf, nome, data_nascimento, email, endereco, estado_civil, sexo, telefone);
 
         if (retorno) {
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso", "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso", "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);            
         } else {
             JOptionPane.showMessageDialog(null, "Falha no cadastro do Cliente!", "Falha", JOptionPane.ERROR_MESSAGE);
         }
@@ -523,7 +538,7 @@ public class Clientes extends javax.swing.JFrame {
                 resultado = st.executeQuery(linhaPesq);
 
                 if (resultado.next()) {
-                    JOptionPane.showMessageDialog(this, "Clinete já cadastrado");
+                    JOptionPane.showMessageDialog(this, "Cliente já cadastrado");
                     txtNome.setText(resultado.getString("nome"));
                     fmtNascimento.setText(resultado.getString("dt_nascimento").replace("-", "/"));
                     if (resultado.getString("sexo").equals("M")) {
@@ -709,11 +724,38 @@ public class Clientes extends javax.swing.JFrame {
             String endereco = tblClientes.getModel().getValueAt(linha, 6).toString();
             String email = tblClientes.getModel().getValueAt(linha, 7).toString();
             
+            boolean retorno = ClienteController.Atualizar(
+                    cpf,
+                    nome,
+                    sexo,
+                    nascimento,
+                    estado_civil,
+                    telefone,
+                    endereco,
+                    email
+            );
             
+            if (retorno) {
+                JOptionPane.showMessageDialog(null,"Cliente atualizado com sucesso.");
+            }else{
+                JOptionPane.showMessageDialog(null,"Cliente não foi atualizado.");
+            }
         }
 
 
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        // TODO add your handling code here:
+        txtCPF.setText("");
+        txtNome.setText("");
+        txtEmail.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        fmtNascimento.setText("");
+        cboEstadoCivil.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     public void carregarTabela() {
 //        ArrayList<Cliente> listaClientes = ClienteDAO.consultarClientes();
@@ -794,6 +836,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cboEstadoCivil;
     private javax.swing.JFormattedTextField fmtNascimento;

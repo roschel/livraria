@@ -36,10 +36,20 @@ public class ClienteController {
         return retorno;
     }
 
-    public static boolean Alterar() {
+    public static boolean Atualizar(String cpf, String nome,
+            String sexo, String nascimento, String estado_civil,
+            String telefone, String endereco, String email) {
         boolean retorno = false;
 
         Cliente c = new Cliente();
+        c.setCpf(cpf);
+        c.setEmail(email);
+        c.setNome(nome);
+        c.setEndereço(endereco);
+        c.setSexo(sexo);
+        c.setTelefone(telefone);
+        c.setEstado_civil(estado_civil);
+        c.setData_de_nascimento(nascimento);
 
         retorno = ClienteDAO.Atualizar(c);
 

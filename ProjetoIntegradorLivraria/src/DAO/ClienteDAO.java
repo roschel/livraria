@@ -75,17 +75,39 @@ public class ClienteDAO {
         try {
             conexao = GerenciadorConexao.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("UPDATE cliente SET nome=?,email=?,estado_civil=?,dt_nascimento=?,endereco=?,telefone=?,sexo=?, WHERE cpf=?");
+            instrucaoSQL = conexao.prepareStatement("UPDATE cliente SET nome=?,"
+                    + "sexo=?,"
+                    + "dt_nascimento=?,"
+                    + "estado_civil=?,"
+                    + "telefone=?, "
+                    + "endereco=?, "
+                    + "email=? "
+                    + "WHERE cpf=?");
             
             instrucaoSQL.setString(1, cliente.getNome());
-            instrucaoSQL.setString(2, cliente.getEmail());
-            instrucaoSQL.setString(3, cliente.getEstado_civil());
-            instrucaoSQL.setString(4, cliente.getData_de_nascimento());
-            instrucaoSQL.setString(5, cliente.getEndereço());
-            instrucaoSQL.setString(6, cliente.getTelefone());
-            instrucaoSQL.setString(7, cliente.getSexo());
+            instrucaoSQL.setString(2, cliente.getSexo());
+            instrucaoSQL.setString(3, cliente.getData_de_nascimento());
+            instrucaoSQL.setString(4, cliente.getEstado_civil());
+            instrucaoSQL.setString(5, cliente.getTelefone());
+            instrucaoSQL.setString(6, cliente.getEndereço());
+            instrucaoSQL.setString(7, cliente.getEmail());
             instrucaoSQL.setString(8, cliente.getCpf());
+            
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+            if (linhasAfetadas>0) {
+                retorno=true;
+            }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            try {
+                if (instrucaoSQL!=null) {
+                    instrucaoSQL.close();
+                    GerenciadorConexao.fecharConexao();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
 
         return retorno;
