@@ -707,6 +707,20 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
+        if (tblClientes.getRowCount() > 0) {
+            int linha = tblClientes.getSelectedRow();
+
+            String cpf = tblClientes.getModel().getValueAt(linha, 0).toString();
+
+            boolean retorno = ClienteController.Excluir(cpf);
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Falha ao deletar!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Escolha um item da lista.");
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -740,6 +754,8 @@ public class Clientes extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Cliente não foi atualizado.");
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Escolha um cliente da lista");
         }
 
 

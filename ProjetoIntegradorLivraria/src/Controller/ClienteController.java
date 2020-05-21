@@ -64,4 +64,15 @@ public class ClienteController {
 
         return listaClientes;
     }
+    
+    public static boolean Excluir(String cpf){
+        boolean retorno = false;
+        
+        Cliente cliente = new Cliente();
+        cliente.setCpf(cpf);
+        
+        retorno=ClienteDAO.Excluir(cliente);
+        
+        return retorno;
+    }
 }
