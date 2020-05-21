@@ -9,8 +9,11 @@ import Models.Cliente;
 import database.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -86,5 +89,53 @@ public class ClienteDAO {
         }
 
         return retorno;
+    }
+    
+    public static ArrayList<Cliente> Consultar(Cliente cliente) {
+
+        ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+        Connection conexao;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf LIKE ?");
+
+            instrucaoSQL.setString(1, cliente.getCpf()+ "%");
+
+            rs = instrucaoSQL.executeQuery();
+
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setCpf(rs.getString("cpf"));
+                c.setNome(rs.getString("nome"));
+                c.setSexo(rs.getString("sexo"));
+                c.setData_de_nascimento(rs.getString("dt_nascimento"));
+                c.setEstado_civil(rs.getString("estado_civil"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setEndereço(rs.getString("endereco"));
+                c.setEmail(rs.getString("email"));
+                
+
+                listaCliente.add(c);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+
+            try {
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+
+                    GerenciadorConexao.fecharConexao();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
+        }
+
+        return listaCliente;
     }
 }

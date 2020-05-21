@@ -58,8 +58,8 @@ public class Clientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         btnPesquisar = new javax.swing.JButton();
-        btnPesquisar1 = new javax.swing.JButton();
-        btnPesquisar2 = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblEndereco = new javax.swing.JLabel();
@@ -128,17 +128,17 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        btnPesquisar1.setText("Excluir funcionário");
-        btnPesquisar1.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setText("Excluir funcionário");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisar1ActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
-        btnPesquisar2.setText("Editar funcionário");
-        btnPesquisar2.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar funcionário");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisar2ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -162,13 +162,13 @@ public class Clientes extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
-                .addComponent(btnPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(375, 375, 375))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnPesquisar1, btnPesquisar2});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEditar, btnExcluir});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,12 +182,12 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnPesquisar1, btnPesquisar2});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEditar, btnExcluir});
 
         jTabbedPane1.addTab("Pesquisa de Cliente", jPanel2);
 
@@ -486,14 +486,14 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:       
         String cpf = txtCPF.getText();
         String nome = txtNome.getText();
-        String data_nascimento=fmtNascimento.getText();
+        String data_nascimento = fmtNascimento.getText();
         String email = txtEmail.getText();
         String endereco = txtEndereco.getText();
         String estado_civil = cboEstadoCivil.getSelectedItem().toString();
         String sexo = GroupSexo.getSelection().getActionCommand().toString();
         String telefone = txtTelefone.getText();
 
-        boolean retorno = ClienteController.Salvar(cpf,nome,data_nascimento,email,endereco,estado_civil,sexo,telefone);
+        boolean retorno = ClienteController.Salvar(cpf, nome, data_nascimento, email, endereco, estado_civil, sexo, telefone);
 
         if (retorno) {
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso", "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);
@@ -657,15 +657,63 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
+        String cpf = txtCPF1.getText();
+
+        ArrayList<Cliente> listaCliente = ClienteController.Consultar(cpf);
+
+        DefaultTableModel tmCliente = new DefaultTableModel();
+        tmCliente.addColumn("CPF");
+        tmCliente.addColumn("Nome");
+        tmCliente.addColumn("Sexo");
+        tmCliente.addColumn("Nascimento");
+        tmCliente.addColumn("Estado Civil");
+        tmCliente.addColumn("Telefone");
+        tmCliente.addColumn("Endereço");
+        tmCliente.addColumn("Email");
+        
+        tblClientes.setModel(tmCliente);
+
+        //tblComputador.removeColumn(tblComputador.getColumnModel().getColumn(0));
+        tmCliente.setRowCount(0);
+
+        for (Cliente c : listaCliente) {
+            tmCliente.addRow(new Object[]{
+                c.getCpf(), 
+                c.getNome(), 
+                c.getSexo(), 
+                c.getData_de_nascimento(), 
+                c.getEstado_civil(),
+                c.getTelefone(),
+                c.getEndereço(),
+                c.getEmail()
+            });
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar1ActionPerformed
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPesquisar1ActionPerformed
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void btnPesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar2ActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPesquisar2ActionPerformed
+
+        if (tblClientes.getSelectedRowCount() > 0) {
+            int linha = tblClientes.getSelectedRow();
+
+            String cpf = tblClientes.getModel().getValueAt(linha, 0).toString();
+            String nome = tblClientes.getModel().getValueAt(linha, 1).toString();
+            String sexo = tblClientes.getModel().getValueAt(linha, 2).toString();
+            String nascimento = tblClientes.getModel().getValueAt(linha, 3).toString();
+            String estado_civil = tblClientes.getModel().getValueAt(linha, 4).toString();
+            String telefone = tblClientes.getModel().getValueAt(linha, 5).toString();
+            String endereco = tblClientes.getModel().getValueAt(linha, 6).toString();
+            String email = tblClientes.getModel().getValueAt(linha, 7).toString();
+            
+            
+        }
+
+
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     public void carregarTabela() {
 //        ArrayList<Cliente> listaClientes = ClienteDAO.consultarClientes();
@@ -744,9 +792,9 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.ButtonGroup GroupSexo;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnPesquisar1;
-    private javax.swing.JButton btnPesquisar2;
     private javax.swing.JComboBox<String> cboEstadoCivil;
     private javax.swing.JFormattedTextField fmtNascimento;
     private javax.swing.JPanel jPanel1;
