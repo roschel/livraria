@@ -160,4 +160,37 @@ public class ClienteDAO {
 
         return listaCliente;
     }
+    
+    
+    public static boolean Excluir(Cliente cliente){
+        boolean retorno = false;
+        Connection conexao;
+        PreparedStatement instrucaoSQL = null;
+
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("DELETE FROM cliente WHERE cpf=?");
+
+            instrucaoSQL.setString(1, cliente.getCpf());
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+            if (linhasAfetadas>0) {
+                retorno=true;
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            try {
+                if (instrucaoSQL!=null) {
+                    instrucaoSQL.close();
+                    GerenciadorConexao.fecharConexao();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        
+        return retorno;
+    }
 }
