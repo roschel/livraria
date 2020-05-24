@@ -26,7 +26,7 @@ public class Relatorios extends javax.swing.JFrame {
         initComponents();
         
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3307/livraria", "root", "");
             st = (Statement) con.createStatement();
             JOptionPane.showMessageDialog(null, "Conectou com o bd!");
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class Relatorios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Descrição", "Valor R$"
+                "ID Venda", "ID Produto", "Descrição", "Quantidade", "Valor R$"
             }
         ));
         jScrollPane4.setViewportView(tblDiariaDet);

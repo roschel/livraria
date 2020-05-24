@@ -36,7 +36,6 @@ public class Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.white);
 
-        btnCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Sillas\\Documents\\NetBeansProjects\\livraria\\ProjetoIntegradorLivraria\\src\\img\\cliente.png")); // NOI18N
         btnCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Times New Roman", 3, 18))); // NOI18N
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -44,7 +43,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnLivro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Sillas\\Documents\\NetBeansProjects\\livraria\\ProjetoIntegradorLivraria\\src\\img\\produto.png")); // NOI18N
         btnLivro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Livro", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Times New Roman", 3, 18))); // NOI18N
         btnLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,11 +50,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnVenda.setIcon(new javax.swing.ImageIcon("C:\\Users\\Sillas\\Documents\\NetBeansProjects\\livraria\\ProjetoIntegradorLivraria\\src\\img\\vendas.png")); // NOI18N
         btnVenda.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venda", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Times New Roman", 3, 18))); // NOI18N
 
-        btnRelatorio.setIcon(new javax.swing.ImageIcon("C:\\Users\\Sillas\\Documents\\NetBeansProjects\\livraria\\ProjetoIntegradorLivraria\\src\\img\\relatorio.png")); // NOI18N
         btnRelatorio.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Relatório", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Times New Roman", 3, 18))); // NOI18N
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +104,12 @@ public class Menu extends javax.swing.JFrame {
         frame.setVisible(true);
 //        this.setVisible(false);
     }//GEN-LAST:event_btnLivroActionPerformed
+
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        Relatorios frame = new Relatorios();
+        frame.setVisible(true);
+//        this.setVisible(false);
+    }//GEN-LAST:event_btnRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
