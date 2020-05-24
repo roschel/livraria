@@ -5,8 +5,11 @@
  */
 package Views;
 
+import database.GerenciadorConexao;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -21,14 +24,17 @@ public class Relatorios extends javax.swing.JFrame {
     public Connection con;
     public Statement st;
     public ResultSet resultado;
-    
+    PreparedStatement instrucaoSQL = null;
+
     public Relatorios() {
         initComponents();
-        
+
         try {
+            
+            //con = GerenciadorConexao.abrirConexao();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3307/livraria", "root", "");
             st = (Statement) con.createStatement();
-            JOptionPane.showMessageDialog(null, "Conectou com o bd!");
+            //JOptionPane.showMessageDialog(null, "Conectou com o bd!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha na conexão com o banco de dados!");
         }
@@ -51,16 +57,11 @@ public class Relatorios extends javax.swing.JFrame {
         tblDiaria = new javax.swing.JTable();
         btnImprimir = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
-        cboDD = new javax.swing.JComboBox<>();
-        cboDM = new javax.swing.JComboBox<>();
-        cboDA = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDiariaDet = new javax.swing.JTable();
         lblTD = new javax.swing.JLabel();
         txtTD = new javax.swing.JTextField();
+        jdcDia = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         lblD = new javax.swing.JLabel();
         lblA = new javax.swing.JLabel();
@@ -69,19 +70,12 @@ public class Relatorios extends javax.swing.JFrame {
         tblPeriodo = new javax.swing.JTable();
         btnImprimir2 = new javax.swing.JButton();
         btnFechar2 = new javax.swing.JButton();
-        cboPD1 = new javax.swing.JComboBox<>();
-        cboPM1 = new javax.swing.JComboBox<>();
-        cboPA1 = new javax.swing.JComboBox<>();
-        cboPD2 = new javax.swing.JComboBox<>();
-        cboPM2 = new javax.swing.JComboBox<>();
-        cboPA2 = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblPeriodoDet = new javax.swing.JTable();
         lblTP = new javax.swing.JLabel();
         txtTP = new javax.swing.JTextField();
+        jdcPI = new com.toedter.calendar.JDateChooser();
+        jdcPF = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         lblM = new javax.swing.JLabel();
         btnPM = new javax.swing.JButton();
@@ -129,21 +123,6 @@ public class Relatorios extends javax.swing.JFrame {
             }
         });
 
-        cboDD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        cboDM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        cboDA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2019", "2020", "2021" }));
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel3.setText("dia");
-
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel4.setText("mês");
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel5.setText("ano");
-
         tblDiariaDet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -157,65 +136,55 @@ public class Relatorios extends javax.swing.JFrame {
         lblTD.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTD.setText("Total R$:");
 
+        jdcDia.setDateFormatString("yyyy/MM/dd");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lglData)
+                .addGap(18, 18, 18)
+                .addComponent(jdcDia, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(bntPD, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFechar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(lblTD)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTD, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(lglData)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cboDD, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cboDM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(cboDA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(bntPD))
-                                .addComponent(jLabel5)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(129, 129, 129)
-                            .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnFechar))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar, btnImprimir});
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboDA, cboDD, cboDM});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lglData)
-                    .addComponent(bntPD)
-                    .addComponent(cboDD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboDM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboDA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bntPD)
+                            .addComponent(jdcDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lglData)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -223,7 +192,7 @@ public class Relatorios extends javax.swing.JFrame {
                     .addComponent(txtTD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFechar))
@@ -266,39 +235,22 @@ public class Relatorios extends javax.swing.JFrame {
             }
         });
 
-        cboPD1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
-
-        cboPM1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        cboPA1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2019", "2020", "2021" }));
-
-        cboPD2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
-
-        cboPM2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        cboPA2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2019", "2020", "2021" }));
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel6.setText("dia");
-
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel7.setText("mês");
-
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel8.setText("ano");
-
         tblPeriodoDet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Descrição", "Valor R$"
+                "ID Venda", "ID Produto", "Descrição", "Quantidade", "Valor R$"
             }
         ));
         jScrollPane5.setViewportView(tblPeriodoDet);
 
         lblTP.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTP.setText("Total R$:");
+
+        jdcPI.setDateFormatString("yyyy/MM/dd");
+
+        jdcPF.setDateFormatString("yyyy/MM/dd");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -308,79 +260,54 @@ public class Relatorios extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(lblD)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cboPD1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6)))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(lblA)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cboPD2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(62, 62, 62)
-                                        .addComponent(jLabel8))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(cboPM1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cboPA1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(cboPM2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cboPA2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(btnPP))))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(lblTP)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtTP, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(lblTP)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTP, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addComponent(btnImprimir2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnFechar2)))
                 .addContainerGap(10, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblD)
+                    .addComponent(lblA))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jdcPF, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addComponent(jdcPI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPP, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar2, btnImprimir2});
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboPA1, cboPD1, cboPM1});
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboPA2, cboPD2, cboPM2});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblD)
-                    .addComponent(cboPD1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboPM1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboPA1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblA)
-                    .addComponent(cboPD2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboPM2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboPA2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPP))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jdcPI, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblA)
+                            .addComponent(jdcPF, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPP)
+                        .addGap(27, 27, 27)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -396,6 +323,8 @@ public class Relatorios extends javax.swing.JFrame {
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnFechar2, btnImprimir2});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jdcPF, jdcPI});
 
         jTabbedPane1.addTab("Relatório por período", jPanel3);
 
@@ -443,13 +372,19 @@ public class Relatorios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Descrição", "Valor R$"
+                "ID Venda", "ID Produto", "Descrição", "Quantidade", "Valor R$"
             }
         ));
         jScrollPane6.setViewportView(tblMensalDet);
 
         lblTM.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTM.setText("Total R$:");
+
+        txtTM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTMActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -461,25 +396,19 @@ public class Relatorios extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addComponent(lblM)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(cboMM, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cboMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addGap(56, 56, 56)
-                                                .addComponent(jLabel1)
-                                                .addGap(41, 41, 41)
-                                                .addComponent(jLabel2)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnPM))
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane3))))
+                                        .addGap(32, 32, 32)
+                                        .addComponent(lblM)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboMM, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cboMA, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnPM, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(38, 38, 38))))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(144, 144, 144)
                                 .addComponent(btnImprimir3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -492,11 +421,15 @@ public class Relatorios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTM, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(jLabel1)
+                .addGap(61, 61, 61)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar3, btnImprimir3});
-
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboMA, cboMM});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,11 +439,12 @@ public class Relatorios extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblM)
-                    .addComponent(btnPM)
-                    .addComponent(cboMM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPM, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblM)
+                        .addComponent(cboMM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -546,83 +480,111 @@ public class Relatorios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntPDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPDActionPerformed
+
+        Date dia = jdcDia.getDate();
         
-        try {          
-          DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
-          tabela = (DefaultTableModel)tblDiaria.getModel(); tabela.setNumRows(0);
-          String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, compra.dt_compra from compra " +
-                             "join livro on compra.id = livro.id " +
-                             "join cliente on compra.cpf = cliente.cpf where day(dt_compra) = "
-                             +cboDD.getSelectedItem().toString() + " and month(dt_compra) = "
-                             +cboDM.getSelectedItem().toString() + " and year(dt_compra) = "
-                             +cboDA.getSelectedItem().toString();
-          resultado = st.executeQuery(linhapesq);
-          while(resultado.next()){
-              tabela.addRow(new Object[] {
-                      resultado.getString("dt_compra"),
-                      resultado.getString("nome"),
-                      resultado.getString("titulo"),
-                      resultado.getString("preco")
-                        }
-                      );         
-          }            
-        } catch(Exception e){
-               JOptionPane.showMessageDialog(null, e);
+        try {
+            DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
+            tabela = (DefaultTableModel) tblDiaria.getModel();
+            tabela.setNumRows(0);
+            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+                    + "join livro on venda.id = livro.id "
+                    + "join cliente on venda.cpf = cliente.cpf where day(dt_compra) and month(dt_compra) = "
+                    + dia.getDate();
+            resultado = st.executeQuery(linhapesq);
+            while (resultado.next()) {
+                tabela.addRow(new Object[]{
+                    resultado.getString("dt_compra"),
+                    resultado.getString("nome"),
+                    resultado.getString("preco")
+                }
+                );
+            }            
+//            double soma = 0;
+//            for(int i = 0; i < tblDiaria.getRowCount(); i++){
+//                double valor = Double.parseDouble(tblDiaria.getColumnName(2));
+//                soma += valor;
+//            }
+//            txtTD.setText(String.valueOf(soma));
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_bntPDActionPerformed
 
     private void btnPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPPActionPerformed
+
+        Date inicio = jdcPI.getDate();
+        Date fim = jdcPF.getDate();
         
-        try {          
-          DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
-          tabela = (DefaultTableModel)tblPeriodo.getModel(); tabela.setNumRows(0);
-          String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, compra.dt_compra from compra " +
-                             "join livro on compra.id = livro.id " +
-                             "join cliente on compra.cpf = cliente.cpf where day(dt_compra) between "
-                             +cboPD1.getSelectedItem().toString()+ " and " + cboPD2.getSelectedItem().toString()
-                  + " and month(dt_compra) between " +cboPM1.getSelectedItem().toString()+ " and " + cboPM2.getSelectedItem().toString()
-                  + " and year(dt_compra) between " +cboPA1.getSelectedItem().toString()+ " and " +cboPA2.getSelectedItem().toString();
-          resultado = st.executeQuery(linhapesq);
-          while(resultado.next()){
-              tabela.addRow(new Object[] {
-                      resultado.getString("dt_compra"),
-                      resultado.getString("nome"),
-                      resultado.getString("titulo"),
-                      resultado.getString("preco")
-                        }
-                      );         
-          }            
-        } catch(Exception e){
-               JOptionPane.showMessageDialog(null, e);
+        try {
+            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
+            tabela = (DefaultTableModel) tblPeriodo.getModel();
+            tabela.setNumRows(0);
+            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+                    + "join livro on venda.id = livro.id "
+                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between "
+                    + inicio.getDate() + " and " + fim.getDate();
+            resultado = st.executeQuery(linhapesq);
+            while (resultado.next()) {
+                tabela.addRow(new Object[]{
+                    resultado.getString("dt_compra"),
+                    resultado.getString("nome"),
+                    resultado.getString("preco")
+                }
+                );
+            }
+            
+//            double soma = 0;
+//            for(int i = 0; i < tblPeriodo.getRowCount(); i++){
+//                double valor = (double) tblPeriodo.getValueAt(i, 4);
+//                soma += valor;
+//            }
+//            txtTD.setText(String.valueOf(soma));
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_btnPPActionPerformed
 
     private void btnPMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPMActionPerformed
-        
-        try {          
-          DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
-          tabela = (DefaultTableModel)tblMensal.getModel(); tabela.setNumRows(0);
-          String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, compra.dt_compra from compra " +
-                             "join livro on compra.id = livro.id " +
-                             "join cliente on compra.cpf = cliente.cpf where month(dt_compra) = "
-                             +cboMM.getSelectedItem().toString() + " and year(dt_compra) = " +cboMA.getSelectedItem().toString();
-          resultado = st.executeQuery(linhapesq);
-          while(resultado.next()){
-              tabela.addRow(new Object[] {
-                      resultado.getString("dt_compra"),
-                      resultado.getString("nome"),
-                      resultado.getString("titulo"),
-                      resultado.getString("preco")
-                        }
-                      );         
-          }            
-        } catch(Exception e){
-               JOptionPane.showMessageDialog(null, e);
+             
+        try {
+            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
+            tabela = (DefaultTableModel) tblMensal.getModel();
+            tabela.setNumRows(0);
+            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+                    + "join livro on venda.id = livro.id "
+                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = "
+                    + cboMM.getSelectedItem().toString() + " and year(dt_compra) = " + cboMA.getSelectedItem().toString();
+            resultado = st.executeQuery(linhapesq);
+            while (resultado.next()) {
+                tabela.addRow(new Object[]{
+                    resultado.getString("dt_compra"),
+                    resultado.getString("nome"),
+                    resultado.getString("preco")
+                }
+                );
+            }
+            
+            instrucaoSQL = con.prepareStatement("select sum(preco) from venda inner join livro on venda.id = livro.id"
+                    + "where month(dt_compra) = " + cboMM.getSelectedItem().toString() + " and year(dt_compra) = " 
+                    + cboMA.getSelectedItem().toString());
+//            
+//            double soma = 0;
+//            for(int i = 0; i < tblMensal.getRowCount(); i++){
+//                double valor = (double) tblMensal.getValueAt(i, 4);
+//                soma += valor;
+//            }
+            txtTD.setText(String.valueOf(instrucaoSQL));
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_btnPMActionPerformed
 
     private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
-        
+
         System.exit(0);
     }//GEN-LAST:event_btnFechar2ActionPerformed
 
@@ -635,6 +597,10 @@ public class Relatorios extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void txtTMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTMActionPerformed
 
     /**
      * @param args the command line arguments
@@ -681,25 +647,10 @@ public class Relatorios extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir3;
     private javax.swing.JButton btnPM;
     private javax.swing.JButton btnPP;
-    private javax.swing.JComboBox<String> cboDA;
-    private javax.swing.JComboBox<String> cboDD;
-    private javax.swing.JComboBox<String> cboDM;
     private javax.swing.JComboBox<String> cboMA;
     private javax.swing.JComboBox<String> cboMM;
-    private javax.swing.JComboBox<String> cboPA1;
-    private javax.swing.JComboBox<String> cboPA2;
-    private javax.swing.JComboBox<String> cboPD1;
-    private javax.swing.JComboBox<String> cboPD2;
-    private javax.swing.JComboBox<String> cboPM1;
-    private javax.swing.JComboBox<String> cboPM2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -710,6 +661,9 @@ public class Relatorios extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private com.toedter.calendar.JDateChooser jdcDia;
+    private com.toedter.calendar.JDateChooser jdcPF;
+    private com.toedter.calendar.JDateChooser jdcPI;
     private javax.swing.JLabel lblA;
     private javax.swing.JLabel lblD;
     private javax.swing.JLabel lblM;
