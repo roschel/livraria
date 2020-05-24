@@ -11,16 +11,18 @@ package Models;
  */
 public class Relatorios {
     public String data;
-    public String dia;
+    public String dataI;
+    public String dataF;
     public String mes;
     public String ano;
 
     public Relatorios() {
     }
 
-    public Relatorios(String data, String dia, String mes, String ano) {
+    public Relatorios(String data, String dataI, String dataF, String mes, String ano) {
         this.data = data;
-        this.dia = dia;
+        this.dataI = dataI;
+        this.dataF = dataF;
         this.mes = mes;
         this.ano = ano;
     }
@@ -33,12 +35,20 @@ public class Relatorios {
         this.data = data;
     }
 
-    public String getDia() {
-        return dia;
+    public String getDataI() {
+        return dataI;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
+    public void setDataI(String dataI) {
+        this.dataI = dataI;
+    }
+
+    public String getDataF() {
+        return dataF;
+    }
+
+    public void setDataF(String dataF) {
+        this.dataF = dataF;
     }
 
     public String getMes() {
