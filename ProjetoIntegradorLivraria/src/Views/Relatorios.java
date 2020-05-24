@@ -6,6 +6,7 @@
 package Views;
 
 import database.GerenciadorConexao;
+import java.awt.Event;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.DriverManager;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import javax.accessibility.AccessibleContext;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -116,6 +118,11 @@ public class Relatorios extends javax.swing.JFrame {
                 "Data", "Cliente", "Valor total (R$)"
             }
         ));
+        tblDiaria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDiariaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDiaria);
 
         btnImprimir.setText("Imprimir");
@@ -132,15 +139,13 @@ public class Relatorios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Venda", "ID Produto", "Descrição", "Quantidade", "Valor R$"
+                "ID Produto", "Descrição", "Quantidade", "Valor R$"
             }
         ));
         jScrollPane4.setViewportView(tblDiariaDet);
 
         lblTD.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTD.setText("Total R$:");
-
-        jdcDia.setDateFormatString("yyyy/MM/dd");
 
         lblTotalD.setText("              R$");
 
@@ -233,6 +238,11 @@ public class Relatorios extends javax.swing.JFrame {
                 "Data", "Cliente", "Valor total (R$)"
             }
         ));
+        tblPeriodo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPeriodoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblPeriodo);
 
         btnImprimir2.setText("Imprimir");
@@ -249,17 +259,13 @@ public class Relatorios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Venda", "ID Produto", "Descrição", "Quantidade", "Valor R$"
+                "ID Produto", "Descrição", "Quantidade", "Valor R$"
             }
         ));
         jScrollPane5.setViewportView(tblPeriodoDet);
 
         lblTP.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTP.setText("Total R$:");
-
-        jdcPI.setDateFormatString("yyyy/MM/dd");
-
-        jdcPF.setDateFormatString("yyyy/MM/dd");
 
         lblTotalP.setText("            R$");
 
@@ -357,6 +363,11 @@ public class Relatorios extends javax.swing.JFrame {
                 "Data", "Cliente", "Valor total (R$)"
             }
         ));
+        tblMensal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMensalMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblMensal);
 
         btnImprimir3.setText("Imprimir");
@@ -383,7 +394,7 @@ public class Relatorios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Venda", "ID Produto", "Descrição", "Quantidade", "Valor R$"
+                "ID Produto", "Descrição", "Quantidade", "Valor R$"
             }
         ));
         jScrollPane6.setViewportView(tblMensalDet);
@@ -534,7 +545,7 @@ public class Relatorios extends javax.swing.JFrame {
             String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
                     + "join livro on venda.id = livro.id "
                     + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
-                    + datai + "' and '" + dataf + "'";
+                    + datai + "' and '" + dataf + "' order by venda.dt_compra";
             resultado = st.executeQuery(linhapesq);
             while (resultado.next()) {
                 tabela.addRow(new Object[]{
@@ -566,7 +577,8 @@ public class Relatorios extends javax.swing.JFrame {
             String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
                     + "join livro on venda.id = livro.id "
                     + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = "
-                    + cboMM.getSelectedItem().toString() + " and year(dt_compra) = " + cboMA.getSelectedItem().toString();
+                    + cboMM.getSelectedItem().toString() + " and year(dt_compra) = " 
+                    + cboMA.getSelectedItem().toString() + " order by venda.dt_compra";
             resultado = st.executeQuery(linhapesq);
             while (resultado.next()) {
                 tabela.addRow(new Object[]{
@@ -603,6 +615,94 @@ public class Relatorios extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void tblDiariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDiariaMouseClicked
+        // TODO add your handling code here:
+        
+        String nome = (String) tblDiaria.getValueAt(tblDiaria.getSelectedRow(), tblDiaria.getSelectedColumn());
+        
+        try {
+            DefaultTableModel tabela = (DefaultTableModel) tblDiariaDet.getModel();
+            tabela = (DefaultTableModel) tblDiariaDet.getModel();
+            tabela.setNumRows(0);
+            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+                    + "join livro on venda.id = livro.id "
+                    + "join cliente on venda.cpf = cliente.cpf where nome = '"
+                    + nome + "' and dt_compra = '" + data + "'";
+            resultado = st.executeQuery(linhapesq);
+            
+            while (resultado.next()) {
+                tabela.addRow(new Object[]{
+                    resultado.getString("livro.id"),
+                    resultado.getString("livro.titulo"),
+                    resultado.getString("livro.titulo"),
+                    resultado.getString("preco")
+                }
+                );
+            }           
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }        
+    }//GEN-LAST:event_tblDiariaMouseClicked
+
+    private void tblPeriodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeriodoMouseClicked
+        // TODO add your handling code here:
+        
+        String nome = (String) tblPeriodo.getValueAt(tblPeriodo.getSelectedRow(), tblPeriodo.getSelectedColumn());
+        
+        try {
+            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
+            tabela = (DefaultTableModel) tblPeriodoDet.getModel();
+            tabela.setNumRows(0);
+            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+                    + "join livro on venda.id = livro.id "
+                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
+                    + datai + "' and '" + dataf + "' and nome = '" + nome + "'";
+            resultado = st.executeQuery(linhapesq);
+            while (resultado.next()) {
+                tabela.addRow(new Object[]{
+                    resultado.getString("livro.id"),
+                    resultado.getString("livro.titulo"),
+                    resultado.getString("livro.titulo"),
+                    resultado.getString("preco")
+                }
+                );
+            }       
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_tblPeriodoMouseClicked
+
+    private void tblMensalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMensalMouseClicked
+        // TODO add your handling code here:
+        
+        String nome = (String) tblMensal.getValueAt(tblMensal.getSelectedRow(), tblMensal.getSelectedColumn());
+        
+        try {
+            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
+            tabela = (DefaultTableModel) tblMensalDet.getModel();
+            tabela.setNumRows(0);
+            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+                    + "join livro on venda.id = livro.id "
+                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = '"
+                    + cboMM.getSelectedItem().toString() + "' and year(dt_compra) = '" 
+                    + cboMA.getSelectedItem().toString() + "' and nome = '"
+                    + nome + "'";
+            resultado = st.executeQuery(linhapesq);
+            while (resultado.next()) {
+                tabela.addRow(new Object[]{
+                    resultado.getString("livro.id"),
+                    resultado.getString("livro.titulo"),
+                    resultado.getString("livro.titulo"),
+                    resultado.getString("preco")
+                }
+                );
+            }          
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_tblMensalMouseClicked
 
     /**
      * @param args the command line arguments
