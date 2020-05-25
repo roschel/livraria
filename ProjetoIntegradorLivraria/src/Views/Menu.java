@@ -106,7 +106,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLivroActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        Relatorios frame = new Relatorios();
+        RelatoriosView frame = new RelatoriosView();
         frame.setVisible(true);
 //        this.setVisible(false);
     }//GEN-LAST:event_btnRelatorioActionPerformed

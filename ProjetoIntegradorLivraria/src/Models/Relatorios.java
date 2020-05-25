@@ -5,6 +5,8 @@
  */
 package Models;
 
+import java.util.Date;
+
 /**
  *
  * @author paulo
@@ -65,6 +67,10 @@ public class Relatorios {
 
     public void setAno(String ano) {
         this.ano = ano;
+    }
+
+    public void setData(Date data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
            

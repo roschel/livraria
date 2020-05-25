@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Controller.RelatoriosController;
 import database.GerenciadorConexao;
 import java.awt.Event;
 import java.sql.Connection;
@@ -22,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author paulo
  */
-public class Relatorios extends javax.swing.JFrame {
+public class RelatoriosView extends javax.swing.JFrame {
 
     public Connection con;
     public Statement st;
@@ -32,7 +33,7 @@ public class Relatorios extends javax.swing.JFrame {
     private String datai;
     private String dataf;
 
-    public Relatorios() {
+    public RelatoriosView() {
         initComponents();
 
         try {
@@ -44,6 +45,8 @@ public class Relatorios extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha na conexão com o banco de dados!");
         }
+        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -501,33 +504,45 @@ public class Relatorios extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         this.data = formato.format(dia);
         
-        try {
-            DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
-            tabela = (DefaultTableModel) tblDiaria.getModel();
-            tabela.setNumRows(0);
-            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-                    + "join livro on venda.id = livro.id "
-                    + "join cliente on venda.cpf = cliente.cpf where dt_compra = '"
-                    + data + "'";
-            resultado = st.executeQuery(linhapesq);
-            while (resultado.next()) {
-                tabela.addRow(new Object[]{
-                    resultado.getString("dt_compra"),
-                    resultado.getString("nome"),
-                    resultado.getString("preco")
-                }
-                );
-            }
-            
-            double soma = 0;
-            for(int i = 0; i < tblDiaria.getRowCount(); i++){
-                double valor = Double.parseDouble((String) tblDiaria.getValueAt(i, 2));
-                soma += valor;
-            }
-            lblTotalD.setText(String.valueOf(soma));            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
+        tabela = (DefaultTableModel) tblDiaria.getModel();
+        
+        boolean retorno = RelatoriosController.pesquisarDia(data, tabela);
+        
+        if(retorno){
         }
+        else{
+            System.out.println("Não existe registro na data informada!");
+        }
+            
+        
+//        try {
+//            DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
+//            tabela = (DefaultTableModel) tblDiaria.getModel();
+//            tabela.setNumRows(0);
+//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+//                    + "join livro on venda.id = livro.id "
+//                    + "join cliente on venda.cpf = cliente.cpf where dt_compra = '"
+//                    + data + "'";
+//            resultado = st.executeQuery(linhapesq);
+//            while (resultado.next()) {
+//                tabela.addRow(new Object[]{
+//                    resultado.getString("dt_compra"),
+//                    resultado.getString("nome"),
+//                    resultado.getString("preco")
+//                }
+//                );
+//            }
+//            
+//            double soma = 0;
+//            for(int i = 0; i < tblDiaria.getRowCount(); i++){
+//                double valor = Double.parseDouble((String) tblDiaria.getValueAt(i, 2));
+//                soma += valor;
+//            }
+//            lblTotalD.setText(String.valueOf(soma));            
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
     }//GEN-LAST:event_bntPDActionPerformed
 
     private void btnPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPPActionPerformed
@@ -535,70 +550,97 @@ public class Relatorios extends javax.swing.JFrame {
         Date inicio = jdcPI.getDate();
         Date fim = jdcPF.getDate();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        
         this.datai = formato.format(inicio);
         this.dataf = formato.format(fim);
         
-        try {
-            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
-            tabela = (DefaultTableModel) tblPeriodo.getModel();
-            tabela.setNumRows(0);
-            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-                    + "join livro on venda.id = livro.id "
-                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
-                    + datai + "' and '" + dataf + "' order by venda.dt_compra";
-            resultado = st.executeQuery(linhapesq);
-            while (resultado.next()) {
-                tabela.addRow(new Object[]{
-                    resultado.getString("dt_compra"),
-                    resultado.getString("nome"),
-                    resultado.getString("preco")
-                }
-                );
-            }
-            
-            double soma = 0;
-            for(int i = 0; i < tblPeriodo.getRowCount(); i++){
-                double valor = Double.parseDouble((String) tblPeriodo.getValueAt(i, 2));
-                soma += valor;
-            }
-            lblTotalP.setText(String.valueOf(soma));
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
+        tabela = (DefaultTableModel) tblPeriodo.getModel();
+        
+        boolean retorno = RelatoriosController.pesquisarPeriodo(datai, dataf, tabela);
+        
+        if(retorno){            
         }
+        else{
+            System.out.println("Não existe registro no período informado!");
+        }
+        
+//        try {
+//            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
+//            tabela = (DefaultTableModel) tblPeriodo.getModel();
+//            tabela.setNumRows(0);
+//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+//                    + "join livro on venda.id = livro.id "
+//                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
+//                    + datai + "' and '" + dataf + "' order by venda.dt_compra";
+//            resultado = st.executeQuery(linhapesq);
+//            while (resultado.next()) {
+//                tabela.addRow(new Object[]{
+//                    resultado.getString("dt_compra"),
+//                    resultado.getString("nome"),
+//                    resultado.getString("preco")
+//                }
+//                );
+//            }
+//            
+//            double soma = 0;
+//            for(int i = 0; i < tblPeriodo.getRowCount(); i++){
+//                double valor = Double.parseDouble((String) tblPeriodo.getValueAt(i, 2));
+//                soma += valor;
+//            }
+//            lblTotalP.setText(String.valueOf(soma));
+//            
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
     }//GEN-LAST:event_btnPPActionPerformed
 
     private void btnPMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPMActionPerformed
              
-        try {
-            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
-            tabela = (DefaultTableModel) tblMensal.getModel();
-            tabela.setNumRows(0);
-            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-                    + "join livro on venda.id = livro.id "
-                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = "
-                    + cboMM.getSelectedItem().toString() + " and year(dt_compra) = " 
-                    + cboMA.getSelectedItem().toString() + " order by venda.dt_compra";
-            resultado = st.executeQuery(linhapesq);
-            while (resultado.next()) {
-                tabela.addRow(new Object[]{
-                    resultado.getString("dt_compra"),
-                    resultado.getString("nome"),
-                    resultado.getString("preco")
-                }
-                );
-            }
-                       
-            double soma = 0;
-            for(int i = 0; i < tblMensal.getRowCount(); i++){
-                double valor = Double.parseDouble((String) tblMensal.getValueAt(i, 2));
-                soma += valor;
-            }
-            lblTotalM.setText(String.valueOf(soma));
+        DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
+        tabela = (DefaultTableModel) tblMensal.getModel();
+        
+        String dataI = cboMM.getSelectedItem().toString();
+        String dataF = cboMA.getSelectedItem().toString();
+        
+        boolean retorno = RelatoriosController.pesquisarMes(dataI, dataF, tabela);
+        
+        if(retorno){
             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
         }
+        else{
+            System.out.println("Não existe registro no mês informado!");
+        }
+        
+//        try {
+//            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
+//            tabela = (DefaultTableModel) tblMensal.getModel();
+//            tabela.setNumRows(0);
+//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+//                    + "join livro on venda.id = livro.id "
+//                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = "
+//                    + cboMM.getSelectedItem().toString() + " and year(dt_compra) = " 
+//                    + cboMA.getSelectedItem().toString() + " order by venda.dt_compra";
+//            resultado = st.executeQuery(linhapesq);
+//            while (resultado.next()) {
+//                tabela.addRow(new Object[]{
+//                    resultado.getString("dt_compra"),
+//                    resultado.getString("nome"),
+//                    resultado.getString("preco")
+//                }
+//                );
+//            }
+//                       
+//            double soma = 0;
+//            for(int i = 0; i < tblMensal.getRowCount(); i++){
+//                double valor = Double.parseDouble((String) tblMensal.getValueAt(i, 2));
+//                soma += valor;
+//            }
+//            lblTotalM.setText(String.valueOf(soma));
+//            
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
     }//GEN-LAST:event_btnPMActionPerformed
 
     private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
@@ -721,20 +763,21 @@ public class Relatorios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Relatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Relatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Relatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Relatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Relatorios().setVisible(true);
+                new RelatoriosView().setVisible(true);
             }
         });
     }
