@@ -18,32 +18,32 @@ public class RelatoriosController {
 
     private static Date rdia;
     
-    public static boolean pesquisarDia(String data){
+    public static boolean pesquisarDia(String data, DefaultTableModel tabela){
         
         Relatorios rDia = new Relatorios();
         rDia.setData(data);
         
-        return RelatoriosDAO.pesquisaDia(rDia);
+        return RelatoriosDAO.pesquisaDia(rDia, tabela);
     }
     
-    public static boolean pesquisarPeriodo(String dataI, String dataF){
+    public static boolean pesquisarPeriodo(String dataI, String dataF, DefaultTableModel tabela){
         
         Relatorios rPeriodo = new Relatorios();
         
         rPeriodo.setDataI(dataI);
         rPeriodo.setDataF(dataF);
         
-        return RelatoriosDAO.pesquisaPer(rPeriodo);
+        return RelatoriosDAO.pesquisaPer(rPeriodo, tabela);
     }
     
-    public static boolean pesquisarMes(String mes, String ano){
+    public static boolean pesquisarMes(String mes, String ano, DefaultTableModel tabela){
         
         Relatorios rMes = new Relatorios();
         
         rMes.setMes(mes);
         rMes.setAno(ano);
         
-        return RelatoriosDAO.pesquisarMes(rMes);
+        return RelatoriosDAO.pesquisarMes(rMes, tabela);
     }
     
 }

@@ -13,22 +13,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
  * @author paulo
  */
 public class RelatoriosDAO {
+
+    public PreparedStatement st;
+    public ResultSet resultado;
     
-    public static boolean pesquisaDia(Relatorios pRelatorio){
+    public static boolean pesquisaDia(Relatorios pRelatorio, DefaultTableModel tabela){
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-                
+                        
         try {
             conexao = GerenciadorConexao.abrirConexao();
             
-            DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
             tabela = (DefaultTableModel) tblDiaria.getModel();
             tabela.setNumRows(0);
             
@@ -37,7 +41,7 @@ public class RelatoriosDAO {
                     + "join cliente on venda.cpf = cliente.cpf where (dt_compra) VALUES(?)");
             instrucaoSQL.setString(0, pRelatorio.getData());
             
-            resultado = st.executeQuery(linhapesq);
+            resultado = st.executeQuery(instrucaoSQL);
             
             while (resultado.next()) {
                 tabela.addRow(new Object[]{
@@ -62,7 +66,7 @@ public class RelatoriosDAO {
         return retorno;
     }
     
-    public static boolean pesquisaPer(Relatorios pRelatorio){
+    public static boolean pesquisaPer(Relatorios pRelatorio, DefaultTableModel tabela){
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -82,7 +86,7 @@ public class RelatoriosDAO {
             instrucaoSQL.setString(0, dataI);
             instrucaoSQL.setString(1, dataF);
             
-            resultado = st.executeQuery(linhapesq);
+            resultado = st.executeQuery(instrucaoSQL);
             
             while (resultado.next()) {
                 tabela.addRow(new Object[]{
@@ -107,7 +111,7 @@ public class RelatoriosDAO {
         return retorno;
     }
     
-    public static boolean pesquisarMes(Relatorios pRelatorio){
+    public static boolean pesquisarMes(Relatorios pRelatorio, DefaultTableModel tabela){
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -126,7 +130,7 @@ public class RelatoriosDAO {
             instrucaoSQL.setString(0, mes);
             instrucaoSQL.setString(1, ano);
             
-            resultado = st.executeQuery(linhapesq);
+            resultado = st.executeQuery(instrucaoSQL);
             while (resultado.next()) {
                 tabela.addRow(new Object[]{
                     resultado.getString("dt_compra"),
