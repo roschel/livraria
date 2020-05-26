@@ -8,6 +8,7 @@ package Controller;
 import DAO.RelatoriosDAO;
 import Models.Relatorios;
 import java.util.Date;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,32 +19,32 @@ public class RelatoriosController {
 
     private static Date rdia;
     
-    public static boolean pesquisarDia(String data, DefaultTableModel tabela){
+    public static boolean pesquisarDia(String data, DefaultTableModel tabela, JLabel total){
         
         Relatorios rDia = new Relatorios();
         rDia.setData(data);
         
-        return RelatoriosDAO.pesquisaDia(rDia, tabela);
+        return RelatoriosDAO.pesquisaDia(rDia, tabela, total);
     }
     
-    public static boolean pesquisarPeriodo(String dataI, String dataF, DefaultTableModel tabela){
+    public static boolean pesquisarPeriodo(String dataI, String dataF, DefaultTableModel tabela, JLabel total){
         
         Relatorios rPeriodo = new Relatorios();
         
         rPeriodo.setDataI(dataI);
         rPeriodo.setDataF(dataF);
         
-        return RelatoriosDAO.pesquisaPer(rPeriodo, tabela);
+        return RelatoriosDAO.pesquisaPer(rPeriodo, tabela, total);
     }
     
-    public static boolean pesquisarMes(String mes, String ano, DefaultTableModel tabela){
+    public static boolean pesquisarMes(String mes, String ano, DefaultTableModel tabela, JLabel total){
         
         Relatorios rMes = new Relatorios();
         
         rMes.setMes(mes);
         rMes.setAno(ano);
         
-        return RelatoriosDAO.pesquisarMes(rMes, tabela);
+        return RelatoriosDAO.pesquisarMes(rMes, tabela, total);
     }
     
 }

@@ -507,7 +507,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
         tabela = (DefaultTableModel) tblDiaria.getModel();
         
-        boolean retorno = RelatoriosController.pesquisarDia(data, tabela);
+        boolean retorno = RelatoriosController.pesquisarDia(data, tabela, lblTotalD);
         
         if(retorno){
         }
@@ -557,7 +557,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
         tabela = (DefaultTableModel) tblPeriodo.getModel();
         
-        boolean retorno = RelatoriosController.pesquisarPeriodo(datai, dataf, tabela);
+        boolean retorno = RelatoriosController.pesquisarPeriodo(datai, dataf, tabela, lblTotalP);
         
         if(retorno){            
         }
@@ -603,7 +603,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         String dataI = cboMM.getSelectedItem().toString();
         String dataF = cboMA.getSelectedItem().toString();
         
-        boolean retorno = RelatoriosController.pesquisarMes(dataI, dataF, tabela);
+        boolean retorno = RelatoriosController.pesquisarMes(dataI, dataF, tabela, lblTotalM);
         
         if(retorno){
             
