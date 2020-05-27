@@ -11,8 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,7 +39,7 @@ public class ClienteDAO {
             instrucaoSQL.setString(2, cliente.getNome());
             instrucaoSQL.setString(3, cliente.getEmail());
             instrucaoSQL.setString(4, cliente.getEstado_civil());
-            instrucaoSQL.setString(5, cliente.getData_de_nascimento());
+            instrucaoSQL.setDate(5, new java.sql.Date(cliente.getData_de_nascimento().getTime()));
             instrucaoSQL.setString(6, cliente.getEndereço());
             instrucaoSQL.setString(7, cliente.getTelefone());
             instrucaoSQL.setString(8, cliente.getSexo());
@@ -83,25 +85,25 @@ public class ClienteDAO {
                     + "endereco=?, "
                     + "email=? "
                     + "WHERE cpf=?");
-            
+
             instrucaoSQL.setString(1, cliente.getNome());
             instrucaoSQL.setString(2, cliente.getSexo());
-            instrucaoSQL.setString(3, cliente.getData_de_nascimento());
+            instrucaoSQL.setDate(3, new java.sql.Date(cliente.getData_de_nascimento().getTime()));
             instrucaoSQL.setString(4, cliente.getEstado_civil());
             instrucaoSQL.setString(5, cliente.getTelefone());
             instrucaoSQL.setString(6, cliente.getEndereço());
             instrucaoSQL.setString(7, cliente.getEmail());
             instrucaoSQL.setString(8, cliente.getCpf());
-            
+
             int linhasAfetadas = instrucaoSQL.executeUpdate();
-            if (linhasAfetadas>0) {
-                retorno=true;
+            if (linhasAfetadas > 0) {
+                retorno = true;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }finally{
+        } finally {
             try {
-                if (instrucaoSQL!=null) {
+                if (instrucaoSQL != null) {
                     instrucaoSQL.close();
                     GerenciadorConexao.fecharConexao();
                 }
@@ -112,7 +114,7 @@ public class ClienteDAO {
 
         return retorno;
     }
-    
+
     public static ArrayList<Cliente> Consultar(Cliente cliente) {
 
         ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
@@ -124,7 +126,7 @@ public class ClienteDAO {
             conexao = GerenciadorConexao.abrirConexao();
             instrucaoSQL = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf LIKE ?");
 
-            instrucaoSQL.setString(1, cliente.getCpf()+ "%");
+            instrucaoSQL.setString(1, cliente.getCpf() + "%");
 
             rs = instrucaoSQL.executeQuery();
 
@@ -133,12 +135,18 @@ public class ClienteDAO {
                 c.setCpf(rs.getString("cpf"));
                 c.setNome(rs.getString("nome"));
                 c.setSexo(rs.getString("sexo"));
-                c.setData_de_nascimento(rs.getString("dt_nascimento"));
+                
+                DateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+                
+                String data_nascimento = formatar.format(rs.getDate("dt_nascimento"));
+                
+                Date nascimento = formatar.parse(data_nascimento);
+                
+                c.setData_de_nascimento(nascimento);
                 c.setEstado_civil(rs.getString("estado_civil"));
                 c.setTelefone(rs.getString("telefone"));
                 c.setEndereço(rs.getString("endereco"));
                 c.setEmail(rs.getString("email"));
-                
 
                 listaCliente.add(c);
             }
@@ -160,9 +168,8 @@ public class ClienteDAO {
 
         return listaCliente;
     }
-    
-    
-    public static boolean Excluir(Cliente cliente){
+
+    public static boolean Excluir(Cliente cliente) {
         boolean retorno = false;
         Connection conexao;
         PreparedStatement instrucaoSQL = null;
@@ -174,15 +181,15 @@ public class ClienteDAO {
 
             instrucaoSQL.setString(1, cliente.getCpf());
             int linhasAfetadas = instrucaoSQL.executeUpdate();
-            if (linhasAfetadas>0) {
-                retorno=true;
+            if (linhasAfetadas > 0) {
+                retorno = true;
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }finally{
+        } finally {
             try {
-                if (instrucaoSQL!=null) {
+                if (instrucaoSQL != null) {
                     instrucaoSQL.close();
                     GerenciadorConexao.fecharConexao();
                 }
@@ -190,7 +197,7 @@ public class ClienteDAO {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
-        
+
         return retorno;
     }
 }
