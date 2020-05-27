@@ -8,6 +8,7 @@ package Controller;
 import Models.Cliente;
 import DAO.ClienteDAO;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class ClienteController {
 
     public static boolean Salvar(String cpf, String nome,
-            String data_nascimento, String email, String endereco,
+            Date data_nascimento, String email, String endereco,
             String estado_civil, String sexo, String telefone) {
 
         boolean retorno = false;
@@ -37,7 +38,7 @@ public class ClienteController {
     }
 
     public static boolean Atualizar(String cpf, String nome,
-            String sexo, String nascimento, String estado_civil,
+            String sexo, Date nascimento, String estado_civil,
             String telefone, String endereco, String email) {
         boolean retorno = false;
 

@@ -5,6 +5,8 @@
  */
 package Models;
 
+import java.util.Date;
+
 /**
  *
  * @author joaom
@@ -18,12 +20,12 @@ public class Cliente {
     public String email;
     public String sexo;
     public String estado_civil;
-    public String data_de_nascimento;
+    public Date data_de_nascimento;
 
     public Cliente() {
     }
 
-    public Cliente(String nome, String cpf, String endereço, String telefone, String email, String sexo, String estado_civil, String data_de_nascimento) {
+    public Cliente(String nome, String cpf, String endereço, String telefone, String email, String sexo, String estado_civil, Date data_de_nascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereço = endereço;
@@ -90,11 +92,11 @@ public class Cliente {
         this.estado_civil = estado_civil;
     }
 
-    public String getData_de_nascimento() {
+    public Date getData_de_nascimento() {
         return data_de_nascimento;
     }
 
-    public void setData_de_nascimento(String data_de_nascimento) {
+    public void setData_de_nascimento(Date data_de_nascimento) {
         this.data_de_nascimento = data_de_nascimento;
     }
     

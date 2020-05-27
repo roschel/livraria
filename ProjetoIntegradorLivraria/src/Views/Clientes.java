@@ -6,15 +6,16 @@
 package Views;
 
 import Controller.ClienteController;
-import DAO.ClienteDAO;
 import Models.Cliente;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -81,11 +82,11 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioSexo = new javax.swing.JLabel();
         lblObrigatorioCPF = new javax.swing.JLabel();
         lblObrigatorioEmail = new javax.swing.JLabel();
-        fmtNascimento = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtCPF = new javax.swing.JTextField();
         btnLimpar = new javax.swing.JButton();
+        jdcNascimento = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de clientes");
@@ -98,19 +99,6 @@ public class Clientes extends javax.swing.JFrame {
 
         txtCPF1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtCPF1.setNextFocusableComponent(lblNome);
-        txtCPF1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCPF1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCPF1FocusLost(evt);
-            }
-        });
-        txtCPF1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCPF1KeyTyped(evt);
-            }
-        });
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -194,26 +182,39 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 426));
+        jPanel1.setLayout(null);
 
         lblNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblNome.setText("Nome:");
         lblNome.setNextFocusableComponent(txtNome);
+        jPanel1.add(lblNome);
+        lblNome.setBounds(388, 54, 46, 17);
 
         lblEndereco.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEndereco.setText("Endereço:");
+        jPanel1.add(lblEndereco);
+        lblEndereco.setBounds(364, 200, 70, 17);
 
         lblEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEmail.setText("E-mail:");
         lblEmail.setNextFocusableComponent(txtEmail);
+        jPanel1.add(lblEmail);
+        lblEmail.setBounds(387, 90, 47, 17);
 
         lblTelefone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTelefone.setText("Telefone:");
+        jPanel1.add(lblTelefone);
+        lblTelefone.setBounds(370, 236, 64, 17);
 
         lblSexo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblSexo.setText("Sexo:");
+        jPanel1.add(lblSexo);
+        lblSexo.setBounds(395, 277, 39, 17);
 
         lblCPF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCPF.setText("CPF:");
+        jPanel1.add(lblCPF);
+        lblCPF.setBounds(402, 24, 32, 17);
 
         txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtNome.setNextFocusableComponent(lblEmail);
@@ -226,6 +227,8 @@ public class Clientes extends javax.swing.JFrame {
                 txtNomeFocusLost(evt);
             }
         });
+        jPanel1.add(txtNome);
+        txtNome.setBounds(452, 54, 200, 18);
 
         txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -236,6 +239,8 @@ public class Clientes extends javax.swing.JFrame {
                 txtEnderecoFocusLost(evt);
             }
         });
+        jPanel1.add(txtEndereco);
+        txtEndereco.setBounds(452, 200, 200, 18);
 
         txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -246,8 +251,12 @@ public class Clientes extends javax.swing.JFrame {
                 txtEmailFocusLost(evt);
             }
         });
+        jPanel1.add(txtEmail);
+        txtEmail.setBounds(452, 90, 200, 18);
 
         txtTelefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtTelefone);
+        txtTelefone.setBounds(452, 236, 200, 18);
 
         GroupSexo.add(jrdMasculino);
         jrdMasculino.setText("Masculino");
@@ -256,6 +265,8 @@ public class Clientes extends javax.swing.JFrame {
                 jrdMasculinoActionPerformed(evt);
             }
         });
+        jPanel1.add(jrdMasculino);
+        jrdMasculino.setBounds(452, 272, 90, 28);
 
         GroupSexo.add(jrdFeminino);
         jrdFeminino.setText("Feminino");
@@ -264,38 +275,49 @@ public class Clientes extends javax.swing.JFrame {
                 jrdFemininoActionPerformed(evt);
             }
         });
+        jPanel1.add(jrdFeminino);
+        jrdFeminino.setBounds(560, 272, 83, 28);
 
         lblEstadoCivil.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEstadoCivil.setText("Estado Civil:");
+        jPanel1.add(lblEstadoCivil);
+        lblEstadoCivil.setBounds(350, 135, 84, 17);
 
         cboEstadoCivil.setEditable(true);
         cboEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Solteiro(a)", "Casado(a)", "Divrciado(a)", "Viuvo(a)" }));
         cboEstadoCivil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cboEstadoCivil);
+        cboEstadoCivil.setBounds(452, 126, 200, 26);
 
         lblDataNascimento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblDataNascimento.setText("Data de Nascimento:");
+        jPanel1.add(lblDataNascimento);
+        lblDataNascimento.setBounds(291, 170, 143, 17);
 
         lblObrigatorioNome.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioNome.setText("*campo obrigatório");
+        jPanel1.add(lblObrigatorioNome);
+        lblObrigatorioNome.setBounds(670, 55, 109, 16);
 
         lblObrigatorioEndereco.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioEndereco.setText("*campo obrigatório");
+        jPanel1.add(lblObrigatorioEndereco);
+        lblObrigatorioEndereco.setBounds(670, 201, 109, 16);
 
         lblObrigatorioSexo.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioSexo.setText("*campo obrigatório");
+        jPanel1.add(lblObrigatorioSexo);
+        lblObrigatorioSexo.setBounds(670, 278, 109, 16);
 
         lblObrigatorioCPF.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioCPF.setText("*campo obrigatório");
+        jPanel1.add(lblObrigatorioCPF);
+        lblObrigatorioCPF.setBounds(658, 25, 109, 16);
 
         lblObrigatorioEmail.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioEmail.setText("*campo obrigatório");
-
-        fmtNascimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        try {
-            fmtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jPanel1.add(lblObrigatorioEmail);
+        lblObrigatorioEmail.setBounds(670, 91, 109, 16);
 
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -309,6 +331,8 @@ public class Clientes extends javax.swing.JFrame {
                 btnCadastrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCadastrar);
+        btnCadastrar.setBounds(344, 410, 125, 32);
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -317,6 +341,8 @@ public class Clientes extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCancelar);
+        btnCancelar.setBounds(591, 410, 125, 32);
 
         txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtCPF.setNextFocusableComponent(lblNome);
@@ -333,6 +359,8 @@ public class Clientes extends javax.swing.JFrame {
                 txtCPFKeyTyped(evt);
             }
         });
+        jPanel1.add(txtCPF);
+        txtCPF.setBounds(452, 24, 200, 18);
 
         btnLimpar.setText("Limpar dados");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -340,112 +368,12 @@ public class Clientes extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
+        jPanel1.add(btnLimpar);
+        btnLimpar.setBounds(470, 350, 108, 32);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblDataNascimento)
-                                        .addComponent(lblEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblNome, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblCPF, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(lblTelefone)
-                                    .addComponent(lblSexo)
-                                    .addComponent(lblEndereco))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jrdMasculino)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jrdFeminino))
-                                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblObrigatorioEmail)
-                                            .addComponent(lblObrigatorioNome)
-                                            .addComponent(lblObrigatorioEndereco)
-                                            .addComponent(lblObrigatorioSexo)))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(cboEstadoCivil, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(fmtNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblObrigatorioCPF))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(122, 122, 122)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(479, 479, 479)
-                        .addComponent(btnLimpar)))
-                .addContainerGap(331, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCPF)
-                    .addComponent(lblObrigatorioCPF)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblObrigatorioNome))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmail)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblObrigatorioEmail))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fmtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDataNascimento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndereco)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblObrigatorioEndereco))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTelefone)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSexo)
-                    .addComponent(jrdMasculino)
-                    .addComponent(jrdFeminino)
-                    .addComponent(lblObrigatorioSexo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(btnLimpar)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar)
-                    .addComponent(btnCancelar))
-                .addGap(53, 53, 53))
-        );
+        jdcNascimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jdcNascimento);
+        jdcNascimento.setBounds(450, 169, 250, 20);
 
         jTabbedPane1.addTab("Cadastro de Cliente", jPanel1);
 
@@ -488,8 +416,7 @@ public class Clientes extends javax.swing.JFrame {
         jrdFeminino.setSelected(false);
         jrdMasculino.setSelected(false);
 
-        fmtNascimento.setText("");
-
+        //fmtNascimento.setText("");
         cboEstadoCivil.setSelectedIndex(0);
 
         jrdFeminino.setSelected(false);
@@ -501,7 +428,7 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:       
         String cpf = txtCPF.getText();
         String nome = txtNome.getText();
-        String data_nascimento = fmtNascimento.getText();
+        Date data_nascimento = jdcNascimento.getDate();
         String email = txtEmail.getText();
         String endereco = txtEndereco.getText();
         String estado_civil = cboEstadoCivil.getSelectedItem().toString();
@@ -511,7 +438,7 @@ public class Clientes extends javax.swing.JFrame {
         boolean retorno = ClienteController.Salvar(cpf, nome, data_nascimento, email, endereco, estado_civil, sexo, telefone);
 
         if (retorno) {
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso", "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);            
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso", "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Falha no cadastro do Cliente!", "Falha", JOptionPane.ERROR_MESSAGE);
         }
@@ -521,47 +448,47 @@ public class Clientes extends javax.swing.JFrame {
     private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
         // TODO add your handling code here:
 
-        Models.Cliente novoCliente = new Cliente();
-        boolean eValido;
-
-        if (txtCPF.getText().length() != 11 || txtCPF.getText().trim().equals("")) {
-            txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-            lblObrigatorioCPF.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório e possui 11 números");
-            txtCPF.requestFocus(true);
-        } else {
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
-                st = (Statement) con.createStatement();
-
-                String linhaPesq = "select * from cliente where cpf = " + txtCPF.getText();
-                resultado = st.executeQuery(linhaPesq);
-
-                if (resultado.next()) {
-                    JOptionPane.showMessageDialog(this, "Cliente já cadastrado");
-                    txtNome.setText(resultado.getString("nome"));
-                    fmtNascimento.setText(resultado.getString("dt_nascimento").replace("-", "/"));
-                    if (resultado.getString("sexo").equals("M")) {
-                        jrdMasculino.setSelected(true);
-                    } else {
-                        jrdFeminino.setSelected(true);
-                    }
-                    cboEstadoCivil.setSelectedItem(resultado.getString("estado_civil"));
-                    txtTelefone.setText(resultado.getString("telefone"));
-                    txtEndereco.setText(resultado.getString("endereco"));
-                    txtEmail.setText(resultado.getString("email"));
-                }
-                st.close();
-            } catch (Exception e) {
-                System.out.println("Error " + e.getMessage());
-            }
-        }
-
-        eValido = novoCliente.isValid(txtCPF.getText());
-
-        if (!eValido) {
-            JOptionPane.showMessageDialog(this, "CPF inválido!");
-        }
+//        Models.Cliente novoCliente = new Cliente();
+//        boolean eValido;
+//
+//        if (txtCPF.getText().length() != 11 || txtCPF.getText().trim().equals("")) {
+//            txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+//            lblObrigatorioCPF.setVisible(true);
+//            JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório e possui 11 números");
+//            txtCPF.requestFocus(true);
+//        } else {
+//            try {
+//                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
+//                st = (Statement) con.createStatement();
+//
+//                String linhaPesq = "select * from cliente where cpf = " + txtCPF.getText();
+//                resultado = st.executeQuery(linhaPesq);
+//
+//                if (resultado.next()) {
+//                    JOptionPane.showMessageDialog(this, "Cliente já cadastrado");
+//                    txtNome.setText(resultado.getString("nome"));
+//                    //fmtNascimento.setText(resultado.getString("dt_nascimento").replace("-", "/"));
+//                    if (resultado.getString("sexo").equals("M")) {
+//                        jrdMasculino.setSelected(true);
+//                    } else {
+//                        jrdFeminino.setSelected(true);
+//                    }
+//                    cboEstadoCivil.setSelectedItem(resultado.getString("estado_civil"));
+//                    txtTelefone.setText(resultado.getString("telefone"));
+//                    txtEndereco.setText(resultado.getString("endereco"));
+//                    txtEmail.setText(resultado.getString("email"));
+//                }
+//                st.close();
+//            } catch (Exception e) {
+//                System.out.println("Error " + e.getMessage());
+//            }
+//        }
+//
+//        eValido = novoCliente.isValid(txtCPF.getText());
+//
+//        if (!eValido) {
+//            JOptionPane.showMessageDialog(this, "CPF inválido!");
+//        }
 
     }//GEN-LAST:event_txtCPFFocusLost
 
@@ -658,18 +585,6 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioSexo.setVisible(false);
     }//GEN-LAST:event_jrdFemininoActionPerformed
 
-    private void txtCPF1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPF1FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCPF1FocusGained
-
-    private void txtCPF1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPF1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCPF1FocusLost
-
-    private void txtCPF1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPF1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCPF1KeyTyped
-
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
         String cpf = txtCPF1.getText();
@@ -685,18 +600,21 @@ public class Clientes extends javax.swing.JFrame {
         tmCliente.addColumn("Telefone");
         tmCliente.addColumn("Endereço");
         tmCliente.addColumn("Email");
-        
+
         tblClientes.setModel(tmCliente);
 
         //tblComputador.removeColumn(tblComputador.getColumnModel().getColumn(0));
         tmCliente.setRowCount(0);
 
         for (Cliente c : listaCliente) {
+            DateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+            String data_nascimento = formatar.format(c.getData_de_nascimento());
+
             tmCliente.addRow(new Object[]{
-                c.getCpf(), 
-                c.getNome(), 
-                c.getSexo(), 
-                c.getData_de_nascimento(), 
+                c.getCpf(),
+                c.getNome(),
+                c.getSexo(),
+                data_nascimento,
                 c.getEstado_civil(),
                 c.getTelefone(),
                 c.getEndereço(),
@@ -718,7 +636,7 @@ public class Clientes extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Falha ao deletar!");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Escolha um item da lista.");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -732,12 +650,21 @@ public class Clientes extends javax.swing.JFrame {
             String cpf = tblClientes.getModel().getValueAt(linha, 0).toString();
             String nome = tblClientes.getModel().getValueAt(linha, 1).toString();
             String sexo = tblClientes.getModel().getValueAt(linha, 2).toString();
-            String nascimento = tblClientes.getModel().getValueAt(linha, 3).toString();
+
+            Date nascimento = null;
+
+            try {
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                nascimento = format.parse(tblClientes.getModel().getValueAt(linha, 3).toString());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
             String estado_civil = tblClientes.getModel().getValueAt(linha, 4).toString();
             String telefone = tblClientes.getModel().getValueAt(linha, 5).toString();
             String endereco = tblClientes.getModel().getValueAt(linha, 6).toString();
             String email = tblClientes.getModel().getValueAt(linha, 7).toString();
-            
+
             boolean retorno = ClienteController.Atualizar(
                     cpf,
                     nome,
@@ -748,13 +675,13 @@ public class Clientes extends javax.swing.JFrame {
                     endereco,
                     email
             );
-            
+
             if (retorno) {
-                JOptionPane.showMessageDialog(null,"Cliente atualizado com sucesso.");
-            }else{
-                JOptionPane.showMessageDialog(null,"Cliente não foi atualizado.");
+                JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente não foi atualizado.");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Escolha um cliente da lista");
         }
 
@@ -763,14 +690,17 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
+
+        Date data_nascimento = jdcNascimento.getDate();
+
         txtCPF.setText("");
         txtNome.setText("");
         txtEmail.setText("");
         txtEndereco.setText("");
         txtTelefone.setText("");
-        fmtNascimento.setText("");
+        //fmtNascimento.setText("");
         cboEstadoCivil.setSelectedIndex(0);
-        
+
     }//GEN-LAST:event_btnLimparActionPerformed
 
     public void carregarTabela() {
@@ -855,11 +785,11 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cboEstadoCivil;
-    private javax.swing.JFormattedTextField fmtNascimento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private com.toedter.calendar.JDateChooser jdcNascimento;
     private javax.swing.JRadioButton jrdFeminino;
     private javax.swing.JRadioButton jrdMasculino;
     private javax.swing.JLabel lblCPF;
