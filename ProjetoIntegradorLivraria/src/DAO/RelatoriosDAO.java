@@ -29,6 +29,8 @@ public class RelatoriosDAO {
         PreparedStatement instrucaoSQL = null;
         ResultSet resultado;
         Statement st = null;
+        
+        String data = pRelatorio.getData();
                         
         try {           
             conexao = GerenciadorConexao.abrirConexao();
@@ -38,7 +40,7 @@ public class RelatoriosDAO {
             String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
                     + "join livro on venda.id = livro.id "
                     + "join cliente on venda.cpf = cliente.cpf where dt_compra = '"
-                    + pRelatorio.getData() + "'";
+                    + data + "'";
             
             resultado = st.executeQuery(linhapesq);
             
@@ -116,6 +118,9 @@ public class RelatoriosDAO {
         ResultSet resultado;
         Statement st = null;
         
+        String mes = pRelatorio.getMes();
+        String ano = pRelatorio.getAno();
+        
         try {           
             conexao = GerenciadorConexao.abrirConexao();
             
@@ -124,8 +129,8 @@ public class RelatoriosDAO {
             String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
                     + "join livro on venda.id = livro.id "
                     + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = "
-                    + pRelatorio.getMes() + " and year(dt_compra) = " 
-                    + pRelatorio.getAno() + " order by venda.dt_compra";
+                    + mes + " and year(dt_compra) = " 
+                    + ano + " order by venda.dt_compra";
             
             resultado = st.executeQuery(linhapesq);
             while (resultado.next()) {
