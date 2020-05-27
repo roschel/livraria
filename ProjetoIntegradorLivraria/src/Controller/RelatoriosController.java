@@ -7,6 +7,9 @@ package Controller;
 
 import DAO.RelatoriosDAO;
 import Models.Relatorios;
+import database.GerenciadorConexao;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +19,13 @@ import javax.swing.table.DefaultTableModel;
  * @author paulo
  */
 public class RelatoriosController {
+    
+    Connection conexao;
+
+    public RelatoriosController() throws ClassNotFoundException, SQLException {
+        conexao = GerenciadorConexao.abrirConexao();
+    }  
+    
 
     private static Date rdia;
     
