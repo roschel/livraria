@@ -603,7 +603,7 @@ public class Clientes extends javax.swing.JFrame {
 
         tblClientes.setModel(tmCliente);
 
-        //tblComputador.removeColumn(tblComputador.getColumnModel().getColumn(0));
+        // teste de commit
         tmCliente.setRowCount(0);
 
         for (Cliente c : listaCliente) {
