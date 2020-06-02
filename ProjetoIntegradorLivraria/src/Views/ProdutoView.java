@@ -142,6 +142,11 @@ public class ProdutoView extends javax.swing.JFrame {
                 txtEstoqueFocusLost(evt);
             }
         });
+        txtEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstoqueActionPerformed(evt);
+            }
+        });
         txtEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtEstoqueKeyTyped(evt);
@@ -734,6 +739,10 @@ public class ProdutoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro na atualização");
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void txtEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEstoqueActionPerformed
 
     @Override
     public String toString() {
