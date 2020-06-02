@@ -106,7 +106,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLivroActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     /**
