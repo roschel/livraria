@@ -300,7 +300,7 @@ public class CompraView extends javax.swing.JFrame {
             tabela.addRow(new Object[]{
                 null,
                 livro.getTitulo(),
-                livro.getQtdEstoque(),
+                livro.getQtd_estoque(),
                 livro.getPreco()
             });
         }

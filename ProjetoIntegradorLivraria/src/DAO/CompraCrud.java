@@ -125,7 +125,7 @@ public class CompraCrud {
                 Produto produto = new Produto();
                 //produto.setId(rs.getInt("id"));
                 produto.setTitulo(rs.getString("titulo"));
-                produto.setQtdEstoque(rs.getInt("qtd_estoque"));
+                produto.setQtd_estoque(rs.getInt("qtd_estoque"));
                 produto.setPreco(rs.getDouble("preco"));
                 
                 //adicionando cliente na lista

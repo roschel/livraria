@@ -7,8 +7,8 @@ public class Produto {
 
     private int id;
     private Date ano;
-    private int qtdEstoque;
-    private double preco;
+    private int qtd_estoque;
+    private Double preco;
     private String titulo;
     private String autor;
     private String editora;
@@ -35,12 +35,12 @@ public class Produto {
         this.ano=ano;
     }
     
-    public int getQtdEstoque(){
-        return this.qtdEstoque;
+    public int getQtd_estoque(){
+        return this.qtd_estoque;
     }
     
-    public void setQtdEstoque(int qtdEstoque){
-        this.qtdEstoque=qtdEstoque;
+    public void setQtd_estoque(int qtd_estoque){
+        this.qtd_estoque=qtd_estoque;
     }
     
     public double getPreco() {

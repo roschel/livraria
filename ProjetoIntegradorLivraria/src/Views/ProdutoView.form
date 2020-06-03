@@ -26,10 +26,10 @@
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,7 +41,7 @@
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="742" max="32767" attributes="0"/>
+              <EmptySpace pref="731" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,28 +65,28 @@
                       <Component id="jLabel1" linkSize="3" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
                       <Component id="jLabel2" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                      <Component id="jLabel4" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" linkSize="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="txtID" linkSize="5" min="-2" pref="180" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnPesquisarProd" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtAno" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEstoque" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtPreco" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtTitulo" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtAutor" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEditora" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEdicao" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jdcAno" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -100,7 +100,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="118" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -116,12 +116,12 @@
                               <Component id="btnPesquisarProd" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel2" linkSize="4" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel2" linkSize="4" min="-2" max="-2" attributes="0"/>
+                              <Component id="jdcAno" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtAno" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel9" linkSize="8" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -135,7 +135,7 @@
                       <Component id="txtPreco" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel11" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTitulo" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -214,14 +214,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtID">
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtAno">
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtAnoFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtAnoFocusLost"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAnoActionPerformed"/>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtAnoKeyReleased"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEstoque">
           <Events>
@@ -330,6 +322,8 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarProdActionPerformed"/>
           </Events>
         </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jdcAno">
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -345,16 +339,12 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="btnConectar" linkSize="9" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
                   <Component id="btnCadastrar" linkSize="9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnAtualizar" linkSize="9" min="-2" pref="94" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnExcluir" linkSize="9" min="-2" pref="91" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnDeconectar" linkSize="9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -364,11 +354,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnDeconectar" linkSize="10" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                       <Component id="btnExcluir" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAtualizar" linkSize="10" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
                       <Component id="btnCadastrar" linkSize="10" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="btnConectar" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="23" max="32767" attributes="0"/>
               </Group>
@@ -392,25 +380,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnDeconectar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Desconectar BD"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnCadastrar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar "/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnConectar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Conectar DB"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConectarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -432,14 +407,14 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jScrollPane1" min="-2" pref="709" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblConsultarTitulo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                           <Component id="txtNomeLivro" min="-2" pref="286" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnPesquisarNome" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="btnConsultarNome" min="-2" pref="153" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -448,9 +423,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel16" linkSize="12" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="lblConsultarTitulo" linkSize="12" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="txtNomeLivro" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnPesquisarNome" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnConsultarNome" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="138" max="32767" attributes="0"/>
@@ -460,19 +435,19 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel16">
+        <Component class="javax.swing.JLabel" name="lblConsultarTitulo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisa por nome"/>
+            <Property name="text" type="java.lang.String" value="Consultar por T&#xed;tulo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNomeLivro">
         </Component>
-        <Component class="javax.swing.JButton" name="btnPesquisarNome">
+        <Component class="javax.swing.JButton" name="btnConsultarNome">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisar"/>
+            <Property name="text" type="java.lang.String" value="Consultar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarNomeActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarNomeActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
