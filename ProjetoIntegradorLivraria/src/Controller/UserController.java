@@ -7,6 +7,7 @@ package Controller;
 
 import DAO.UsuarioDAO;
 import Models.Usuario;
+import java.util.ArrayList;
 
 /**
  *
@@ -39,17 +40,12 @@ public class UserController {
         return retorno;
     }
     
-    public static boolean Consultar(String nome, String senha){
-        boolean retorno = false;
-        
+    public static ArrayList<Usuario> Consultar(String nome){
         Usuario u = new Usuario();
         u.setNome(nome);
-        u.setSenha(senha);
+        ArrayList<Usuario> listaUsuarios = UsuarioDAO.Consultar(u);
         
-        //retorno = UsuarioDAO.Consultar(u);
-        
-        
-        return retorno;
+        return listaUsuarios;
     }
     
     public static boolean Excluir(int id){

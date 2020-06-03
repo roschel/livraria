@@ -9,7 +9,10 @@ import Models.Usuario;
 import database.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,5 +56,47 @@ public class UsuarioDAO {
         }
 
         return retorno;
+    }
+
+    public static ArrayList<Usuario> Consultar(Usuario u) {
+
+        ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        try {
+            //abrir conexão
+            conexao = GerenciadorConexao.abrirConexao();
+
+            //instrução sql
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM usuario WHERE nome LIKE ?");
+
+            instrucaoSQL.setString(1, u.getNome() + "%");
+            
+            rs=instrucaoSQL.executeQuery();
+            
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id_usuario"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setSenha(rs.getString("senha"));
+                
+                listaUsuario.add(usuario);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            try {
+                if (instrucaoSQL!=null) {
+                    instrucaoSQL.close();
+                }
+                
+                conexao.close();
+            } catch (Exception e) {
+            }
+        }
+        
+        return listaUsuario;
     }
 }
