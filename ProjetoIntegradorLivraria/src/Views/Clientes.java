@@ -603,8 +603,7 @@ public class Clientes extends javax.swing.JFrame {
         tmCliente.addColumn("Email");
 
         tblClientes.setModel(tmCliente);
-
-        // teste de commit
+        
         tmCliente.setRowCount(0);
 
         for (Cliente c : listaCliente) {
