@@ -1,12 +1,12 @@
 package Models;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 public class Produto {
 
     private int id;
-    private Date ano;
+    private int ano;
     private int qtd_estoque;
     private Double preco;
     private String titulo;
@@ -25,13 +25,11 @@ public class Produto {
         this.id = id;
     }
     
-    
-    
-    public Date getAno(){
+    public int getAno(){
        return this.ano;
     }
     
-    public void setAno(Date ano){
+    public void setAno(int ano){
         this.ano=ano;
     }
     
@@ -83,6 +81,11 @@ public class Produto {
         this.edicao = edicao;
     }
 
+    
+
+    
+
+    
 
 
     

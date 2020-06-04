@@ -33,9 +33,9 @@ public class ProdutoDAO {
             conexao = GerenciadorConexao.abrirConexao();
 
             //executando instrução sql
-            instrucaoSQL = conexao.prepareStatement("insert into cliente (ano,qtd_estoque,preco,titulo,autor,editora,edicao) values(?, ?, ?, ?, ?, ?, ?)");
+            instrucaoSQL = conexao.prepareStatement("insert into livro (ano,qtd_estoque,preco,titulo,autor,editora,edicao) values(?, ?, ?, ?, ?, ?, ?)");
 
-            instrucaoSQL.setDate(1, produto.getAno());
+            instrucaoSQL.setInt(1, produto.getAno());
             instrucaoSQL.setInt(2, produto.getQtd_estoque());
             instrucaoSQL.setDouble(3, produto.getPreco());
             instrucaoSQL.setString(4, produto.getTitulo());
@@ -85,13 +85,14 @@ public class ProdutoDAO {
                     + "edicao=? "
                     + "WHERE id=?");
 
-            instrucaoSQL.setDate(1, produto.getAno());
+            instrucaoSQL.setInt(1, produto.getAno());
             instrucaoSQL.setInt(2, produto.getQtd_estoque());
             instrucaoSQL.setDouble(3, produto.getPreco());
             instrucaoSQL.setString(4, produto.getTitulo());
             instrucaoSQL.setString(5, produto.getAutor());
             instrucaoSQL.setString(6, produto.getEditora());
             instrucaoSQL.setString(7, produto.getEdicao());
+            instrucaoSQL.setInt(8, produto.getId());
             
             int linhasAfetadas = instrucaoSQL.executeUpdate();
             if (linhasAfetadas > 0) {
@@ -131,10 +132,56 @@ public class ProdutoDAO {
             while (rs.next()) {
                 Produto p = new Produto();
                 
-                DateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
-                String ano_lancamento = formatar.format(rs.getDate("ano"));
-                Date ano = formatar.parse(ano_lancamento);
-                p.setAno(rs.getDate("ano"));
+                p.setId(rs.getInt("id"));
+                p.setAno(rs.getInt("ano"));
+                p.setQtd_estoque(rs.getInt("qtd_estoque"));
+                p.setPreco(rs.getDouble("preco"));
+                p.setTitulo(rs.getString("titulo"));
+                p.setAutor(rs.getString("autor"));
+                p.setEditora(rs.getString("editora"));
+                p.setEdicao(rs.getString("edicao"));
+
+                listaProduto.add(p);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+
+            try {
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+
+                    GerenciadorConexao.fecharConexao();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
+        }
+
+        return listaProduto;
+    }
+    
+    public static ArrayList<Produto> ConsultarId(Produto produto) {
+
+        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
+        Connection conexao;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE id = ?");
+
+            instrucaoSQL.setInt(1, produto.getId());
+
+            rs = instrucaoSQL.executeQuery();
+
+            while (rs.next()) {
+                Produto p = new Produto();
+                
+                p.setId(rs.getInt("id"));
+                p.setAno(rs.getInt("ano"));
                 p.setQtd_estoque(rs.getInt("qtd_estoque"));
                 p.setPreco(rs.getDouble("preco"));
                 p.setTitulo(rs.getString("titulo"));

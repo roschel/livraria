@@ -69,7 +69,7 @@ public class ProdutoView extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         btnPesquisarProd = new javax.swing.JButton();
-        jdcAno = new com.toedter.calendar.JDateChooser();
+        jycAno = new com.toedter.calendar.JYearChooser();
         jPanel2 = new javax.swing.JPanel();
         btnAtualizar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -244,14 +244,14 @@ public class ProdutoView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPesquisarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdcAno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEstoque)
+                            .addComponent(txtPreco)
+                            .addComponent(txtTitulo)
+                            .addComponent(txtAutor)
+                            .addComponent(txtEditora)
+                            .addComponent(txtEdicao)
+                            .addComponent(jycAno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
@@ -261,7 +261,7 @@ public class ProdutoView extends javax.swing.JFrame {
                             .addComponent(jLabel11)
                             .addComponent(jLabel10)
                             .addComponent(jLabel9))))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7, jLabel8});
@@ -283,7 +283,7 @@ public class ProdutoView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jdcAno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jycAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -449,7 +449,7 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +459,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(731, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -470,42 +470,66 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTituloActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Date ano = jdcAno.getDate();
+        int ano = jycAno.getYear();
         int qtd_estoque = Integer.parseInt(txtEstoque.getText());
         Double preco = Double.parseDouble(txtPreco.getText());
         String titulo = txtTitulo.getText();
         String autor = txtAutor.getText();
         String editora = txtEditora.getText();
         String edicao = txtEdicao.getText();
-        
-        boolean retorno = ProdutoController.Salvar(ano, qtd_estoque, preco, titulo, autor, editora, edicao);
+
+       boolean retorno = ProdutoController.Salvar(ano, qtd_estoque, preco, titulo, autor, editora, edicao);
 
         if (retorno) {
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
+            jycAno.setYear(2020);
+            txtEstoque.setText("");
+            txtPreco.setText("");
+            txtTitulo.setText("");
+            txtAutor.setText("");
+            txtEditora.setText("");
+            txtEdicao.setText("");
+            
         } else {
             JOptionPane.showMessageDialog(null, "Produto não cadastrado");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnPesquisarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarProdActionPerformed
-        try {
-           String linhaPesq = "select * from livro where id = "+txtID.getText();
-            resultado = st.executeQuery(linhaPesq);
-            if (resultado.next()) {
-                jdcAno.setDate(resultado.getDate("ano"));
-                txtEstoque.setText(resultado.getString("qtd_estoque"));
-                txtPreco.setText(resultado.getString("preco"));
-                txtTitulo.setText(resultado.getString("titulo"));
-                txtAutor.setText(resultado.getString("autor"));
-                txtEditora.setText(resultado.getString("editora"));
-                txtEdicao.setText(resultado.getString("edicao"));
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Registro não encontrado");
-            }
-	    } catch (Exception e) {
-	    JOptionPane.showMessageDialog(null, "erro de registro");
-        }
+
+        int id = Integer.parseInt(txtID.getText());
+
+        ArrayList<Produto> listaProduto = ProdutoController.ConsultarId(id);
+
+        DefaultTableModel pqProduto = new DefaultTableModel();
+        pqProduto.addColumn("ID");
+        pqProduto.addColumn("Ano");
+        pqProduto.addColumn("Qtd Estoque");
+        pqProduto.addColumn("Preço");
+        pqProduto.addColumn("Título");
+        pqProduto.addColumn("Autor");
+        pqProduto.addColumn("Editora");
+        pqProduto.addColumn("Edição");
+        
+
+        pqProduto.setRowCount(0);
+
+         for (Produto p : listaProduto) {
+            pqProduto.addRow(new Object[]{
+                p.getId(),
+                p.getAno(),
+                p.getQtd_estoque(),
+                p.getPreco(),
+                p.getTitulo(),
+                p.getAutor(),
+                p.getEditora(),
+                p.getEdicao()
+            });
+         }
+        tblProd.setModel(pqProduto);
+
+
+
     }//GEN-LAST:event_btnPesquisarProdActionPerformed
 
     private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
@@ -515,10 +539,10 @@ public class ProdutoView extends javax.swing.JFrame {
     private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
         char c = evt.getKeyChar();
         //int x = evt.getKeyCode();
-        
-        if (((c<'0')||(c>'9')) && (c!=KeyEvent.VK_BACK_SPACE)) {
+
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
-            JOptionPane.showMessageDialog(this,"Campo preço não permite letras!");
+            JOptionPane.showMessageDialog(this, "Campo preço não permite letras!");
         }
     }//GEN-LAST:event_txtPrecoKeyTyped
 
@@ -527,15 +551,15 @@ public class ProdutoView extends javax.swing.JFrame {
         caracteres.toLowerCase();
         if (caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
-            
+
             JOptionPane.showMessageDialog(this, "O campo Autor não permite números!");
         }
         //char c = evt.getKeyChar();
         //int x = evt.getKeyCode();
-        
+
         //if (((c<'0')||(c>'9')) && (c!=KeyEvent.VK_BACKSPACE)) {
-           // evt.consume();
-           // JOptionPane.showMessageDialog(this,"Campo estoque não permite letras!");
+        // evt.consume();
+        // JOptionPane.showMessageDialog(this,"Campo estoque não permite letras!");
         //}
     }//GEN-LAST:event_txtEstoqueKeyTyped
 
@@ -543,19 +567,19 @@ public class ProdutoView extends javax.swing.JFrame {
         String caracteres = "0987654321";
         if (caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
-            
+
             JOptionPane.showMessageDialog(this, "O campo Autor não permite números!");
         }
-        
+
     }//GEN-LAST:event_txtAutorKeyTyped
 
     private void txtEstoqueFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstoqueFocusGained
         txtEstoque.setBackground(Color.red);
-        
+
     }//GEN-LAST:event_txtEstoqueFocusGained
 
     private void txtEstoqueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstoqueFocusLost
-          txtEstoque.setBackground(Color.white);
+        txtEstoque.setBackground(Color.white);
     }//GEN-LAST:event_txtEstoqueFocusLost
 
     private void txtPrecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecoFocusGained
@@ -599,65 +623,88 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEdicaoFocusLost
 
     private void btnConsultarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarNomeActionPerformed
+
+        String titulo = txtTitulo.getText();
+
+        ArrayList<Produto> listaProduto = ProdutoController.Consultar(titulo);
+
+        DefaultTableModel pqProduto = new DefaultTableModel();
+        pqProduto.addColumn("ID");
+        pqProduto.addColumn("Ano");
+        pqProduto.addColumn("Qtd Estoque");
+        pqProduto.addColumn("Preço");
+        pqProduto.addColumn("Título");
+        pqProduto.addColumn("Autor");
+        pqProduto.addColumn("Editora");
+        pqProduto.addColumn("Edição");
         
-       
-        
-        try {
-            DefaultTableModel tabela = (DefaultTableModel) tblProd.getModel();           
-            String linhaPesq = "select * from livro where titulo like '"+txtNomeLivro.getText()+"%'";
-            resultado = st.executeQuery(linhaPesq);
-            while (resultado.next()) {
-                tabela.addRow(new Object []{
-                resultado.getString("id"),
-                resultado.getString("ano"),
-                resultado.getString("qtd_estoque"),
-                resultado.getString("preco"),
-                resultado.getString("titulo"),
-                resultado.getString("autor"), 
-                resultado.getString("editora"),
-                resultado.getString("edicao")       
-                });
-            
-            }
-           
-        } catch (Exception e) {
-	    JOptionPane.showMessageDialog(null, "erro de registro");
-        }
+
+        pqProduto.setRowCount(0);
+
+         for (Produto p : listaProduto) {
+            pqProduto.addRow(new Object[]{
+                p.getId(),
+                p.getAno(),
+                p.getQtd_estoque(),
+                p.getPreco(),
+                p.getTitulo(),
+                p.getAutor(),
+                p.getEditora(),
+                p.getEdicao()
+            });
+         }
+        tblProd.setModel(pqProduto);
     }//GEN-LAST:event_btnConsultarNomeActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        try {
-            String sqlExcluir = "delete from livro where id = " + txtID.getText();
-            st.executeUpdate(sqlExcluir);
-            JOptionPane.showMessageDialog(null, "Registro Excluído");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro na exclusão");
+
+        if (tblProd.getRowCount() > 0) {
+            int linha = tblProd.getSelectedRow();
+
+            int id = Integer.parseInt(tblProd.getModel().getValueAt(linha, 0).toString());
+
+            boolean retorno = ProdutoController.Excluir(id);
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Produto excluído com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Falha ao excluir produto!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Escolha um produto da lista.");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        try {
-            String atualizar = " update livro "
-                    + "set ano = '" 
-                    + jdcAno.getDate()
-                    + "', qtd_estoque = '" 
-                    + txtEstoque.getText()
-                    + "', preco = '" 
-                    + txtPreco.getText()
-                    + "', titulo = '" 
-                    + txtTitulo.getText()
-                    + "', autor = '" 
-                    + txtAutor.getText()
-                    + "', editora = '"
-                    + txtEditora.getText()
-                    + "', edicao = '"
-                    + txtEdicao.getText()
-                    + "' where id = "
-                    + txtID.getText();
-            st.executeUpdate(atualizar);
-            JOptionPane.showMessageDialog(null, "Registro atualizado");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro na atualização");
+        if (tblProd.getSelectedRowCount() > 0) {
+            int linha = tblProd.getSelectedRow();
+            
+            int id = Integer.parseInt(tblProd.getModel().getValueAt(linha, 0).toString());
+            int ano = Integer.parseInt(tblProd.getModel().getValueAt(linha, 1).toString());
+            int qtd_estoque = Integer.parseInt(tblProd.getModel().getValueAt(linha, 2).toString());
+            Double preco = Double.parseDouble(tblProd.getModel().getValueAt(linha, 3).toString());
+            String titulo = tblProd.getModel().getValueAt(linha, 4).toString();
+            String autor = tblProd.getModel().getValueAt(linha, 5).toString();
+            String editora = tblProd.getModel().getValueAt(linha, 6).toString();
+            String edicao = tblProd.getModel().getValueAt(linha, 7).toString();
+
+            boolean retorno = ProdutoController.Atualizar(
+                    id,
+                    ano,
+                    qtd_estoque,
+                    preco,
+                    titulo,
+                    autor,
+                    editora,
+                    edicao
+            );
+
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Produto não foi atualizado.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Escolha um produto da lista");
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
@@ -667,7 +714,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
     @Override
     public String toString() {
-        return "ProdutoView{" + "txtAno=" + jdcAno + ", txtAutor=" + txtAutor + ", txtEdicao=" + txtEdicao + ", txtEditora=" + txtEditora + ", txtEstoque=" + txtEstoque + ", txtID=" + txtID + ", txtPreco=" + txtPreco + ", txtTitulo=" + txtTitulo + '}';
+      return "ProdutoView{" + "txtAno=" + jycAno + ", txtAutor=" + txtAutor + ", txtEdicao=" + txtEdicao + ", txtEditora=" + txtEditora + ", txtEstoque=" + txtEstoque + ", txtID=" + txtID + ", txtPreco=" + txtPreco + ", txtTitulo=" + txtTitulo + '}';
     }
 
     /**
@@ -730,7 +777,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser jdcAno;
+    private com.toedter.calendar.JYearChooser jycAno;
     private javax.swing.JLabel lblConsultarTitulo;
     private javax.swing.JTable tblProd;
     private javax.swing.JTextField txtAutor;
@@ -743,5 +790,4 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 
-    
 }

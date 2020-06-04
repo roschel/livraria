@@ -16,14 +16,14 @@ import java.util.Date;
  */
 public class ProdutoController {
     
-    public static boolean Salvar(Date ano, int qtd_estoque,
+    public static boolean Salvar(int ano, int qtd_estoque,
             Double preco, String titulo, String autor,
             String editora, String edicao) {
 
         boolean retorno = false;
 
         Produto p = new Produto();
-        p.setAno((java.sql.Date) ano);
+        p.setAno(ano);
         p.setQtd_estoque(qtd_estoque);
         p.setPreco(preco);
         p.setTitulo(titulo);
@@ -36,13 +36,14 @@ public class ProdutoController {
         return retorno;
     }
 
-    public static boolean Atualizar(Date ano, int qtd_estoque,
+    public static boolean Atualizar(int id, int ano, int qtd_estoque,
             Double preco, String titulo, String autor,
             String editora, String edicao) {
         boolean retorno = false;
 
         Produto p = new Produto();
-        p.setAno((java.sql.Date) ano);
+        p.setId(id);
+        p.setAno(ano);
         p.setQtd_estoque(qtd_estoque);
         p.setPreco(preco);
         p.setTitulo(titulo);
@@ -60,6 +61,15 @@ public class ProdutoController {
         produto.setTitulo(titulo);
 
         ArrayList<Produto> listaProduto = ProdutoDAO.Consultar(produto);
+
+        return listaProduto;
+    }
+    
+    public static ArrayList<Produto> ConsultarId(int id) {
+        Produto produto = new Produto();
+        produto.setId(id);
+
+        ArrayList<Produto> listaProduto = ProdutoDAO.ConsultarId(produto);
 
         return listaProduto;
     }
