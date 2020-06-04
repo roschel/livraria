@@ -29,7 +29,7 @@
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,7 +41,7 @@
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="731" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,14 +79,14 @@
                           <Component id="btnPesquisarProd" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtEstoque" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPreco" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtTitulo" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtAutor" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtEditora" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtEdicao" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jdcAno" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtEstoque" linkSize="5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtPreco" linkSize="5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtTitulo" linkSize="5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtAutor" linkSize="5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtEditora" linkSize="5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtEdicao" linkSize="5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jycAno" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -100,7 +100,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="118" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -118,7 +118,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel2" linkSize="4" min="-2" max="-2" attributes="0"/>
-                              <Component id="jdcAno" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="jycAno" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jLabel9" linkSize="8" min="-2" max="-2" attributes="0"/>
@@ -322,7 +322,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarProdActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jdcAno">
+        <Component class="com.toedter.calendar.JYearChooser" name="jycAno">
         </Component>
       </SubComponents>
     </Container>
