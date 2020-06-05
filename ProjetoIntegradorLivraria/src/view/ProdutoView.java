@@ -5,8 +5,8 @@
  */
 package view;
 
-import Controller.ProdutoController;
-import Models.Produto;
+import controller.ProdutoController;
+import model.Produto;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JOptionPane;

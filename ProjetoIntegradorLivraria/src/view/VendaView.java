@@ -5,10 +5,10 @@
  */
 package view;
 
-import Controller.DetalheVendaController;
-import Controller.VendaController;
-import DAO.ProdutoDAO;
-import Models.Produto;
+import controller.DetalheVendaController;
+import controller.VendaController;
+import dao.ProdutoDAO;
+import model.Produto;
 import utils.JTableController;
 
 /**

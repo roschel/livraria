@@ -5,8 +5,8 @@
  */
 package view;
 
-import Controller.ClienteController;
-import Models.Cliente;
+import controller.ClienteController;
+import model.Cliente;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
