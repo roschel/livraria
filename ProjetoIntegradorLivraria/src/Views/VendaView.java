@@ -9,7 +9,7 @@ import Controller.DetalheVendaController;
 import Controller.VendaController;
 import DAO.ProdutoDAO;
 import Models.Produto;
-import database.JTableController;
+import utils.JTableController;
 
 /**
  *
@@ -80,7 +80,16 @@ public class VendaView extends javax.swing.JFrame {
             new String [] {
                 "CPF", "Nome"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbClientes.setToolTipText("adicionar cliente");
         tbClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tbClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,8 +148,18 @@ public class VendaView extends javax.swing.JFrame {
             new String [] {
                 "Id", "Título", "Quantidade", "Preço Un."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbLivros.setToolTipText("adicionar produto");
         tbLivros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbLivros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbLivros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tbLivrosMouseReleased(evt);
@@ -197,12 +216,28 @@ public class VendaView extends javax.swing.JFrame {
             new String [] {
                 "Id", "Título", "Quantidade", "Preço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbVenda.setToolTipText("remover produto");
+        tbVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbVendaMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tbVenda);
 
         jLabel5.setText("Total:");
 
         lblTotal.setText("0.00");
+        lblTotal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jdcDtVenda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -219,15 +254,17 @@ public class VendaView extends javax.swing.JFrame {
                         .addGroup(efetuarVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addGroup(efetuarVendaLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTotal))
-                            .addGroup(efetuarVendaLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCliente))
                             .addComponent(jdcDtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, efetuarVendaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTotal)
+                        .addGap(57, 57, 57)))
                 .addContainerGap())
         );
         efetuarVendaLayout.setVerticalGroup(
@@ -344,7 +381,7 @@ public class VendaView extends javax.swing.JFrame {
 
     private void tbLivrosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbLivrosMouseReleased
         // TODO add your handling code here:
-        JTableController.getProdutos(tbLivros, tbVenda, lblTotal);
+        JTableController.adicionarProduto(tbLivros, tbVenda, lblTotal);
     }//GEN-LAST:event_tbLivrosMouseReleased
 
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
@@ -358,13 +395,15 @@ public class VendaView extends javax.swing.JFrame {
             int qtdLivro = (int) JTableController.getInfo(tbVenda, i, 2);
             DetalheVendaController.inserirDetalheVenda(qtdLivro, idLivro, idVenda);
 
-            Produto p = new Produto();
-
-            p.setQtd_estoque(qtdLivro-1);
-            ProdutoDAO.Atualizar(p);
+            ProdutoDAO.Atualizar(idLivro, qtdLivro - 1);
         }
 
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
+
+    private void tbVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVendaMouseClicked
+        // TODO add your handling code here:
+        JTableController.removerProduto(tbVenda, lblTotal);
+    }//GEN-LAST:event_tbVendaMouseClicked
 
     /**
      * @param args the command line arguments
