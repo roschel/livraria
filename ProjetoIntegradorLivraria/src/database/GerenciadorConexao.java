@@ -7,6 +7,8 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -76,5 +78,35 @@ public class GerenciadorConexao {
         }
         
         return retorno;
+    }
+    
+    public static void liberarMemoria(Connection conexao, PreparedStatement sql) {
+        try {
+            if (conexao != null) {
+                conexao.close();
+            }
+            
+            if (sql != null) {
+                sql.close();
+            }
+        } catch (SQLException e) {
+        }
+    }
+    
+    public static void liberarMemoria(Connection conexao, PreparedStatement sql, ResultSet rs) {
+        try {
+            if (conexao != null) {
+                conexao.close();
+            }
+            
+            if (sql != null) {
+                sql.close();
+            }
+            
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (SQLException e) {
+        }
     }
 }
