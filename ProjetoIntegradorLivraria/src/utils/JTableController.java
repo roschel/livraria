@@ -5,10 +5,10 @@
  */
 package utils;
 
-import Controller.ClienteController;
-import Controller.VendaController;
-import Models.Cliente;
-import Models.Produto;
+import controller.ClienteController;
+import controller.VendaController;
+import model.Cliente;
+import model.Produto;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
