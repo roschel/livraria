@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Views;
+package view;
 
-import Controller.DetalheVendaController;
-import Controller.VendaController;
-import DAO.ProdutoDAO;
-import Models.Produto;
+import controller.DetalheVendaController;
+import controller.VendaController;
+import dao.ProdutoDAO;
+import model.Produto;
 import utils.JTableController;
 
 /**
