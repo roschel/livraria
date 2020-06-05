@@ -88,7 +88,7 @@ public class Clientes extends javax.swing.JFrame {
         btnLimpar = new javax.swing.JButton();
         jdcNascimento = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de clientes");
         setResizable(false);
 

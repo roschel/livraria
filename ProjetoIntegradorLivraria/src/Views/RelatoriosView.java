@@ -39,7 +39,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         try {
             
             //con = GerenciadorConexao.abrirConexao();
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3307/livraria", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
             st = (Statement) con.createStatement();
             //JOptionPane.showMessageDialog(null, "Conectou com o bd!");
         } catch (Exception e) {
@@ -101,7 +101,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblTM = new javax.swing.JLabel();
         lblTotalM = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lglData.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lglData.setText("Data:");
@@ -757,7 +757,7 @@ public class RelatoriosView extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

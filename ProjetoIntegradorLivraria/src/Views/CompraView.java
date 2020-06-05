@@ -56,7 +56,7 @@ public class CompraView extends javax.swing.JFrame {
         lsLivros = new javax.swing.JList<>();
         btnEfetuarVenda = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         venda.setBorder(javax.swing.BorderFactory.createTitledBorder("Venda"));
 
