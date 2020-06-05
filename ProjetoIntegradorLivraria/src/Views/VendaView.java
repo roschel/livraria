@@ -7,6 +7,8 @@ package Views;
 
 import Controller.DetalheVendaController;
 import Controller.VendaController;
+import DAO.ProdutoDAO;
+import Models.Produto;
 import database.JTableController;
 
 /**
@@ -14,13 +16,13 @@ import database.JTableController;
  * @author Sillas
  */
 public class VendaView extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form VendaView
      */
     public VendaView() {
         initComponents();
-        
+
         JTableController.carregarClientes(tbClientes, "");
         JTableController.carregarProdutos(tbLivros, "id_livro", "");
     }
@@ -58,7 +60,8 @@ public class VendaView extends javax.swing.JFrame {
         lblTotal = new javax.swing.JLabel();
         jdcDtVenda = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Vendas");
 
         venda.setBorder(javax.swing.BorderFactory.createTitledBorder("Venda"));
 
@@ -134,7 +137,7 @@ public class VendaView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Título", "Quantidade", "Preço"
+                "Id", "Título", "Quantidade", "Preço Un."
             }
         ));
         tbLivros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -293,12 +296,13 @@ public class VendaView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltrarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarClienteKeyReleased
         // TODO add your handling code here:
         String campo = "";
-        
+
         switch (cboCampoCliente.getSelectedIndex()) {
             case 0:
                 campo = "cpf";
@@ -307,14 +311,14 @@ public class VendaView extends javax.swing.JFrame {
                 campo = "nome";
                 break;
         }
-        
+
         JTableController.carregarClientes(tbClientes, txtFiltrarCliente.getText());
     }//GEN-LAST:event_txtFiltrarClienteKeyReleased
 
     private void txtFiltrarLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarLivroKeyReleased
         // TODO add your handling code here:
         String campo = "";
-        
+
         switch (cboCampoLivro.getSelectedIndex()) {
             case 0:
                 campo = "id_livro";
@@ -329,7 +333,7 @@ public class VendaView extends javax.swing.JFrame {
                 campo = "preco";
                 break;
         }
-        
+
         JTableController.carregarProdutos(tbLivros, campo, txtFiltrarLivro.getText());
     }//GEN-LAST:event_txtFiltrarLivroKeyReleased
 
@@ -345,15 +349,21 @@ public class VendaView extends javax.swing.JFrame {
 
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
         // TODO add your handling code here:
-        int idVenda = VendaController.inserirVenda(new java.sql.Date(jdcDtVenda.getDate().getTime()), 
-                                                   Double.parseDouble(lblTotal.getText()), 
-                                                   JTableController.getInfo(tbClientes, tbClientes.getSelectedRow(), 0).toString());
-        
+        int idVenda = VendaController.inserirVenda(new java.sql.Date(jdcDtVenda.getDate().getTime()),
+                Double.parseDouble(lblTotal.getText()),
+                JTableController.getInfo(tbClientes, tbClientes.getSelectedRow(), 0).toString());
+
         for (int i = 0; i < tbVenda.getRowCount(); i++) {
-            int idLivro = (int)JTableController.getInfo(tbVenda, i, 0);
-            int qtdLivro = (int)JTableController.getInfo(tbVenda, i, 2);
+            int idLivro = (int) JTableController.getInfo(tbVenda, i, 0);
+            int qtdLivro = (int) JTableController.getInfo(tbVenda, i, 2);
             DetalheVendaController.inserirDetalheVenda(qtdLivro, idLivro, idVenda);
+
+            Produto p = new Produto();
+
+            p.setQtd_estoque(qtdLivro-1);
+            ProdutoDAO.Atualizar(p);
         }
+
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
 
     /**

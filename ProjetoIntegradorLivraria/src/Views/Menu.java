@@ -173,7 +173,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jmiVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendasActionPerformed
         // TODO add your handling code here:
-        CompraView telaVenda = new CompraView();
+        VendaView telaVenda = new VendaView();
         telaVenda.setVisible(true);
         telaVenda.setLocationRelativeTo(null);
     }//GEN-LAST:event_jmiVendasActionPerformed

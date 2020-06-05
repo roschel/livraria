@@ -83,7 +83,7 @@ public class ProdutoDAO {
                     + "autor=?, "
                     + "editora=?, "
                     + "edicao=? "
-                    + "WHERE id=?");
+                    + "WHERE id_livro=?");
 
             instrucaoSQL.setInt(1, produto.getAno());
             instrucaoSQL.setInt(2, produto.getQtd_estoque());
@@ -132,7 +132,7 @@ public class ProdutoDAO {
             while (rs.next()) {
                 Produto p = new Produto();
                 
-                p.setId(rs.getInt("id"));
+                p.setId(rs.getInt("id_livro"));
                 p.setAno(rs.getInt("ano"));
                 p.setQtd_estoque(rs.getInt("qtd_estoque"));
                 p.setPreco(rs.getDouble("preco"));
@@ -171,7 +171,7 @@ public class ProdutoDAO {
 
         try {
             conexao = GerenciadorConexao.abrirConexao();
-            instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE id = ?");
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE id_livro = ?");
 
             instrucaoSQL.setInt(1, produto.getId());
 
@@ -180,7 +180,7 @@ public class ProdutoDAO {
             while (rs.next()) {
                 Produto p = new Produto();
                 
-                p.setId(rs.getInt("id"));
+                p.setId(rs.getInt("id_livro"));
                 p.setAno(rs.getInt("ano"));
                 p.setQtd_estoque(rs.getInt("qtd_estoque"));
                 p.setPreco(rs.getDouble("preco"));
@@ -218,7 +218,7 @@ public class ProdutoDAO {
         try {
             conexao = GerenciadorConexao.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("DELETE FROM livro WHERE id=?");
+            instrucaoSQL = conexao.prepareStatement("DELETE FROM livro WHERE id_livro=?");
 
             instrucaoSQL.setInt(1, produto.getId());
             int linhasAfetadas = instrucaoSQL.executeUpdate();
