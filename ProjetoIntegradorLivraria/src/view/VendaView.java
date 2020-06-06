@@ -404,7 +404,10 @@ public class VendaView extends javax.swing.JFrame {
 
             ProdutoDAO.Atualizar(idLivro, qtdEstoque - qtdLivro);
         }
-
+        this.dispose();
+        VendaView telaVenda = new VendaView();
+        telaVenda.setVisible(true);
+        
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
 
     private void tbVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVendaMouseClicked
