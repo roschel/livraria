@@ -62,7 +62,7 @@ public class RelatoriosDAO {
             retorno = true;
         } catch (Exception e) {
             retorno = false;
-            JOptionPane.showMessageDialog(null, "Erro!");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }        
         return retorno;
     }
@@ -106,7 +106,7 @@ public class RelatoriosDAO {
             retorno = true;
         } catch (Exception e) {
             retorno = false;
-            JOptionPane.showMessageDialog(null, "Erro");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return retorno;
     }
