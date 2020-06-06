@@ -11,6 +11,7 @@ import model.Cliente;
 import model.Produto;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -57,33 +58,38 @@ public class JTableController {
         DefaultTableModel modelProduto = (DefaultTableModel)tbProduto.getModel();
         DefaultTableModel modelVenda = (DefaultTableModel)tbVenda.getModel();
         
-        int indice = tbProduto.getSelectedRow();
-        int indice2 = 0;
-        int qtd = 1;
+        int indiceProduto = tbProduto.getSelectedRow();
+        int indiceVenda = 0;
+        int qtdVenda = 1;
+        int qtdEstoque = 0;
         boolean verificar = false;
         double total = Double.parseDouble(lblTotal.getText());
-        double preco = (double)modelProduto.getValueAt(indice, 3);
-        double totalProduto = 0;
-
+        double preco = (double)modelProduto.getValueAt(indiceProduto, 3);
+        
         for (int i = 0; i < modelVenda.getRowCount(); i++) {
             //verificar se o produto já está na tbVenda
-            if (verificar = ((int)modelProduto.getValueAt(indice, 0) == (int)modelVenda.getValueAt(i, 0))) {
-                indice2 = i;
-                qtd = (int)modelVenda.getValueAt(i, 2) + 1;
+            if (verificar = ((int)modelProduto.getValueAt(indiceProduto, 0) == (int)modelVenda.getValueAt(i, 0))) {
+                indiceVenda = i;
+                qtdEstoque = (int)modelProduto.getValueAt(indiceProduto, 2);
+                qtdVenda = (int)modelVenda.getValueAt(i, 2) + 1;
+                if (qtdVenda > qtdEstoque) {
+                    JOptionPane.showMessageDialog(null, "Acabaram os livros do Estoque.");
+                    return;
+                }
                 break;
             }
         }
         
         if (verificar) {
-            modelVenda.setValueAt(qtd, indice2, 2);
-            modelVenda.setValueAt(qtd * preco, indice2, 3);
+            modelVenda.setValueAt(qtdVenda, indiceVenda, 2);
+            modelVenda.setValueAt(qtdVenda * preco, indiceVenda, 3);
             total += preco;
         } else {
             modelVenda.addRow(new Object[] {
-                modelProduto.getValueAt(indice, 0),
-                modelProduto.getValueAt(indice, 1),
-                qtd,
-                preco * qtd
+                modelProduto.getValueAt(indiceProduto, 0),
+                modelProduto.getValueAt(indiceProduto, 1),
+                qtdVenda,
+                preco * qtdVenda
             });
             total += preco;
         }
