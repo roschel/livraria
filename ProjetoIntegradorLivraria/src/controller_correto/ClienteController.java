@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package controller_correto;
 
-import Models.Cliente;
-import DAO.ClienteDAO;
+import model.Cliente;
+import dao_correto.ClienteDAO;
 import java.util.ArrayList;
 import java.util.Date;
 

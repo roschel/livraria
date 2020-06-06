@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package dao_correto;
 
-import Models.Cliente;
-import Models.Venda;
-import Models.Produto;
-import database.GerenciadorConexao;
+import model.Cliente;
+import model.Venda;
+import model.Produto;
+import utils.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

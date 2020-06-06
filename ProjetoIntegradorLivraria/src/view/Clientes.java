@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.ClienteController;
+import controller_correto.ClienteController;
 import model.Cliente;
 import java.sql.Connection;
 import java.sql.Statement;

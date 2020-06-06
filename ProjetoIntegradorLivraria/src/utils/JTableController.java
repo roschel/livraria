@@ -5,8 +5,8 @@
  */
 package utils;
 
-import controller.ClienteController;
-import controller.VendaController;
+import controller_correto.ClienteController;
+import controller_correto.VendaController;
 import model.Cliente;
 import model.Produto;
 import java.util.ArrayList;

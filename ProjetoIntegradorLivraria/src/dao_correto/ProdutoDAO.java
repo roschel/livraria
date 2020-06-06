@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package dao_correto;
 
-import Models.Produto;
-import database.GerenciadorConexao;
+import model.Produto;
+import utils.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -109,6 +107,32 @@ public class ProdutoDAO {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
+        }
+
+        return retorno;
+    }
+    
+    public static boolean Atualizar(int idLivro, int qtd) {
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("UPDATE livro SET qtd_estoque=? WHERE id_livro=?");
+
+            instrucaoSQL.setInt(1, qtd);
+            instrucaoSQL.setInt(2, idLivro);
+            
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+            if (linhasAfetadas > 0) {
+                retorno = true;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            GerenciadorConexao.liberarMemoria(conexao, instrucaoSQL);
         }
 
         return retorno;

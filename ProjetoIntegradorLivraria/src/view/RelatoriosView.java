@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.RelatoriosController;
+import controller_correto.RelatoriosController;
 import utils.GerenciadorConexao;
 import java.awt.Event;
 import java.sql.Connection;

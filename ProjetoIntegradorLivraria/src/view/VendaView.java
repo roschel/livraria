@@ -5,9 +5,9 @@
  */
 package view;
 
-import controller.DetalheVendaController;
-import controller.VendaController;
-import dao.ProdutoDAO;
+import controller_correto.DetalheVendaController;
+import controller_correto.VendaController;
+import dao_correto.ProdutoDAO;
 import model.Produto;
 import utils.JTableController;
 

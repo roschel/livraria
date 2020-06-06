@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package controller_correto;
 
-import DAO.VendaDAO;
-import Models.Produto;
-import Models.Venda;
+import dao_correto.VendaDAO;
+import model.Produto;
+import model.Venda;
 import java.sql.Date;
 import java.util.ArrayList;
 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package dao_correto;
 
-import Models.DetalheVenda;
-import database.GerenciadorConexao;
+import model.DetalheVenda;
+import utils.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
