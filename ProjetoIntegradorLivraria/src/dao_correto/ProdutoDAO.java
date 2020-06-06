@@ -233,6 +233,46 @@ public class ProdutoDAO {
 
         return listaProduto;
     }
+    
+    public static int ConsultarId_string(String id) {
+
+        Connection conexao;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet rs = null;
+        int qtd=0;
+
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE id_livro = ?");
+
+            instrucaoSQL.setString(1, id);
+
+            rs = instrucaoSQL.executeQuery();
+
+            while (rs.next()) {
+                
+                qtd = rs.getInt("qtd_estoque");
+                
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+
+            try {
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+
+                    GerenciadorConexao.fecharConexao();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
+        }
+
+        return qtd;
+    }
 
     public static boolean Excluir(Produto produto) {
         boolean retorno = false;

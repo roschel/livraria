@@ -8,6 +8,7 @@ package view;
 import controller_correto.DetalheVendaController;
 import controller_correto.VendaController;
 import dao_correto.ProdutoDAO;
+import java.util.ArrayList;
 import model.Produto;
 import utils.JTableController;
 
@@ -393,9 +394,15 @@ public class VendaView extends javax.swing.JFrame {
         for (int i = 0; i < tbVenda.getRowCount(); i++) {
             int idLivro = (int) JTableController.getInfo(tbVenda, i, 0);
             int qtdLivro = (int) JTableController.getInfo(tbVenda, i, 2);
+     
+            
             DetalheVendaController.inserirDetalheVenda(qtdLivro, idLivro, idVenda);
+            
+            String id_livro = String.valueOf(idLivro);
+            int qtdEstoque=ProdutoDAO.ConsultarId_string(id_livro);
+            
 
-            ProdutoDAO.Atualizar(idLivro, qtdLivro - 1);
+            ProdutoDAO.Atualizar(idLivro, qtdEstoque - qtdLivro);
         }
 
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
