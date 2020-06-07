@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
 import javax.swing.JOptionPane;
+import model.DetalheVenda;
 
 /**
  *
@@ -54,37 +55,33 @@ public class VendaDAO {
     public static ArrayList<Venda> consultarRelatorio(int tipo, String dataI, String dataF) {
 
         ArrayList<Venda> vendas = new ArrayList<>();
-        
+
         try {
             conexao = GerenciadorConexao.abrirConexao();
-            if(tipo == 1){
-//            switch (tipo) {
-//                case 1:                    
-                    sql = conexao.prepareStatement("select venda.dt_venda, cliente.nome, venda.total from venda \n"
+            switch (tipo) {
+                case 1:
+                    sql = conexao.prepareStatement("select venda.id_venda, venda.dt_venda, cliente.nome, venda.total from venda \n"
                             + "inner join cliente where cliente.cpf = venda.cpf and dt_venda like ?");
-                    sql.setString(1, dataI);
-            }
-//                    break;
-//                case 2:
-            else if(tipo == 2){
-                    sql = conexao.prepareStatement("select venda.dt_venda, cliente.nome, venda.total from venda \n"
+                    sql.setString(1, dataI + "%");
+                    break;
+                case 2:
+                    sql = conexao.prepareStatement("select venda.id_venda, venda.dt_venda, cliente.nome, venda.total from venda \n"
                             + "inner join cliente where cliente.cpf = venda.cpf and dt_venda between ? and ?");
                     sql.setString(1, dataI);
                     sql.setString(2, dataF);
-            }
-//                    break;
-//                case 3:
-            else{
-                    sql = conexao.prepareStatement("select venda.dt_venda, cliente.nome, venda.total from venda \n"
+                    break;
+                case 3:
+                    sql = conexao.prepareStatement("select venda.id_venda, venda.dt_venda, cliente.nome, venda.total from venda \n"
                             + "inner join cliente where cliente.cpf = venda.cpf and dt_venda like ?");
                     sql.setString(1, dataI.substring(0, 7) + "%");
-//                    break;                
+                    break;
             }
 
             rs = sql.executeQuery();
 
             while (rs.next()) {
                 Venda vdia = new Venda();
+                vdia.setIdVenda(rs.getInt("id_venda"));
                 vdia.setDtVenda(rs.getDate("dt_venda"));
                 vdia.setNome(rs.getString("nome"));
                 vdia.setTotal(rs.getDouble("total"));

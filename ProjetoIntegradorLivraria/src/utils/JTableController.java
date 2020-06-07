@@ -6,6 +6,7 @@
 package utils;
 
 import controller_correto.ClienteController;
+import controller_correto.DetalheVendaController;
 import controller_correto.ProdutoController;
 import controller_correto.VendaController;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.DetalheVenda;
 import model.Venda;
 import static utils.JTableController.formatarData;
 
@@ -137,6 +139,7 @@ public class JTableController {
                 
         for(Venda venda : vendas){
             tabela.addRow(new Object[]{  
+                venda.getIdVenda(),
                 venda.getDtVenda(),
                 venda.getNome(),
                 venda.getTotal()
@@ -148,16 +151,28 @@ public class JTableController {
         lblTotalD.setText(String.valueOf(totalDia));
     }
     
+    public static void carregarRetalorioDet(JTable tblDiariaDet, JTable tblDiaria){
+        DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
+        DefaultTableModel tabelaDet = (DefaultTableModel) tblDiariaDet.getModel();
+        tabelaDet.setNumRows(0);
+        
+        int idVenda = (int) tblDiaria.getValueAt(tblDiaria.getSelectedRow(), tblDiaria.getSelectedColumn());
+                
+        ArrayList<DetalheVenda> vendasDet = DetalheVendaController.consultarRelatorioDet(idVenda);
+        
+        for(DetalheVenda vendaDet : vendasDet){
+            tabela.addRow(new Object[]{  
+                vendaDet.getIdLivro(),
+                vendaDet.getTitulo(),
+                vendaDet.getQtdLivro(),
+                vendaDet.getPreco()
+            });
+        }
+    }
+    
     public static String formatarData(Date data) {
 
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-        String dataFormatada = formatador.format(data);
-        return dataFormatada;
-    }
-    
-    public static String formatarDataMes(Date data) {
-
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM");
         String dataFormatada = formatador.format(data);
         return dataFormatada;
     }

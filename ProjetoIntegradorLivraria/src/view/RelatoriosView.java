@@ -95,7 +95,7 @@ public class RelatoriosView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Cliente", "Valor total (R$)"
+                "ID", "Data", "Cliente", "Valor total (R$)"
             }
         ));
         tblDiaria.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -215,7 +215,7 @@ public class RelatoriosView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Cliente", "Valor total (R$)"
+                "ID", "Data", "Cliente", "Valor total (R$)"
             }
         ));
         tblPeriodo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -343,7 +343,7 @@ public class RelatoriosView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Cliente", "Valor total (R$)"
+                "ID", "Data", "Cliente", "Valor total (R$)"
             }
         ));
         tblMensal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -495,89 +495,18 @@ public class RelatoriosView extends javax.swing.JFrame {
     private void tblDiariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDiariaMouseClicked
         // TODO add your handling code here:
         
-//        String nome = (String) tblDiaria.getValueAt(tblDiaria.getSelectedRow(), tblDiaria.getSelectedColumn());
-//        
-//        try {
-//            DefaultTableModel tabela = (DefaultTableModel) tblDiariaDet.getModel();
-//            tabela = (DefaultTableModel) tblDiariaDet.getModel();
-//            tabela.setNumRows(0);
-//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-//                    + "join livro on venda.id = livro.id "
-//                    + "join cliente on venda.cpf = cliente.cpf where nome = '"
-//                    + nome + "' and dt_compra = '" + data + "'";
-//            resultado = st.executeQuery(linhapesq);
-//            
-//            while (resultado.next()) {
-//                tabela.addRow(new Object[]{
-//                    resultado.getString("livro.id"),
-//                    resultado.getString("livro.titulo"),
-//                    resultado.getString("livro.titulo"),
-//                    resultado.getString("preco")
-//                }
-//                );
-//            }           
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }        
+        JTableController.carregarRetalorioDet(tblDiaria, tblDiariaDet);
+              
     }//GEN-LAST:event_tblDiariaMouseClicked
 
     private void tblPeriodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeriodoMouseClicked
         // TODO add your handling code here:
-        
-//        String nome = (String) tblPeriodo.getValueAt(tblPeriodo.getSelectedRow(), tblPeriodo.getSelectedColumn());
-//        
-//        try {
-//            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
-//            tabela = (DefaultTableModel) tblPeriodoDet.getModel();
-//            tabela.setNumRows(0);
-//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-//                    + "join livro on venda.id = livro.id "
-//                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
-//                    + datai + "' and '" + dataf + "' and nome = '" + nome + "'";
-//            resultado = st.executeQuery(linhapesq);
-//            while (resultado.next()) {
-//                tabela.addRow(new Object[]{
-//                    resultado.getString("livro.id"),
-//                    resultado.getString("livro.titulo"),
-//                    resultado.getString("livro.titulo"),
-//                    resultado.getString("preco")
-//                }
-//                );
-//            }       
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
+        JTableController.carregarRetalorioDet(tblPeriodo, tblPeriodoDet);
     }//GEN-LAST:event_tblPeriodoMouseClicked
 
     private void tblMensalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMensalMouseClicked
         // TODO add your handling code here:
-        
-//        String nome = (String) tblMensal.getValueAt(tblMensal.getSelectedRow(), tblMensal.getSelectedColumn());
-//        
-//        try {
-//            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
-//            tabela = (DefaultTableModel) tblMensalDet.getModel();
-//            tabela.setNumRows(0);
-//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-//                    + "join livro on venda.id = livro.id "
-//                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = '"
-//                    + cboMM.getSelectedItem().toString() + "' and year(dt_compra) = '" 
-//                    + cboMA.getSelectedItem().toString() + "' and nome = '"
-//                    + nome + "'";
-//            resultado = st.executeQuery(linhapesq);
-//            while (resultado.next()) {
-//                tabela.addRow(new Object[]{
-//                    resultado.getString("livro.id"),
-//                    resultado.getString("livro.titulo"),
-//                    resultado.getString("livro.titulo"),
-//                    resultado.getString("preco")
-//                }
-//                );
-//            }          
-//            
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
+        JTableController.carregarRetalorioDet(tblMensal, tblMensalDet);
     }//GEN-LAST:event_tblMensalMouseClicked
 
     /**

@@ -6,6 +6,7 @@
 package controller_correto;
 
 import dao_correto.DetalheVendaDAO;
+import java.util.ArrayList;
 import model.DetalheVenda;
 
 /**
@@ -20,5 +21,12 @@ public class DetalheVendaController {
         detalheVenda.setIdVenda(idVenda);
         
         return DetalheVendaDAO.inserirDetalheVenda(detalheVenda);
+    }    
+    
+    public static ArrayList<DetalheVenda> consultarRelatorioDet(int idVenda){
+        
+        ArrayList<DetalheVenda> venda = DetalheVendaDAO.consultarRelatorioDet(idVenda);
+                
+        return venda;
     }
 }

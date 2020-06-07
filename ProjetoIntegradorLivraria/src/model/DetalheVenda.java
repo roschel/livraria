@@ -15,6 +15,7 @@ public class DetalheVenda {
     private int idLivro;
     private int idVenda;
     private String titulo;
+    private double preco;
     
     public DetalheVenda() {}
 
@@ -57,8 +58,13 @@ public class DetalheVenda {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
-    
-    
-    
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+      
 }

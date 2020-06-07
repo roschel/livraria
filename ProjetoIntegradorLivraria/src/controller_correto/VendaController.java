@@ -5,10 +5,12 @@
  */
 package controller_correto;
 
+import dao_correto.DetalheVendaDAO;
 import dao_correto.VendaDAO;
 import model.Venda;
 import java.sql.Date;
 import java.util.ArrayList;
+import model.DetalheVenda;
 import static utils.JTableController.formatarData;
 
 /**
@@ -36,11 +38,5 @@ public class VendaController {
         return venda;
     }
     
-    public static ArrayList<Venda> consultarRelatorioMes(int tipo, String mes, String ano){
-        
-        ArrayList<Venda> venda = VendaDAO.consultarRelatorio(tipo, mes, ano);
-                
-        return venda;
-    }
 }
 

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class DetalheVendaDAO {
     private static Connection conexao = null;
     private static PreparedStatement sql = null;
+    private static ResultSet rs = null;
     
     public static boolean inserirDetalheVenda(DetalheVenda detalheVenda) {
         boolean retorno;
@@ -44,9 +46,32 @@ public class DetalheVendaDAO {
         return retorno;
     }
     
-    public static ArrayList<DetalheVenda> consultarDetalheVenda(){
+    public static ArrayList<DetalheVenda> consultarRelatorioDet(int idVenda) {
+
         ArrayList<DetalheVenda> detalhes = new ArrayList<>();
-        
+
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+            
+            sql = conexao.prepareStatement("select detalhe_venda.id_venda, livro.titulo, livro.preco, detalhe_venda.qtd_livro from detalhe_venda \n"
+                + "inner join livro on livro.id_livro = detalhe_venda.id_livro where id_venda = ?");
+            sql.setInt(1, idVenda);
+
+            rs = sql.executeQuery();
+
+            while (rs.next()) {
+                DetalheVenda vdiaDet = new DetalheVenda();
+                vdiaDet.setIdLivro(rs.getInt("id_livro"));
+                vdiaDet.setTitulo(rs.getString("nome"));
+                vdiaDet.setQtdLivro(rs.getInt("qtd_livro"));
+                vdiaDet.setPreco(rs.getDouble("preco"));
+                detalhes.add(vdiaDet);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            GerenciadorConexao.liberarMemoria(conexao, sql, rs);
+        }
         return detalhes;
-    } 
+    }
 }
