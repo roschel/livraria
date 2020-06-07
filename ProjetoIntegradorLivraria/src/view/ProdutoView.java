@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author danil
+ * @author danilo
  */
 public class ProdutoView extends javax.swing.JFrame {
 
@@ -33,6 +33,7 @@ public class ProdutoView extends javax.swing.JFrame {
      * Creates new form ProdutoView
      */
     public ProdutoView() {
+        // método para exibir view no centro da tela
         initComponents();
     }
 
@@ -108,6 +109,12 @@ public class ProdutoView extends javax.swing.JFrame {
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Edição");
+
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
 
         txtEstoque.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -468,8 +475,9 @@ public class ProdutoView extends javax.swing.JFrame {
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTituloActionPerformed
-
+    
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        
         int ano = jycAno.getYear();
         int qtd_estoque = Integer.parseInt(txtEstoque.getText());
         Double preco = Double.parseDouble(txtPreco.getText().replace(",", "."));
@@ -707,6 +715,10 @@ public class ProdutoView extends javax.swing.JFrame {
     private void txtEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstoqueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEstoqueActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
     @Override
     public String toString() {
