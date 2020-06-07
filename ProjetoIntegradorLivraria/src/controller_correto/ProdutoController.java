@@ -57,10 +57,7 @@ public class ProdutoController {
     }
 
     public static ArrayList<Produto> Consultar(String titulo) {
-        Produto produto = new Produto();
-        produto.setTitulo(titulo);
-
-        ArrayList<Produto> listaProduto = ProdutoDAO.Consultar(produto);
+        ArrayList<Produto> listaProduto = ProdutoDAO.Consultar(titulo);
 
         return listaProduto;
     }

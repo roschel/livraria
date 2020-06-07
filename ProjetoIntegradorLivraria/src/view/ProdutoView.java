@@ -620,7 +620,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
     private void btnConsultarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarNomeActionPerformed
 
-        String titulo = txtTitulo.getText();
+        String titulo = txtNomeLivro.getText();
 
         ArrayList<Produto> listaProduto = ProdutoController.Consultar(titulo);
 
