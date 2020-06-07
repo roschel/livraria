@@ -16,6 +16,7 @@ public class Venda {
     private Date dtVenda;
     private double total;
     private String cpf;    
+    private String nome;
     
     public Venda() {}
 
@@ -50,4 +51,13 @@ public class Venda {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+       
 }

@@ -5,43 +5,41 @@
  */
 package dao_correto;
 
-import model.Cliente;
 import model.Venda;
-import model.Produto;
 import utils.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Sillas
  */
 public class VendaDAO {
-    
+
     private static Connection conexao = null;
     private static PreparedStatement sql = null;
-        
+    private static ResultSet rs = null;
+
     //insert na tabela compra
     public static int inserirVenda(Venda venda) {
         int pk = 0;
-        
+
         try {
             //abrindo conexao
             conexao = GerenciadorConexao.abrirConexao();
-            
-            SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-            
+
             //executando instrucao sql
             sql = conexao.prepareStatement("insert into venda(dt_venda, total, cpf) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            sql.setString(1, formatador.format(venda.getDtVenda()));
+            sql.setDate(1, venda.getDtVenda());
             sql.setDouble(2, venda.getTotal());
             sql.setString(3, venda.getCpf());
-            
+
             pk = sql.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             //exibir erro no log
@@ -49,72 +47,55 @@ public class VendaDAO {
         } finally {
             GerenciadorConexao.liberarMemoria(conexao, sql);
         }
-        
+
         return pk;
     }
-    
-    
-    
-    //consultar clientes e livros
-    private static ResultSet rs = null;
-    public static ArrayList<Cliente> consultarClientes(String campo, String filtro) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+
+    public static ArrayList<Venda> consultarRelatorio(int tipo, String dataI, String dataF) {
+
+        ArrayList<Venda> vendas = new ArrayList<>();
         
         try {
             conexao = GerenciadorConexao.abrirConexao();
-            
-            sql = conexao.prepareStatement("select * from cliente where ? like concat('%', ?, '%')");
-            sql.setString(1, campo);
-            sql.setString(2, filtro);
-            
+            if(tipo == 1){
+//            switch (tipo) {
+//                case 1:                    
+                    sql = conexao.prepareStatement("select venda.dt_venda, cliente.nome, venda.total from venda \n"
+                            + "inner join cliente where cliente.cpf = venda.cpf and dt_venda like ?");
+                    sql.setString(1, dataI);
+            }
+//                    break;
+//                case 2:
+            else if(tipo == 2){
+                    sql = conexao.prepareStatement("select venda.dt_venda, cliente.nome, venda.total from venda \n"
+                            + "inner join cliente where cliente.cpf = venda.cpf and dt_venda between ? and ?");
+                    sql.setString(1, dataI);
+                    sql.setString(2, dataF);
+            }
+//                    break;
+//                case 3:
+            else{
+                    sql = conexao.prepareStatement("select venda.dt_venda, cliente.nome, venda.total from venda \n"
+                            + "inner join cliente where cliente.cpf = venda.cpf and dt_venda like ?");
+                    sql.setString(1, dataI.substring(0, 7) + "%");
+//                    break;                
+            }
+
             rs = sql.executeQuery();
-            
-            while(rs.next()) {
-                Cliente cliente = new Cliente();
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setNome(rs.getString("nome"));
-                
-                //adicionando cliente na lista
-                clientes.add(cliente);
+
+            while (rs.next()) {
+                Venda vdia = new Venda();
+                vdia.setDtVenda(rs.getDate("dt_venda"));
+                vdia.setNome(rs.getString("nome"));
+                vdia.setTotal(rs.getDouble("total"));
+                vendas.add(vdia);
             }
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-            clientes = null;
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             GerenciadorConexao.liberarMemoria(conexao, sql, rs);
         }
-        
-        return clientes;
-    }
-    
-    
-    public static ArrayList<Produto> consultarLivros(String campo, String filtro) {        
-        ArrayList<Produto> produtos = new ArrayList<>();
+        return vendas;
+    }    
 
-        try {
-            conexao = GerenciadorConexao.abrirConexao();
-            
-            sql = conexao.prepareStatement("select * from livro where " + campo + " like concat('%', ?, '%')");
-            sql.setString(1, filtro);
-
-            rs = sql.executeQuery();
-            
-            while(rs.next()){
-                Produto produto = new Produto();
-                produto.setId(rs.getInt("id_livro"));
-                produto.setTitulo(rs.getString("titulo"));
-                produto.setQtd_estoque(rs.getInt("qtd_estoque"));
-                produto.setPreco(rs.getDouble("preco"));
-                
-                produtos.add(produto);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-            produtos = null;
-        } finally {
-            GerenciadorConexao.liberarMemoria(conexao, sql, rs);
-        }
-        
-        return produtos;
-    }
 }

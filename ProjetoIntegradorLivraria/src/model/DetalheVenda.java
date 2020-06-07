@@ -14,6 +14,7 @@ public class DetalheVenda {
     private int qtdLivro;
     private int idLivro;
     private int idVenda;
+    private String titulo;
     
     public DetalheVenda() {}
 
@@ -48,6 +49,16 @@ public class DetalheVenda {
     public void setIdVenda(int idVenda) {
         this.idVenda = idVenda;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
+    
     
     
 }

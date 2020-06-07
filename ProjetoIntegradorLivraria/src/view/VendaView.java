@@ -8,8 +8,7 @@ package view;
 import controller_correto.DetalheVendaController;
 import controller_correto.VendaController;
 import dao_correto.ProdutoDAO;
-import java.util.ArrayList;
-import model.Produto;
+import java.sql.Date;
 import utils.JTableController;
 
 /**
@@ -387,9 +386,12 @@ public class VendaView extends javax.swing.JFrame {
 
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
         // TODO add your handling code here:
-        int idVenda = VendaController.inserirVenda(new java.sql.Date(jdcDtVenda.getDate().getTime()),
-                Double.parseDouble(lblTotal.getText()),
-                JTableController.getInfo(tbClientes, tbClientes.getSelectedRow(), 0).toString());
+        Date dtVenda = new Date (jdcDtVenda.getDate().getTime());
+        double total = Double.parseDouble(lblTotal.getText());
+        String cpf = JTableController.getInfo(tbClientes, tbClientes.getSelectedRow(), 0).toString();
+        
+        
+        int idVenda = VendaController.inserirVenda(dtVenda, total, cpf);
 
         for (int i = 0; i < tbVenda.getRowCount(); i++) {
             int idLivro = (int) JTableController.getInfo(tbVenda, i, 0);

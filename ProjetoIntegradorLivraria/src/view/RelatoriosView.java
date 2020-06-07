@@ -5,19 +5,17 @@
  */
 package view;
 
-import controller_correto.RelatoriosController;
+import controller_correto.VendaController;
 import utils.GerenciadorConexao;
-import java.awt.Event;
 import java.sql.Connection;
-import java.util.Date;
-import java.sql.DriverManager;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import javax.accessibility.AccessibleContext;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import utils.JTableController;
 
 /**
  *
@@ -25,26 +23,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RelatoriosView extends javax.swing.JFrame {
 
-    public Connection con;
-    public Statement st;
-    public ResultSet resultado;
-    PreparedStatement instrucaoSQL = null;
-    private String data;
-    private String datai;
-    private String dataf;
-
     public RelatoriosView() {
         initComponents();
-
-        try {
-            
-            //con = GerenciadorConexao.abrirConexao();
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
-            st = (Statement) con.createStatement();
-            //JOptionPane.showMessageDialog(null, "Conectou com o bd!");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha na conexão com o banco de dados!");
-        }
         
         setLocationRelativeTo(null);
     }
@@ -92,14 +72,12 @@ public class RelatoriosView extends javax.swing.JFrame {
         tblMensal = new javax.swing.JTable();
         btnImprimir3 = new javax.swing.JButton();
         btnFechar3 = new javax.swing.JButton();
-        cboMM = new javax.swing.JComboBox<>();
-        cboMA = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblMensalDet = new javax.swing.JTable();
         lblTM = new javax.swing.JLabel();
         lblTotalM = new javax.swing.JLabel();
+        jcData = new com.toedter.calendar.JCalendar();
+        jdcmes = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -168,7 +146,7 @@ public class RelatoriosView extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,15 +257,10 @@ public class RelatoriosView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblTP)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTotalP, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addGap(340, 340, 340)
+                        .addComponent(lblTP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotalP, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addComponent(btnImprimir2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,6 +279,14 @@ public class RelatoriosView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPP, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5)
+                .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar2, btnImprimir2});
@@ -324,7 +305,7 @@ public class RelatoriosView extends javax.swing.JFrame {
                             .addComponent(lblA)
                             .addComponent(jdcPF, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPP)
                         .addGap(27, 27, 27)))
@@ -382,16 +363,6 @@ public class RelatoriosView extends javax.swing.JFrame {
             }
         });
 
-        cboMM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        cboMA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2019", "2020", "2021" }));
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel1.setText("mês");
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel2.setText("ano");
-
         tblMensalDet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -410,7 +381,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -419,34 +390,28 @@ public class RelatoriosView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalM, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(btnImprimir3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFechar3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(lblM)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cboMM, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cboMA, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnPM, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38))))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(144, 144, 144)
-                                .addComponent(btnImprimir3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnFechar3))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(112, 112, 112)
-                                .addComponent(jLabel1)
-                                .addGap(61, 61, 61)
-                                .addComponent(jLabel2)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jdcmes, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                            .addComponent(jScrollPane6))))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(lblM)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcData, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPM, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar3, btnImprimir3});
@@ -454,19 +419,21 @@ public class RelatoriosView extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPM, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblM)
-                        .addComponent(cboMM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cboMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPM)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jcData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblM))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(jdcmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTM)
@@ -500,147 +467,23 @@ public class RelatoriosView extends javax.swing.JFrame {
 
     private void bntPDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPDActionPerformed
 
-        Date dia = jdcDia.getDate();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        this.data = formato.format(dia);
-        
-        DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
-        tabela = (DefaultTableModel) tblDiaria.getModel();
-        
-        boolean retorno = RelatoriosController.pesquisarDia(data, tabela, lblTotalD);
-        
-        if(retorno){
-        }
-        else{
-            System.out.println("Não existe registro na data informada!");
-        }
-            
-        
-//        try {
-//            DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
-//            tabela = (DefaultTableModel) tblDiaria.getModel();
-//            tabela.setNumRows(0);
-//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-//                    + "join livro on venda.id = livro.id "
-//                    + "join cliente on venda.cpf = cliente.cpf where dt_compra = '"
-//                    + data + "'";
-//            resultado = st.executeQuery(linhapesq);
-//            while (resultado.next()) {
-//                tabela.addRow(new Object[]{
-//                    resultado.getString("dt_compra"),
-//                    resultado.getString("nome"),
-//                    resultado.getString("preco")
-//                }
-//                );
-//            }
-//            
-//            double soma = 0;
-//            for(int i = 0; i < tblDiaria.getRowCount(); i++){
-//                double valor = Double.parseDouble((String) tblDiaria.getValueAt(i, 2));
-//                soma += valor;
-//            }
-//            lblTotalD.setText(String.valueOf(soma));            
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
+        Date data = new Date(jdcDia.getDate().getTime());
+        JTableController.carregarRetalorio(tblDiaria, lblTotalD, 1, data, data);
+          
     }//GEN-LAST:event_bntPDActionPerformed
 
     private void btnPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPPActionPerformed
 
-        Date inicio = jdcPI.getDate();
-        Date fim = jdcPF.getDate();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date dataI = new Date(jdcPI.getDate().getTime());
+        Date dataF = new Date(jdcPF.getDate().getTime());
+        JTableController.carregarRetalorio(tblPeriodo, lblTotalP, 2, dataI, dataF);
         
-        this.datai = formato.format(inicio);
-        this.dataf = formato.format(fim);
-        
-        DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
-        tabela = (DefaultTableModel) tblPeriodo.getModel();
-        
-        boolean retorno = RelatoriosController.pesquisarPeriodo(datai, dataf, tabela, lblTotalP);
-        
-        if(retorno){            
-        }
-        else{
-            System.out.println("Não existe registro no período informado!");
-        }
-        
-//        try {
-//            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
-//            tabela = (DefaultTableModel) tblPeriodo.getModel();
-//            tabela.setNumRows(0);
-//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-//                    + "join livro on venda.id = livro.id "
-//                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
-//                    + datai + "' and '" + dataf + "' order by venda.dt_compra";
-//            resultado = st.executeQuery(linhapesq);
-//            while (resultado.next()) {
-//                tabela.addRow(new Object[]{
-//                    resultado.getString("dt_compra"),
-//                    resultado.getString("nome"),
-//                    resultado.getString("preco")
-//                }
-//                );
-//            }
-//            
-//            double soma = 0;
-//            for(int i = 0; i < tblPeriodo.getRowCount(); i++){
-//                double valor = Double.parseDouble((String) tblPeriodo.getValueAt(i, 2));
-//                soma += valor;
-//            }
-//            lblTotalP.setText(String.valueOf(soma));
-//            
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
     }//GEN-LAST:event_btnPPActionPerformed
 
     private void btnPMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPMActionPerformed
-             
-        DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
-        tabela = (DefaultTableModel) tblMensal.getModel();
         
-        String dataI = cboMM.getSelectedItem().toString();
-        String dataF = cboMA.getSelectedItem().toString();
-        
-        boolean retorno = RelatoriosController.pesquisarMes(dataI, dataF, tabela, lblTotalM);
-        
-        if(retorno){
-            
-        }
-        else{
-            System.out.println("Não existe registro no mês informado!");
-        }
-        
-//        try {
-//            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
-//            tabela = (DefaultTableModel) tblMensal.getModel();
-//            tabela.setNumRows(0);
-//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-//                    + "join livro on venda.id = livro.id "
-//                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = "
-//                    + cboMM.getSelectedItem().toString() + " and year(dt_compra) = " 
-//                    + cboMA.getSelectedItem().toString() + " order by venda.dt_compra";
-//            resultado = st.executeQuery(linhapesq);
-//            while (resultado.next()) {
-//                tabela.addRow(new Object[]{
-//                    resultado.getString("dt_compra"),
-//                    resultado.getString("nome"),
-//                    resultado.getString("preco")
-//                }
-//                );
-//            }
-//                       
-//            double soma = 0;
-//            for(int i = 0; i < tblMensal.getRowCount(); i++){
-//                double valor = Double.parseDouble((String) tblMensal.getValueAt(i, 2));
-//                soma += valor;
-//            }
-//            lblTotalM.setText(String.valueOf(soma));
-//            
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
+        Date data = new Date(jdcmes.getDate().getTime());
+        JTableController.carregarRetalorio(tblMensal, lblTotalM, 3, data, data);
     }//GEN-LAST:event_btnPMActionPerformed
 
     private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
@@ -661,89 +504,89 @@ public class RelatoriosView extends javax.swing.JFrame {
     private void tblDiariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDiariaMouseClicked
         // TODO add your handling code here:
         
-        String nome = (String) tblDiaria.getValueAt(tblDiaria.getSelectedRow(), tblDiaria.getSelectedColumn());
-        
-        try {
-            DefaultTableModel tabela = (DefaultTableModel) tblDiariaDet.getModel();
-            tabela = (DefaultTableModel) tblDiariaDet.getModel();
-            tabela.setNumRows(0);
-            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-                    + "join livro on venda.id = livro.id "
-                    + "join cliente on venda.cpf = cliente.cpf where nome = '"
-                    + nome + "' and dt_compra = '" + data + "'";
-            resultado = st.executeQuery(linhapesq);
-            
-            while (resultado.next()) {
-                tabela.addRow(new Object[]{
-                    resultado.getString("livro.id"),
-                    resultado.getString("livro.titulo"),
-                    resultado.getString("livro.titulo"),
-                    resultado.getString("preco")
-                }
-                );
-            }           
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }        
+//        String nome = (String) tblDiaria.getValueAt(tblDiaria.getSelectedRow(), tblDiaria.getSelectedColumn());
+//        
+//        try {
+//            DefaultTableModel tabela = (DefaultTableModel) tblDiariaDet.getModel();
+//            tabela = (DefaultTableModel) tblDiariaDet.getModel();
+//            tabela.setNumRows(0);
+//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+//                    + "join livro on venda.id = livro.id "
+//                    + "join cliente on venda.cpf = cliente.cpf where nome = '"
+//                    + nome + "' and dt_compra = '" + data + "'";
+//            resultado = st.executeQuery(linhapesq);
+//            
+//            while (resultado.next()) {
+//                tabela.addRow(new Object[]{
+//                    resultado.getString("livro.id"),
+//                    resultado.getString("livro.titulo"),
+//                    resultado.getString("livro.titulo"),
+//                    resultado.getString("preco")
+//                }
+//                );
+//            }           
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }        
     }//GEN-LAST:event_tblDiariaMouseClicked
 
     private void tblPeriodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeriodoMouseClicked
         // TODO add your handling code here:
         
-        String nome = (String) tblPeriodo.getValueAt(tblPeriodo.getSelectedRow(), tblPeriodo.getSelectedColumn());
-        
-        try {
-            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
-            tabela = (DefaultTableModel) tblPeriodoDet.getModel();
-            tabela.setNumRows(0);
-            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-                    + "join livro on venda.id = livro.id "
-                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
-                    + datai + "' and '" + dataf + "' and nome = '" + nome + "'";
-            resultado = st.executeQuery(linhapesq);
-            while (resultado.next()) {
-                tabela.addRow(new Object[]{
-                    resultado.getString("livro.id"),
-                    resultado.getString("livro.titulo"),
-                    resultado.getString("livro.titulo"),
-                    resultado.getString("preco")
-                }
-                );
-            }       
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+//        String nome = (String) tblPeriodo.getValueAt(tblPeriodo.getSelectedRow(), tblPeriodo.getSelectedColumn());
+//        
+//        try {
+//            DefaultTableModel tabela = (DefaultTableModel) tblPeriodo.getModel();
+//            tabela = (DefaultTableModel) tblPeriodoDet.getModel();
+//            tabela.setNumRows(0);
+//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+//                    + "join livro on venda.id = livro.id "
+//                    + "join cliente on venda.cpf = cliente.cpf where date(dt_compra) between '"
+//                    + datai + "' and '" + dataf + "' and nome = '" + nome + "'";
+//            resultado = st.executeQuery(linhapesq);
+//            while (resultado.next()) {
+//                tabela.addRow(new Object[]{
+//                    resultado.getString("livro.id"),
+//                    resultado.getString("livro.titulo"),
+//                    resultado.getString("livro.titulo"),
+//                    resultado.getString("preco")
+//                }
+//                );
+//            }       
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
     }//GEN-LAST:event_tblPeriodoMouseClicked
 
     private void tblMensalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMensalMouseClicked
         // TODO add your handling code here:
         
-        String nome = (String) tblMensal.getValueAt(tblMensal.getSelectedRow(), tblMensal.getSelectedColumn());
-        
-        try {
-            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
-            tabela = (DefaultTableModel) tblMensalDet.getModel();
-            tabela.setNumRows(0);
-            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
-                    + "join livro on venda.id = livro.id "
-                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = '"
-                    + cboMM.getSelectedItem().toString() + "' and year(dt_compra) = '" 
-                    + cboMA.getSelectedItem().toString() + "' and nome = '"
-                    + nome + "'";
-            resultado = st.executeQuery(linhapesq);
-            while (resultado.next()) {
-                tabela.addRow(new Object[]{
-                    resultado.getString("livro.id"),
-                    resultado.getString("livro.titulo"),
-                    resultado.getString("livro.titulo"),
-                    resultado.getString("preco")
-                }
-                );
-            }          
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+//        String nome = (String) tblMensal.getValueAt(tblMensal.getSelectedRow(), tblMensal.getSelectedColumn());
+//        
+//        try {
+//            DefaultTableModel tabela = (DefaultTableModel) tblMensal.getModel();
+//            tabela = (DefaultTableModel) tblMensalDet.getModel();
+//            tabela.setNumRows(0);
+//            String linhapesq = "select cliente.nome, livro.id, livro.titulo, livro.preco, venda.dt_compra from venda "
+//                    + "join livro on venda.id = livro.id "
+//                    + "join cliente on venda.cpf = cliente.cpf where month(dt_compra) = '"
+//                    + cboMM.getSelectedItem().toString() + "' and year(dt_compra) = '" 
+//                    + cboMA.getSelectedItem().toString() + "' and nome = '"
+//                    + nome + "'";
+//            resultado = st.executeQuery(linhapesq);
+//            while (resultado.next()) {
+//                tabela.addRow(new Object[]{
+//                    resultado.getString("livro.id"),
+//                    resultado.getString("livro.titulo"),
+//                    resultado.getString("livro.titulo"),
+//                    resultado.getString("preco")
+//                }
+//                );
+//            }          
+//            
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
     }//GEN-LAST:event_tblMensalMouseClicked
 
     /**
@@ -792,10 +635,6 @@ public class RelatoriosView extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir3;
     private javax.swing.JButton btnPM;
     private javax.swing.JButton btnPP;
-    private javax.swing.JComboBox<String> cboMA;
-    private javax.swing.JComboBox<String> cboMM;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -806,9 +645,11 @@ public class RelatoriosView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private com.toedter.calendar.JCalendar jcData;
     private com.toedter.calendar.JDateChooser jdcDia;
     private com.toedter.calendar.JDateChooser jdcPF;
     private com.toedter.calendar.JDateChooser jdcPI;
+    private com.toedter.calendar.JDateChooser jdcmes;
     private javax.swing.JLabel lblA;
     private javax.swing.JLabel lblD;
     private javax.swing.JLabel lblM;
