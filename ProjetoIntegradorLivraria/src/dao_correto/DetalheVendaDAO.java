@@ -62,7 +62,7 @@ public class DetalheVendaDAO {
             while (rs.next()) {
                 DetalheVenda vdiaDet = new DetalheVenda();
                 vdiaDet.setIdLivro(rs.getInt("id_livro"));
-                vdiaDet.setTitulo(rs.getString("nome"));
+                vdiaDet.setTitulo(rs.getString("titulo"));
                 vdiaDet.setQtdLivro(rs.getInt("qtd_livro"));
                 vdiaDet.setPreco(rs.getDouble("preco"));
                 detalhes.add(vdiaDet);

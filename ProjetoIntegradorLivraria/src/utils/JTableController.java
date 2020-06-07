@@ -12,7 +12,6 @@ import controller_correto.VendaController;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
-import java.text.ParseException;
 import model.Cliente;
 import model.Produto;
 import javax.swing.JLabel;
@@ -21,7 +20,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.DetalheVenda;
 import model.Venda;
-import static utils.JTableController.formatarData;
 
 /**
  *
@@ -161,7 +159,7 @@ public class JTableController {
         ArrayList<DetalheVenda> vendasDet = DetalheVendaController.consultarRelatorioDet(idVenda);
         
         for(DetalheVenda vendaDet : vendasDet){
-            tabela.addRow(new Object[]{  
+            tabelaDet.addRow(new Object[]{  
                 vendaDet.getIdLivro(),
                 vendaDet.getTitulo(),
                 vendaDet.getQtdLivro(),
