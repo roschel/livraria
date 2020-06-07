@@ -46,19 +46,30 @@ public class DetalheVendaDAO {
         return retorno;
     }
     
+    
+    /**
+     * @author Paulo Honorato
+     * @author Sillas
+     * @param idVenda
+     * @return retorna um array do tipo detalhe venda com os dados para um relatório detalhado da venda selecionada.
+     */
     public static ArrayList<DetalheVenda> consultarRelatorioDet(int idVenda) {
 
         ArrayList<DetalheVenda> detalhes = new ArrayList<>();
 
         try {
+            
+            //abrir conexão com o banco de dados
             conexao = GerenciadorConexao.abrirConexao();
             
+            //executar comando de consulta no banco de dados
             sql = conexao.prepareStatement("select detalhe_venda.id_livro, livro.titulo, detalhe_venda.qtd_livro, livro.preco from detalhe_venda \n"
                 + "inner join livro on livro.id_livro = detalhe_venda.id_livro where id_venda = ?");
             sql.setInt(1, idVenda);
 
             rs = sql.executeQuery();
 
+            //preencher o arraylist enquanto houver dados na data informada            
             while (rs.next()) {
                 DetalheVenda vdiaDet = new DetalheVenda();
                 vdiaDet.setIdLivro(rs.getInt("id_livro"));
@@ -68,8 +79,10 @@ public class DetalheVendaDAO {
                 detalhes.add(vdiaDet);
             }
         } catch (SQLException | ClassNotFoundException e) {
+            //exibir erro caso não consiga realizar o procedimento do bloco try
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
+            //encerrar a conexão com o banco de dados
             GerenciadorConexao.liberarMemoria(conexao, sql, rs);
         }
         return detalhes;

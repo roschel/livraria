@@ -23,6 +23,13 @@ public class DetalheVendaController {
         return DetalheVendaDAO.inserirDetalheVenda(detalheVenda);
     }    
     
+    
+    /**
+     * @author Paulo Honorato
+     * @author Sillas
+     * @param idVenda
+     * @return retorna um arraylist do tipo detalhe venda para um relatório detalhado.
+     */
     public static ArrayList<DetalheVenda> consultarRelatorioDet(int idVenda){
         
         ArrayList<DetalheVenda> venda = DetalheVendaDAO.consultarRelatorioDet(idVenda);

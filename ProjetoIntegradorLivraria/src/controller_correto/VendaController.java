@@ -29,7 +29,16 @@ public class VendaController {
         return pk;
     }
     
+    /**
+     * @author Paulo Honorato
+     * @author Sillas
+     * @param tipo
+     * @param dataI
+     * @param dataF
+     * @return retorna um arraylist do tipo venda com os dados para uma tabela de relatório.
+     */
     public static ArrayList<Venda> consultarRelatorio(int tipo, Date dataI, Date dataF){
+        
         String dateI = formatarData(dataI);
         String dateF = formatarData(dataF);
         

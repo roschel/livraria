@@ -126,11 +126,21 @@ public class JTableController {
         return model.getValueAt(indiceLinha, indiceColuna);
     }
     
+    
+    /**
+     * @author Paulo Honorato
+     * @author Sillas
+     * @param tblDiaria
+     * @param lblTotalD
+     * @param tipo
+     * @param dataI
+     * @param dataF 
+     */
     public static void carregarRetalorio(JTable tblDiaria, JLabel lblTotalD, int tipo, Date dataI, Date dataF){
         
         DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
         tabela.setNumRows(0);
-                
+                        
         ArrayList<Venda> vendas = VendaController.consultarRelatorio(tipo, dataI, dataF);
         
         double totalDia = 0;
@@ -149,6 +159,13 @@ public class JTableController {
         lblTotalD.setText(String.valueOf(totalDia));
     }
     
+    
+    /**
+     * @author Paulo Honorato
+     * @author Sillas
+     * @param tblDiaria
+     * @param tblDiariaDet 
+     */
     public static void carregarRetalorioDet(JTable tblDiaria, JTable tblDiariaDet){
         DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
         DefaultTableModel tabelaDet = (DefaultTableModel) tblDiariaDet.getModel();
@@ -168,8 +185,15 @@ public class JTableController {
         }
     }
     
+    
+    /**
+     * @author Paulo Honorato
+     * @param data
+     * @return retorna uma data com formato para o banco de dados.
+     */
     public static String formatarData(Date data) {
 
+        //formatar a data para que seja possível consultar os dados no banco de dados no formato que o comando entenda
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         String dataFormatada = formatador.format(data);
         return dataFormatada;
