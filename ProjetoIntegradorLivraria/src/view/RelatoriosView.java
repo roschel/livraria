@@ -5,16 +5,7 @@
  */
 package view;
 
-import controller_correto.VendaController;
-import utils.GerenciadorConexao;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import utils.JTableController;
 
 /**
@@ -26,6 +17,7 @@ public class RelatoriosView extends javax.swing.JFrame {
     public RelatoriosView() {
         initComponents();
         
+        //método para exibir a view no centro da tela
         setLocationRelativeTo(null);
     }
 

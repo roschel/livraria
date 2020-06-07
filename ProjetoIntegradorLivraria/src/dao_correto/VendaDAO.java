@@ -62,12 +62,23 @@ public class VendaDAO {
         return pk;
     }
 
+    /**
+     * @author Paulo Honorato
+     * @author Sillas
+     * @param tipo
+     * @param dataI
+     * @param dataF
+     * @return retorna um arraylist do tipo venda com os dados para um relatório
+     */
     public static ArrayList<Venda> consultarRelatorio(int tipo, String dataI, String dataF) {
 
         ArrayList<Venda> vendas = new ArrayList<>();
 
         try {
+            //abrir conexão com o banco de dados
             conexao = GerenciadorConexao.abrirConexao();
+            
+            //executar comando de consulta no banco de dados de acordo com o tipo (1- relatório diário; 2- relatório periódico; 3- relatório mensal
             switch (tipo) {
                 case 1:
                     sql = conexao.prepareStatement("select venda.id_venda, venda.dt_venda, cliente.nome, venda.total from venda \n"
@@ -89,6 +100,7 @@ public class VendaDAO {
 
             rs = sql.executeQuery();
 
+            //preencher o arraylist enquantou houver dados na data informada
             while (rs.next()) {
                 Venda vdia = new Venda();
                 vdia.setIdVenda(rs.getInt("id_venda"));
@@ -98,8 +110,10 @@ public class VendaDAO {
                 vendas.add(vdia);
             }
         } catch (SQLException | ClassNotFoundException e) {
+            //exibir mensagem de erro caso não consiga executar as instruções do bloco try
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
+            //encerrar conexão com o banco de dados
             GerenciadorConexao.liberarMemoria(conexao, sql, rs);
         }
         return vendas;
