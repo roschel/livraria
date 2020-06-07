@@ -5,8 +5,6 @@
  */
 package dao_correto;
 
-import com.mysql.cj.conf.PropertyKey;
-import com.mysql.cj.x.protobuf.Mysqlx;
 import model.Venda;
 import utils.GerenciadorConexao;
 import java.sql.Connection;
@@ -15,9 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Date;
 import javax.swing.JOptionPane;
-import model.DetalheVenda;
 
 /**
  *
@@ -30,8 +26,7 @@ public class VendaDAO {
     private static ResultSet rs = null;
 
     //insert na tabela compra
-    public static int inserirVenda(Venda venda) {
-        int pk = 0;
+    public static void inserirVenda(Venda venda) {
 
         try {
             //abrindo conexao
@@ -42,14 +37,13 @@ public class VendaDAO {
             sql.setDate(1, venda.getDtVenda());
             sql.setDouble(2, venda.getTotal());
             sql.setString(3, venda.getCpf());
-            
-           int linhasAfetadas = sql.executeUpdate();
-            
-            
-            if (linhasAfetadas>0) {
-                rs=sql.getGeneratedKeys();
+
+            int linhasAfetadas = sql.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                rs = sql.getGeneratedKeys();
                 if (rs.next()) {
-                    pk=rs.getInt("id_venda");
+                    venda.setIdVenda(rs.getInt(1));
                 }
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -58,8 +52,6 @@ public class VendaDAO {
         } finally {
             GerenciadorConexao.liberarMemoria(conexao, sql);
         }
-
-        return pk;
     }
 
     /**
@@ -77,7 +69,7 @@ public class VendaDAO {
         try {
             //abrir conexão com o banco de dados
             conexao = GerenciadorConexao.abrirConexao();
-            
+
             //executar comando de consulta no banco de dados de acordo com o tipo (1- relatório diário; 2- relatório periódico; 3- relatório mensal
             switch (tipo) {
                 case 1:
@@ -117,6 +109,6 @@ public class VendaDAO {
             GerenciadorConexao.liberarMemoria(conexao, sql, rs);
         }
         return vendas;
-    }    
+    }
 
 }

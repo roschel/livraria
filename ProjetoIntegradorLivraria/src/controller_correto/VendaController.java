@@ -5,12 +5,10 @@
  */
 package controller_correto;
 
-import dao_correto.DetalheVendaDAO;
 import dao_correto.VendaDAO;
 import model.Venda;
 import java.sql.Date;
 import java.util.ArrayList;
-import model.DetalheVenda;
 import static utils.JTableController.formatarData;
 
 /**
@@ -24,9 +22,9 @@ public class VendaController {
         venda.setDtVenda(dtVenda);
         venda.setTotal(total);
         venda.setCpf(cpf);
-        int pk = VendaDAO.inserirVenda(venda);
+        VendaDAO.inserirVenda(venda);
 
-        return pk;
+        return venda.getIdVenda();
     }
     
     /**
