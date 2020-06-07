@@ -138,7 +138,7 @@ public class ProdutoDAO {
         return retorno;
     }
 
-    public static ArrayList<Produto> Consultar(Produto produto) {
+    public static ArrayList<Produto> Consultar(String titulo) {
 
         ArrayList<Produto> listaProduto = new ArrayList<Produto>();
         Connection conexao;
@@ -149,7 +149,7 @@ public class ProdutoDAO {
             conexao = GerenciadorConexao.abrirConexao();
             instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE titulo LIKE ?");
 
-            instrucaoSQL.setString(1, produto.getTitulo() + "%");
+            instrucaoSQL.setString(1, titulo + "%");
 
             rs = instrucaoSQL.executeQuery();
 
