@@ -151,12 +151,12 @@ public class JTableController {
         lblTotalD.setText(String.valueOf(totalDia));
     }
     
-    public static void carregarRetalorioDet(JTable tblDiariaDet, JTable tblDiaria){
+    public static void carregarRetalorioDet(JTable tblDiaria, JTable tblDiariaDet){
         DefaultTableModel tabela = (DefaultTableModel) tblDiaria.getModel();
         DefaultTableModel tabelaDet = (DefaultTableModel) tblDiariaDet.getModel();
         tabelaDet.setNumRows(0);
         
-        int idVenda = (int) tblDiaria.getValueAt(tblDiaria.getSelectedRow(), tblDiaria.getSelectedColumn());
+        int idVenda = (int) tblDiaria.getValueAt(tblDiaria.getSelectedRow(), 0);
                 
         ArrayList<DetalheVenda> vendasDet = DetalheVendaController.consultarRelatorioDet(idVenda);
         

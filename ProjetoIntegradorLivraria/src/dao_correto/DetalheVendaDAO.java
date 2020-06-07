@@ -53,7 +53,7 @@ public class DetalheVendaDAO {
         try {
             conexao = GerenciadorConexao.abrirConexao();
             
-            sql = conexao.prepareStatement("select detalhe_venda.id_venda, livro.titulo, livro.preco, detalhe_venda.qtd_livro from detalhe_venda \n"
+            sql = conexao.prepareStatement("select detalhe_venda.id_livro, livro.titulo, detalhe_venda.qtd_livro, livro.preco from detalhe_venda \n"
                 + "inner join livro on livro.id_livro = detalhe_venda.id_livro where id_venda = ?");
             sql.setInt(1, idVenda);
 
