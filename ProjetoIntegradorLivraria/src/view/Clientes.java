@@ -373,7 +373,7 @@ public class Clientes extends javax.swing.JFrame {
 
         jdcNascimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(jdcNascimento);
-        jdcNascimento.setBounds(450, 169, 250, 20);
+        jdcNascimento.setBounds(450, 159, 250, 30);
 
         jTabbedPane1.addTab("Cadastro de Cliente", jPanel1);
 

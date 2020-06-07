@@ -5,6 +5,8 @@
  */
 package dao_correto;
 
+import com.mysql.cj.conf.PropertyKey;
+import com.mysql.cj.x.protobuf.Mysqlx;
 import model.Venda;
 import utils.GerenciadorConexao;
 import java.sql.Connection;
@@ -40,8 +42,16 @@ public class VendaDAO {
             sql.setDate(1, venda.getDtVenda());
             sql.setDouble(2, venda.getTotal());
             sql.setString(3, venda.getCpf());
-
-            pk = sql.executeUpdate();
+            
+           int linhasAfetadas = sql.executeUpdate();
+            
+            
+            if (linhasAfetadas>0) {
+                rs=sql.getGeneratedKeys();
+                if (rs.next()) {
+                    pk=rs.getInt("id_venda");
+                }
+            }
         } catch (SQLException | ClassNotFoundException e) {
             //exibir erro no log
             System.out.println(e.getMessage());
