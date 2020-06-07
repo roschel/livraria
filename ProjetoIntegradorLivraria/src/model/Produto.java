@@ -4,7 +4,8 @@ import java.util.Date;
 
 
 public class Produto {
-
+    
+    //atributos
     private int id;
     private int ano;
     private int qtd_estoque;
@@ -13,10 +14,12 @@ public class Produto {
     private String autor;
     private String editora;
     private String edicao;
-
+    
+    //construtor
     public Produto() {
     }
-
+    
+    //métodos getteres e setteres
     public int getId() {
         return id;
     }

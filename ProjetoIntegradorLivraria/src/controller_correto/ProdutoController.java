@@ -12,9 +12,21 @@ import java.util.Date;
 
 /**
  *
- * @author danil
+ * @author danilo
  */
 public class ProdutoController {
+    
+    /**
+     * @author Danilo
+     * @param ano
+     * @param qtd_estoque
+     * @param preco
+     * @param titulo
+     * @param autor
+     * @param editora
+     * @param edicao
+     * @return retorna um boleano para salvar as informações passadas no Banco de dados, caso tenham ocorrido alterações
+     */
     
     public static boolean Salvar(int ano, int qtd_estoque,
             Double preco, String titulo, String autor,
@@ -35,6 +47,19 @@ public class ProdutoController {
 
         return retorno;
     }
+    
+    /**
+     * @author Danilo
+     * @param id
+     * @param ano
+     * @param qtd_estoque
+     * @param preco
+     * @param titulo
+     * @param autor
+     * @param editora
+     * @param edicao
+     * @return caso haja alguma alteração no produto, retorna um booleano verdadeiro, para que ocorra a alteração.
+     */
 
     public static boolean Atualizar(int id, int ano, int qtd_estoque,
             Double preco, String titulo, String autor,
@@ -56,11 +81,23 @@ public class ProdutoController {
         return retorno;
     }
 
+    /**
+     * @author Danilo
+     * @param titulo
+     * @return retorna um ArrayList com o objetivo de consultar um livro através do título dele.
+     */
+    
     public static ArrayList<Produto> Consultar(String titulo) {
         ArrayList<Produto> listaProduto = ProdutoDAO.Consultar(titulo);
 
         return listaProduto;
     }
+    
+    /**
+     * @author Danilo
+     * @param id
+     * @return retorna um ArrayList com o objetivo de consultar um livro através do seu Id.
+     */
     
     public static ArrayList<Produto> ConsultarId(int id) {
         Produto produto = new Produto();
@@ -70,6 +107,12 @@ public class ProdutoController {
 
         return listaProduto;
     }
+    
+    /**
+     * @author Danilo
+     * @param id
+     * @return retorna um boleano com o objetivo de excluir um livro através do seu Id.
+     */
     
     public static boolean Excluir(int id){
         boolean retorno = false;

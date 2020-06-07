@@ -17,9 +17,15 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author danil
+ * @author danilo
  */
 public class ProdutoDAO {
+    
+    /**
+     * @author Danilo
+     * @param produto
+     * @return retorna um boleano verdadeiro (True) caso haja a iserção de dados, para cadastro de um novo livro.
+     */
     
     public static boolean Salvar(Produto produto) {
         boolean retorno = false;
@@ -65,6 +71,13 @@ public class ProdutoDAO {
 
         return retorno;
     }
+    
+    
+    /**
+     * @author Danilo
+     * @param produto
+     * @return retorna um boleano verdadeiro (True) caso haja alteração de dados em um livro já cadastrado.
+     */
 
     public static boolean Atualizar(Produto produto) {
         boolean retorno = false;
@@ -72,8 +85,9 @@ public class ProdutoDAO {
         PreparedStatement instrucaoSQL = null;
 
         try {
+            //abrir conexão
             conexao = GerenciadorConexao.abrirConexao();
-
+            //executar instrução sql
             instrucaoSQL = conexao.prepareStatement("UPDATE livro SET ano=?,"
                     + "qtd_estoque=?,"
                     + "preco=?,"
@@ -112,14 +126,22 @@ public class ProdutoDAO {
         return retorno;
     }
     
+    /**
+     * @author Danilo
+     * @param idLivro
+     * @param qtd
+     * @return retorna um boleano verdadeiro (True) caso haja alteração de quantidade em estoque de um livro já cadastrado, através do seu Id.
+     */
+    
     public static boolean Atualizar(int idLivro, int qtd) {
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
         try {
+            //abrir conexão
             conexao = GerenciadorConexao.abrirConexao();
-
+            //executar instrução sql
             instrucaoSQL = conexao.prepareStatement("UPDATE livro SET qtd_estoque=? WHERE id_livro=?");
 
             instrucaoSQL.setInt(1, qtd);
@@ -138,6 +160,12 @@ public class ProdutoDAO {
         return retorno;
     }
 
+    /**
+     * @author Danilo
+     * @param titulo
+     * @return retorna um ArrayList que preenche a tabela com os dados devidos de forma geral, ou através do título do livro.
+     */
+    
     public static ArrayList<Produto> Consultar(String titulo) {
 
         ArrayList<Produto> listaProduto = new ArrayList<Produto>();
@@ -146,7 +174,9 @@ public class ProdutoDAO {
         ResultSet rs = null;
 
         try {
+            //abrir conexão
             conexao = GerenciadorConexao.abrirConexao();
+            //executar instrução sql
             instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE titulo LIKE ?");
 
             instrucaoSQL.setString(1, titulo + "%");
@@ -186,6 +216,12 @@ public class ProdutoDAO {
         return listaProduto;
     }
     
+    /**
+     * @author Danilo
+     * @param produto
+     * @return retorna um ArrayList que preenche a tabela com os dados devidos através do Id do livro.
+     */
+    
     public static ArrayList<Produto> ConsultarId(Produto produto) {
 
         ArrayList<Produto> listaProduto = new ArrayList<Produto>();
@@ -194,7 +230,9 @@ public class ProdutoDAO {
         ResultSet rs = null;
 
         try {
+            //abrir conexão
             conexao = GerenciadorConexao.abrirConexao();
+            //executar instrução sql
             instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE id_livro = ?");
 
             instrucaoSQL.setInt(1, produto.getId());
@@ -234,6 +272,12 @@ public class ProdutoDAO {
         return listaProduto;
     }
     
+    /**
+     * @author Danilo
+     * @param id
+     * @return retorna um inteiro, para alterar a quantidade em estoque de livros, após a venda realizada.
+     */
+    
     public static int ConsultarId_string(String id) {
 
         Connection conexao;
@@ -242,7 +286,9 @@ public class ProdutoDAO {
         int qtd=0;
 
         try {
+            //abrir conexão
             conexao = GerenciadorConexao.abrirConexao();
+            //executar instrução sql
             instrucaoSQL = conexao.prepareStatement("SELECT * FROM livro WHERE id_livro = ?");
 
             instrucaoSQL.setString(1, id);
@@ -274,14 +320,21 @@ public class ProdutoDAO {
         return qtd;
     }
 
+    /**
+     * author Danilo
+     * @param produto
+     * @return retorna um boleano verdadeiro (true) em caso de exclusão de produto selecionado através do Id.
+     */
+    
     public static boolean Excluir(Produto produto) {
         boolean retorno = false;
         Connection conexao;
         PreparedStatement instrucaoSQL = null;
 
         try {
+            //abrir conexão
             conexao = GerenciadorConexao.abrirConexao();
-
+            //executar instrução sql
             instrucaoSQL = conexao.prepareStatement("DELETE FROM livro WHERE id_livro=?");
 
             instrucaoSQL.setInt(1, produto.getId());
