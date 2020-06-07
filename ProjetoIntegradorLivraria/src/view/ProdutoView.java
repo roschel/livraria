@@ -472,7 +472,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         int ano = jycAno.getYear();
         int qtd_estoque = Integer.parseInt(txtEstoque.getText());
-        Double preco = Double.parseDouble(txtPreco.getText());
+        Double preco = Double.parseDouble(txtPreco.getText().replace(",", "."));
         String titulo = txtTitulo.getText();
         String autor = txtAutor.getText();
         String editora = txtEditora.getText();
@@ -539,10 +539,13 @@ public class ProdutoView extends javax.swing.JFrame {
     private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
         String caracteres = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
         caracteres.toLowerCase();
+        
         if (caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Campo preço não permite letras!");
         }
+        
+        
     }//GEN-LAST:event_txtPrecoKeyTyped
 
     private void txtEstoqueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstoqueKeyTyped
@@ -553,13 +556,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "O campo Autor não permite números!");
         }
-        //char c = evt.getKeyChar();
-        //int x = evt.getKeyCode();
-
-        //if (((c<'0')||(c>'9')) && (c!=KeyEvent.VK_BACKSPACE)) {
-        // evt.consume();
-        // JOptionPane.showMessageDialog(this,"Campo estoque não permite letras!");
-        //}
+        
     }//GEN-LAST:event_txtEstoqueKeyTyped
 
     private void txtAutorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutorKeyTyped
