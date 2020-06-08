@@ -48,20 +48,16 @@ public class Menu extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 0));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 961, Short.MAX_VALUE)
+            .addGap(0, 6074, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
+            .addGap(0, 3537, Short.MAX_VALUE)
         );
-
-        jMenuBar1.setBackground(new java.awt.Color(255, 255, 204));
 
         jMenu1.setForeground(new java.awt.Color(0, 0, 0));
         jMenu1.setText("File");
