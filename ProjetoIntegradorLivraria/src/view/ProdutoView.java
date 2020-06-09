@@ -650,7 +650,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 p.getId(),
                 p.getAno(),
                 p.getQtd_estoque(),
-                p.getPreco(),
+                String.format("%.2f", p.getPreco()),
                 p.getTitulo(),
                 p.getAutor(),
                 p.getEditora(),
