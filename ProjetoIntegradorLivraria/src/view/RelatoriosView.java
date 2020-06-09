@@ -36,8 +36,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         bntPD = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDiaria = new javax.swing.JTable();
-        btnImprimir = new javax.swing.JButton();
-        btnFechar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDiariaDet = new javax.swing.JTable();
         lblTD = new javax.swing.JLabel();
@@ -49,8 +47,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         btnPP = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPeriodo = new javax.swing.JTable();
-        btnImprimir2 = new javax.swing.JButton();
-        btnFechar2 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblPeriodoDet = new javax.swing.JTable();
         lblTP = new javax.swing.JLabel();
@@ -62,8 +58,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         btnPM = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMensal = new javax.swing.JTable();
-        btnImprimir3 = new javax.swing.JButton();
-        btnFechar3 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblMensalDet = new javax.swing.JTable();
         lblTM = new javax.swing.JLabel();
@@ -97,15 +91,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblDiaria);
 
-        btnImprimir.setText("Imprimir");
-
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
-
         tblDiariaDet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -126,37 +111,29 @@ public class RelatoriosView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(lglData)
+                                .addGap(18, 18, 18)
+                                .addComponent(jdcDia, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(bntPD, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblTD)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnFechar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lglData)
-                        .addGap(18, 18, 18)
-                        .addComponent(jdcDia, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(bntPD, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblTD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(8, Short.MAX_VALUE))))
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar, btnImprimir});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -177,15 +154,9 @@ public class RelatoriosView extends javax.swing.JFrame {
                     .addComponent(lblTD)
                     .addComponent(lblTotalD))
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFechar))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnFechar, btnImprimir});
 
         jTabbedPane1.addTab("Relatório diário", jPanel2);
 
@@ -217,15 +188,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblPeriodo);
 
-        btnImprimir2.setText("Imprimir");
-
-        btnFechar2.setText("Fechar");
-        btnFechar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFechar2ActionPerformed(evt);
-            }
-        });
-
         tblPeriodoDet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -246,19 +208,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(340, 340, 340)
-                        .addComponent(lblTP)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotalP, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btnImprimir2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnFechar2)))
-                .addContainerGap(10, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblD)
@@ -274,14 +223,17 @@ public class RelatoriosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(340, 340, 340)
+                .addComponent(lblTP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotalP, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5)
                 .addContainerGap())
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar2, btnImprimir2});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -306,15 +258,9 @@ public class RelatoriosView extends javax.swing.JFrame {
                     .addComponent(lblTP)
                     .addComponent(lblTotalP))
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnImprimir2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFechar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnFechar2, btnImprimir2});
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jdcPF, jdcPI});
 
@@ -345,15 +291,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tblMensal);
 
-        btnImprimir3.setText("Imprimir");
-
-        btnFechar3.setText("Fechar");
-        btnFechar3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFechar3ActionPerformed(evt);
-            }
-        });
-
         tblMensalDet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -381,12 +318,6 @@ public class RelatoriosView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalM, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btnImprimir3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnFechar3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
@@ -401,9 +332,6 @@ public class RelatoriosView extends javax.swing.JFrame {
                 .addComponent(btnPM, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
         );
-
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFechar3, btnImprimir3});
-
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -422,15 +350,9 @@ public class RelatoriosView extends javax.swing.JFrame {
                     .addComponent(lblTM)
                     .addComponent(lblTotalM))
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnImprimir3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFechar3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnFechar3, btnImprimir3});
 
         jTabbedPane1.addTab("Relatório mensal", jPanel4);
 
@@ -442,7 +364,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, Short.MAX_VALUE)
         );
 
         pack();
@@ -468,21 +390,6 @@ public class RelatoriosView extends javax.swing.JFrame {
         Date data = new Date(jcData.getDate().getTime());
         JTableController.carregarRetalorio(tblMensal, lblTotalM, 3, data, data);
     }//GEN-LAST:event_btnPMActionPerformed
-
-    private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
-
-        System.exit(0);
-    }//GEN-LAST:event_btnFechar2ActionPerformed
-
-    private void btnFechar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar3ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnFechar3ActionPerformed
-
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnFecharActionPerformed
 
     private void tblDiariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDiariaMouseClicked
         // TODO add your handling code here:
@@ -539,12 +446,6 @@ public class RelatoriosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntPD;
-    private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnFechar2;
-    private javax.swing.JButton btnFechar3;
-    private javax.swing.JButton btnImprimir;
-    private javax.swing.JButton btnImprimir2;
-    private javax.swing.JButton btnImprimir3;
     private javax.swing.JButton btnPM;
     private javax.swing.JButton btnPP;
     private javax.swing.JPanel jPanel2;
