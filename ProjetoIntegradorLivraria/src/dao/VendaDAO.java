@@ -48,7 +48,7 @@ public class VendaDAO {
             }
         } catch (SQLException | ClassNotFoundException e) {
             //exibir erro no log
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             GerenciadorConexao.liberarMemoria(conexao, sql);
         }

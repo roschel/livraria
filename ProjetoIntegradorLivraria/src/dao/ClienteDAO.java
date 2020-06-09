@@ -183,6 +183,41 @@ public class ClienteDAO {
 
         return listaCliente;
     }
+    
+    /**
+     * 
+     * @param cliente
+     * @return ArrayList com os dados do cliente
+     */
+    public static ArrayList<Cliente> consultarNome(String nome) {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet rs = null;
+        
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+            
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM cliente WHERE nome LIKE ?");
+            instrucaoSQL.setString(1, "%" + nome + "%");
+            
+            rs = instrucaoSQL.executeQuery();
+            
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setNome(rs.getString("nome"));
+                
+                clientes.add(cliente);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            GerenciadorConexao.liberarMemoria(conexao, instrucaoSQL, rs);
+        }
+        
+        return clientes;
+    }
 
     /**
      * 
