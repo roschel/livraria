@@ -26,7 +26,6 @@ public class DetalheVendaController {
     
     /**
      * @author Paulo Honorato
-     * @author Sillas
      * @param idVenda
      * @return retorna um arraylist do tipo detalhe venda para um relatório detalhado.
      */

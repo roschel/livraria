@@ -56,7 +56,6 @@ public class VendaDAO {
 
     /**
      * @author Paulo Honorato
-     * @author Sillas
      * @param tipo
      * @param dataI
      * @param dataF

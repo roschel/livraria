@@ -49,7 +49,6 @@ public class DetalheVendaDAO {
     
     /**
      * @author Paulo Honorato
-     * @author Sillas
      * @param idVenda
      * @return retorna um array do tipo detalhe venda com os dados para um relatório detalhado da venda selecionada.
      */
