@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller_correto;
+package controller;
 
-import dao_correto.ProdutoDAO;
+import dao.ProdutoDAO;
 import model.Produto;
 import java.util.ArrayList;
 import java.util.Date;

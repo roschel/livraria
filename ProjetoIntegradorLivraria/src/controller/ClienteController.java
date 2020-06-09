@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller_correto;
+package controller;
 
 import model.Cliente;
-import dao_correto.ClienteDAO;
+import dao.ClienteDAO;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,6 +16,11 @@ import java.util.Date;
  */
 public class ClienteController {
 
+    /**
+     * 
+     * @param cliente
+     * @return boolean - true: Cliente cadastrado com sucesso, false: Cliente não cadastrado
+     */
     public static boolean Salvar(String cpf, String nome,
             Date data_nascimento, String email, String endereco,
             String estado_civil, String sexo, String telefone) {
@@ -37,6 +42,11 @@ public class ClienteController {
         return retorno;
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return boolean - true: Cliente cadastrado com sucesso, false: Cliente não cadastrado
+     */
     public static boolean Atualizar(String cpf, String nome,
             String sexo, Date nascimento, String estado_civil,
             String telefone, String endereco, String email) {
@@ -57,6 +67,11 @@ public class ClienteController {
         return retorno;
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return ArrayList com os dados do cliente
+     */
     public static ArrayList<Cliente> Consultar(String cpf) {
         Cliente cliente = new Cliente();
         cliente.setCpf(cpf);
@@ -66,6 +81,11 @@ public class ClienteController {
         return listaClientes;
     }
     
+    /**
+     * 
+     * @param cliente
+     * @return boolean - true: Cliente cadastrado com sucesso, false: Cliente não cadastrado
+     */
     public static boolean Excluir(String cpf){
         boolean retorno = false;
         

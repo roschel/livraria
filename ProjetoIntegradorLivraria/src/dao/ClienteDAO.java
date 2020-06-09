@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao_correto;
+package dao;
 
 import model.Cliente;
 import utils.GerenciadorConexao;
@@ -23,6 +23,11 @@ import javax.swing.JOptionPane;
  */
 public class ClienteDAO {
 
+    /**
+     * 
+     * @param cliente
+     * @return boolean - true: Cliente cadastrado com sucesso, false: Cliente não cadastrado
+     */
     public static boolean Salvar(Cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
@@ -69,6 +74,11 @@ public class ClienteDAO {
         return retorno;
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return boolean - true: Cliente cadastrado com sucesso, false: Cliente não cadastrado
+     */
     public static boolean Atualizar(Cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
@@ -115,6 +125,11 @@ public class ClienteDAO {
         return retorno;
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return ArrayList com os dados do cliente
+     */
     public static ArrayList<Cliente> Consultar(Cliente cliente) {
 
         ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
@@ -169,6 +184,11 @@ public class ClienteDAO {
         return listaCliente;
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return boolean - true: Cliente cadastrado com sucesso, false: Cliente não cadastrado
+     */
     public static boolean Excluir(Cliente cliente) {
         boolean retorno = false;
         Connection conexao;
