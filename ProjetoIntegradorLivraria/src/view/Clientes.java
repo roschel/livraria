@@ -5,12 +5,13 @@
  */
 package view;
 
-import controller_correto.ClienteController;
+import controller.ClienteController;
 import model.Cliente;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -83,7 +84,6 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioCPF = new javax.swing.JLabel();
         lblObrigatorioEmail = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         txtCPF = new javax.swing.JTextField();
         btnLimpar = new javax.swing.JButton();
         jdcNascimento = new com.toedter.calendar.JDateChooser();
@@ -217,7 +217,7 @@ public class Clientes extends javax.swing.JFrame {
         lblCPF.setBounds(402, 24, 32, 17);
 
         txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtNome.setNextFocusableComponent(lblEmail);
+        txtNome.setNextFocusableComponent(txtEmail);
         txtNome.setPreferredSize(new java.awt.Dimension(20, 18));
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -231,6 +231,7 @@ public class Clientes extends javax.swing.JFrame {
         txtNome.setBounds(452, 54, 200, 18);
 
         txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtEndereco.setNextFocusableComponent(txtTelefone);
         txtEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtEnderecoFocusGained(evt);
@@ -243,6 +244,7 @@ public class Clientes extends javax.swing.JFrame {
         txtEndereco.setBounds(452, 200, 200, 18);
 
         txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtEmail.setNextFocusableComponent(cboEstadoCivil);
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtEmailFocusGained(evt);
@@ -286,6 +288,7 @@ public class Clientes extends javax.swing.JFrame {
         cboEstadoCivil.setEditable(true);
         cboEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Solteiro(a)", "Casado(a)", "Divrciado(a)", "Viuvo(a)" }));
         cboEstadoCivil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cboEstadoCivil.setNextFocusableComponent(jdcNascimento);
         jPanel1.add(cboEstadoCivil);
         cboEstadoCivil.setBounds(452, 126, 200, 26);
 
@@ -310,9 +313,9 @@ public class Clientes extends javax.swing.JFrame {
         lblObrigatorioSexo.setBounds(670, 278, 109, 16);
 
         lblObrigatorioCPF.setForeground(new java.awt.Color(255, 0, 0));
-        lblObrigatorioCPF.setText("*campo obrigatório");
+        lblObrigatorioCPF.setText("*campo obrigatório (deve conter 11 digitos)");
         jPanel1.add(lblObrigatorioCPF);
-        lblObrigatorioCPF.setBounds(658, 25, 109, 16);
+        lblObrigatorioCPF.setBounds(658, 25, 250, 16);
 
         lblObrigatorioEmail.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorioEmail.setText("*campo obrigatório");
@@ -332,20 +335,10 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnCadastrar);
-        btnCadastrar.setBounds(344, 410, 125, 32);
-
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnCancelar);
-        btnCancelar.setBounds(591, 410, 125, 32);
+        btnCadastrar.setBounds(370, 350, 125, 32);
 
         txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtCPF.setNextFocusableComponent(lblNome);
+        txtCPF.setNextFocusableComponent(txtNome);
         txtCPF.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCPFFocusGained(evt);
@@ -369,9 +362,10 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLimpar);
-        btnLimpar.setBounds(470, 350, 108, 32);
+        btnLimpar.setBounds(630, 350, 108, 32);
 
         jdcNascimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jdcNascimento.setNextFocusableComponent(txtEndereco);
         jPanel1.add(jdcNascimento);
         jdcNascimento.setBounds(450, 159, 250, 30);
 
@@ -398,34 +392,30 @@ public class Clientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        txtEmail.setText("");
-        lblObrigatorioEmail.setVisible(false);
-
-        txtNome.setText("");
-        lblObrigatorioNome.setVisible(false);
-
-        txtCPF.setText("");
-        lblObrigatorioCPF.setVisible(false);
-
-        txtEndereco.setText("");
-        lblObrigatorioEndereco.setVisible(false);
-
-        txtTelefone.setText("");
-        jrdFeminino.setSelected(false);
-        jrdMasculino.setSelected(false);
-
-        //fmtNascimento.setText("");
-        cboEstadoCivil.setSelectedIndex(0);
-
-        jrdFeminino.setSelected(false);
-        jrdMasculino.setSelected(false);
-
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:     
+        
+        if (txtCPF.getText().length() != 11 || txtCPF.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório e possui 11 digitos");
+            return;
+        } 
+        if (txtNome.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório.");
+            return;
+        }
+        if (txtEmail.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo email é obrigatório.");
+            return;
+        }
+        if (txtEndereco.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório.");
+            return;
+        }
+        if (!jrdFeminino.isSelected() && !jrdMasculino.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Selecione o sexo.");
+            return;
+        }
+        
         String cpf = txtCPF.getText();
         String nome = txtNome.getText();
         Date data_nascimento = jdcNascimento.getDate();
@@ -445,44 +435,48 @@ public class Clientes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     * @return Verifica se o cpf contém 11 digitos e se já existe no banco de dados.
+     */
     private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
         // TODO add your handling code here:
 
 //        Models.Cliente novoCliente = new Cliente();
 //        boolean eValido;
 //
-//        if (txtCPF.getText().length() != 11 || txtCPF.getText().trim().equals("")) {
-//            txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-//            lblObrigatorioCPF.setVisible(true);
-//            JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório e possui 11 números");
-//            txtCPF.requestFocus(true);
-//        } else {
-//            try {
-//                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
-//                st = (Statement) con.createStatement();
-//
-//                String linhaPesq = "select * from cliente where cpf = " + txtCPF.getText();
-//                resultado = st.executeQuery(linhaPesq);
-//
-//                if (resultado.next()) {
-//                    JOptionPane.showMessageDialog(this, "Cliente já cadastrado");
-//                    txtNome.setText(resultado.getString("nome"));
-//                    //fmtNascimento.setText(resultado.getString("dt_nascimento").replace("-", "/"));
-//                    if (resultado.getString("sexo").equals("M")) {
-//                        jrdMasculino.setSelected(true);
-//                    } else {
-//                        jrdFeminino.setSelected(true);
-//                    }
-//                    cboEstadoCivil.setSelectedItem(resultado.getString("estado_civil"));
-//                    txtTelefone.setText(resultado.getString("telefone"));
-//                    txtEndereco.setText(resultado.getString("endereco"));
-//                    txtEmail.setText(resultado.getString("email"));
-//                }
-//                st.close();
-//            } catch (Exception e) {
-//                System.out.println("Error " + e.getMessage());
-//            }
-//        }
+        if (txtCPF.getText().length() != 11 || txtCPF.getText().trim().equals("")) {
+            txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            lblObrigatorioCPF.setVisible(true);
+        } 
+        else {
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
+                st = (Statement) con.createStatement();
+
+                String linhaPesq = "select * from cliente where cpf = " + txtCPF.getText();
+                resultado = st.executeQuery(linhaPesq);
+
+                if (resultado.next()) {
+                    JOptionPane.showMessageDialog(this, "Cliente já cadastrado");
+                    txtNome.setText(resultado.getString("nome"));
+                    //fmtNascimento.setText(resultado.getString("dt_nascimento").replace("-", "/"));
+                    if (resultado.getString("sexo").equals("M")) {
+                        jrdMasculino.setSelected(true);
+                    } else {
+                        jrdFeminino.setSelected(true);
+                    }
+                    cboEstadoCivil.setSelectedItem(resultado.getString("estado_civil"));
+                    txtTelefone.setText(resultado.getString("telefone"));
+                    txtEndereco.setText(resultado.getString("endereco"));
+                    txtEmail.setText(resultado.getString("email"));
+                }
+                st.close();
+            } catch (Exception e) {
+                System.out.println("Error " + e.getMessage());
+            }
+        }
 //
 //        eValido = novoCliente.isValid(txtCPF.getText());
 //
@@ -513,8 +507,6 @@ public class Clientes extends javax.swing.JFrame {
         if (txtNome.getText().trim().equals("")) {
             txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioNome.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Campo NOME é obrigatório");
-            txtNome.requestFocus(true);
         }
     }//GEN-LAST:event_txtNomeFocusLost
 
@@ -533,13 +525,10 @@ public class Clientes extends javax.swing.JFrame {
         if (txtEmail.getText().trim().equals("")) {
             txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioEmail.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Campo EMAIL é obrigatório");
-            txtEmail.requestFocus(true);
         } else if (!(user.contains("@")) && !(domain.contains("."))) {
             txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioEmail.setVisible(true);
             JOptionPane.showMessageDialog(this, "Email inválido.\n Seu e-mail deve conter '@yourdomain.com'");
-            txtEmail.requestFocus(true);
         }
     }//GEN-LAST:event_txtEmailFocusLost
 
@@ -554,8 +543,6 @@ public class Clientes extends javax.swing.JFrame {
         if (txtEndereco.getText().trim().equals("")) {
             txtEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioEndereco.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Campo ENDEREÇO é obrigatório");
-            txtEndereco.requestFocus(true);
         }
     }//GEN-LAST:event_txtEnderecoFocusLost
 
@@ -571,7 +558,6 @@ public class Clientes extends javax.swing.JFrame {
             String radioButtons = GroupSexo.getSelection().getActionCommand();
         } catch (Exception e) {
             lblObrigatorioSexo.setVisible(true);
-            JOptionPane.showMessageDialog(this, "É necessário escolher um SEXO.");
         }
     }//GEN-LAST:event_btnCadastrarMousePressed
 
@@ -690,14 +676,13 @@ public class Clientes extends javax.swing.JFrame {
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
 
-        Date data_nascimento = jdcNascimento.getDate();
-
+       
+        jdcNascimento.setDate(null);
         txtCPF.setText("");
         txtNome.setText("");
         txtEmail.setText("");
         txtEndereco.setText("");
         txtTelefone.setText("");
-        //fmtNascimento.setText("");
         cboEstadoCivil.setSelectedIndex(0);
 
     }//GEN-LAST:event_btnLimparActionPerformed
@@ -778,7 +763,6 @@ public class Clientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GroupSexo;
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;

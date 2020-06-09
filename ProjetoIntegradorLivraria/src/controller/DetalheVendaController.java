@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller_correto;
+package controller;
 
-import dao_correto.DetalheVendaDAO;
+import dao.DetalheVendaDAO;
 import java.util.ArrayList;
 import model.DetalheVenda;
 
@@ -26,6 +26,7 @@ public class DetalheVendaController {
     
     /**
      * @author Paulo Honorato
+     * @author Sillas
      * @param idVenda
      * @return retorna um arraylist do tipo detalhe venda para um relatório detalhado.
      */

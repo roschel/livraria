@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller_correto;
+package controller;
 
-import dao_correto.VendaDAO;
+import dao.VendaDAO;
 import model.Venda;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ public class VendaController {
     
     /**
      * @author Paulo Honorato
+     * @author Sillas
      * @param tipo
      * @param dataI
      * @param dataF

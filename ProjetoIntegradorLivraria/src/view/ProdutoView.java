@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller_correto.ProdutoController;
+import controller.ProdutoController;
 import model.Produto;
 import java.sql.Connection;
 import java.sql.Statement;
