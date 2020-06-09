@@ -25,7 +25,10 @@ public class VendaDAO {
     private static PreparedStatement sql = null;
     private static ResultSet rs = null;
 
-    //insert na tabela compra
+    /**
+     * @author Sillas
+     * @param venda objeto do tipo Venda
+     */
     public static void inserirVenda(Venda venda) {
 
         try {

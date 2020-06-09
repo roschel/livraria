@@ -26,6 +26,12 @@ import model.Venda;
  * @author sillas.clpinto
  */
 public class JTableController {
+    /**
+     * @author Sillas
+     * @param tbClientes objeto do tipo JTable
+     * @param campo objeto do tipo int
+     * @param filtro objeto do tipo String
+     */
     public static void carregarClientes(JTable tbClientes, int campo, String filtro) {
         DefaultTableModel model = (DefaultTableModel)tbClientes.getModel();
         
@@ -48,6 +54,12 @@ public class JTableController {
         }
     }
     
+    /**
+     * @author Sillas
+     * @param tbProdutos objeto do tipo JTable
+     * @param campo objeto do tipo int
+     * @param filtro objeto do tipo String
+     */
     public static void carregarProdutos(JTable tbProdutos, int campo, String filtro) {
         DefaultTableModel model = (DefaultTableModel)tbProdutos.getModel();
         
@@ -74,12 +86,23 @@ public class JTableController {
         }
     }
     
+    /**
+     * @author Sillas
+     * @param table objeto do tipo JTable
+     * @param label objeto do tipo JLabel
+     */
     public static void getNome(JTable table, JLabel label) {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         
         label.setText(model.getValueAt(table.getSelectedRow(), 1).toString());
     }
     
+    /**
+     * @author Sillas
+     * @param tbProdutos objeto do tipo JTable
+     * @param tbVenda objeto do tipo JTable
+     * @param lblTotal objeto do tipo JLabel
+     */
     public static void adicionarProduto(JTable tbProdutos, JTable tbVenda, JLabel lblTotal) {
         DefaultTableModel modelProduto = (DefaultTableModel)tbProdutos.getModel();
         DefaultTableModel modelVenda = (DefaultTableModel)tbVenda.getModel();
@@ -123,6 +146,11 @@ public class JTableController {
         lblTotal.setText(String.format("%.2f", total).replace('.', ','));
     }
     
+    /**
+     * @author Sillas
+     * @param tbVenda objeto do tipo JTable
+     * @param lblTotal objeto do tipo JLabel
+     */
     public static void removerProduto(JTable tbVenda, JLabel lblTotal) {
         DefaultTableModel modelVenda = (DefaultTableModel)tbVenda.getModel();
 
