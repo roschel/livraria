@@ -105,7 +105,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblTD.setText("Total R$:");
 
         lblTotalD.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        lblTotalD.setText("        00");
+        lblTotalD.setText("        0.00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -203,7 +203,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblTP.setText("Total R$:");
 
         lblTotalP.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        lblTotalP.setText("         00");
+        lblTotalP.setText("       0.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

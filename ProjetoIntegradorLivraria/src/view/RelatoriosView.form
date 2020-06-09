@@ -244,7 +244,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="        00"/>
+                <Property name="text" type="java.lang.String" value="        0.00"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -472,7 +472,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="         00"/>
+                <Property name="text" type="java.lang.String" value="       0.00"/>
               </Properties>
             </Component>
           </SubComponents>
