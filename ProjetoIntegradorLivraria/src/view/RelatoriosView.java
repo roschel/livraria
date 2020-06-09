@@ -104,7 +104,8 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblTD.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTD.setText("Total R$:");
 
-        lblTotalD.setText("              R$");
+        lblTotalD.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        lblTotalD.setText("        00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -201,7 +202,8 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblTP.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTP.setText("Total R$:");
 
-        lblTotalP.setText("            R$");
+        lblTotalP.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        lblTotalP.setText("         00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -304,7 +306,8 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblTM.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lblTM.setText("Total R$:");
 
-        lblTotalM.setText("             R$");
+        lblTotalM.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        lblTotalM.setText("         0.00");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

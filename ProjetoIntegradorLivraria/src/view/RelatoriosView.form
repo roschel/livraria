@@ -241,7 +241,10 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblTotalD">
               <Properties>
-                <Property name="text" type="java.lang.String" value="              R$"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="13" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="        00"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -466,7 +469,10 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblTotalP">
               <Properties>
-                <Property name="text" type="java.lang.String" value="            R$"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="13" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="         00"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -666,7 +672,10 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblTotalM">
               <Properties>
-                <Property name="text" type="java.lang.String" value="             R$"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="13" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="         0.00"/>
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JCalendar" name="jcData">
