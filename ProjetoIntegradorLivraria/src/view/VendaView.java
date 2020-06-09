@@ -63,7 +63,7 @@ public class VendaView extends javax.swing.JFrame {
         jdcDtVenda = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vendas");
 
         venda.setBorder(javax.swing.BorderFactory.createTitledBorder("Venda"));
@@ -351,6 +351,7 @@ public class VendaView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltrarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarClienteKeyReleased

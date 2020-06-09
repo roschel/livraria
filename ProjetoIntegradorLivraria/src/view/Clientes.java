@@ -450,33 +450,6 @@ public class Clientes extends javax.swing.JFrame {
             txtCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             lblObrigatorioCPF.setVisible(true);
         } 
-        else {
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/livraria", "root", "");
-                st = (Statement) con.createStatement();
-
-                String linhaPesq = "select * from cliente where cpf = " + txtCPF.getText();
-                resultado = st.executeQuery(linhaPesq);
-
-                if (resultado.next()) {
-                    JOptionPane.showMessageDialog(this, "Cliente já cadastrado");
-                    txtNome.setText(resultado.getString("nome"));
-                    //fmtNascimento.setText(resultado.getString("dt_nascimento").replace("-", "/"));
-                    if (resultado.getString("sexo").equals("M")) {
-                        jrdMasculino.setSelected(true);
-                    } else {
-                        jrdFeminino.setSelected(true);
-                    }
-                    cboEstadoCivil.setSelectedItem(resultado.getString("estado_civil"));
-                    txtTelefone.setText(resultado.getString("telefone"));
-                    txtEndereco.setText(resultado.getString("endereco"));
-                    txtEmail.setText(resultado.getString("email"));
-                }
-                st.close();
-            } catch (Exception e) {
-                System.out.println("Error " + e.getMessage());
-            }
-        }
 //
 //        eValido = novoCliente.isValid(txtCPF.getText());
 //
