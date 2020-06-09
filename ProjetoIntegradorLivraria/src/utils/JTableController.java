@@ -6,9 +6,9 @@
 package utils;
 
 import controller.ClienteController;
+import controller.DetalheVendaController;
 import controller.ProdutoController;
-import controller_correto.DetalheVendaController;
-import controller_correto.VendaController;
+import controller.VendaController;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
