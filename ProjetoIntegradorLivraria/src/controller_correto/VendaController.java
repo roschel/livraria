@@ -29,7 +29,6 @@ public class VendaController {
     
     /**
      * @author Paulo Honorato
-     * @author Sillas
      * @param tipo
      * @param dataI
      * @param dataF

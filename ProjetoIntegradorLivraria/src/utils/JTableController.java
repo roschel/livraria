@@ -150,13 +150,13 @@ public class JTableController {
                 venda.getIdVenda(),
                 venda.getDtVenda(),
                 venda.getNome(),
-                venda.getTotal()
+                String.format("%.2f", venda.getTotal())
             });
             
             totalDia += venda.getTotal();
         }
         
-        lblTotalD.setText(String.valueOf(totalDia));
+        lblTotalD.setText(String.format("%.2f", totalDia));
     }
     
     
@@ -180,7 +180,7 @@ public class JTableController {
                 vendaDet.getIdLivro(),
                 vendaDet.getTitulo(),
                 vendaDet.getQtdLivro(),
-                vendaDet.getPreco()
+                String.format("%.2f", vendaDet.getPreco())
             });
         }
     }
