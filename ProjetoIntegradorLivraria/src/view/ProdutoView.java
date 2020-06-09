@@ -504,9 +504,15 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnPesquisarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarProdActionPerformed
-
-        int id = Integer.parseInt(txtID.getText());
-
+        
+        int id = 0;
+        
+        if (txtID.getText().trim().equals("")) {
+            id = 0;
+        }else{
+            id = Integer.parseInt(txtID.getText());
+        }
+        
         ArrayList<Produto> listaProduto = ProdutoController.ConsultarId(id);
 
         DefaultTableModel pqProduto = new DefaultTableModel();
