@@ -16,10 +16,12 @@ public class Produto {
     private String edicao;
     
     //construtor
+       
     public Produto() {
     }
     
     //métodos getteres e setteres
+    
     public int getId() {
         return id;
     }
