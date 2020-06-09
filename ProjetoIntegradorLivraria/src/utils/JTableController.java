@@ -26,32 +26,52 @@ import model.Venda;
  * @author sillas.clpinto
  */
 public class JTableController {
-    public static void carregarClientes(JTable table, String filtro) {
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
+    public static void carregarClientes(JTable tbClientes, int campo, String filtro) {
+        DefaultTableModel model = (DefaultTableModel)tbClientes.getModel();
         
         model.setNumRows(0);
         
-        ClienteController.Consultar(filtro).forEach((Cliente cliente) -> {
-            model.addRow(new Object[] {
-                cliente.getCpf(),
-                cliente.getNome()
-            });
-        });
+        if (campo == 0) {
+            ClienteController.Consultar(filtro).forEach((Cliente cliente) -> {
+                model.addRow(new Object[] {
+                    cliente.getCpf(),
+                    cliente.getNome()
+                });
+            }); 
+        } else {
+            ClienteController.consultarNome(filtro).forEach((Cliente cliente) -> {
+                model.addRow(new Object[] {
+                    cliente.getCpf(),
+                    cliente.getNome()
+                });
+            }); 
+        }
     }
     
-    public static void carregarProdutos(JTable table, String campo, String filtro) {
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
+    public static void carregarProdutos(JTable tbProdutos, int campo, String filtro) {
+        DefaultTableModel model = (DefaultTableModel)tbProdutos.getModel();
         
         model.setNumRows(0);
         
-        ProdutoController.Consultar(filtro).forEach((Produto produto) -> {
-            model.addRow(new Object[] {
-                produto.getId(),
-                produto.getTitulo(),
-                produto.getQtd_estoque(),
-                produto.getPreco()
+        if (campo == 0) {
+            ProdutoController.ConsultarId(Integer.parseInt(filtro)).forEach((Produto produto) -> {
+                model.addRow(new Object[] {
+                    produto.getId(),
+                    produto.getTitulo(),
+                    produto.getQtd_estoque(),
+                    String.format("%.2f", produto.getPreco())
+                });
             });
-        });
+        } else {
+            ProdutoController.Consultar(filtro).forEach((Produto produto) -> {
+                model.addRow(new Object[] {
+                    produto.getId(),
+                    produto.getTitulo(),
+                    produto.getQtd_estoque(),
+                    String.format("%.2f", produto.getPreco())
+                });
+            });
+        }
     }
     
     public static void getNome(JTable table, JLabel label) {
@@ -60,17 +80,17 @@ public class JTableController {
         label.setText(model.getValueAt(table.getSelectedRow(), 1).toString());
     }
     
-    public static void adicionarProduto(JTable tbProduto, JTable tbVenda, JLabel lblTotal) {
-        DefaultTableModel modelProduto = (DefaultTableModel)tbProduto.getModel();
+    public static void adicionarProduto(JTable tbProdutos, JTable tbVenda, JLabel lblTotal) {
+        DefaultTableModel modelProduto = (DefaultTableModel)tbProdutos.getModel();
         DefaultTableModel modelVenda = (DefaultTableModel)tbVenda.getModel();
         
-        int indiceProduto = tbProduto.getSelectedRow();
+        int indiceProduto = tbProdutos.getSelectedRow();
         int indiceVenda = 0;
         int qtdVenda = 1;
-        int qtdEstoque = 0;
+        int qtdEstoque;
         boolean verificar = false;
-        double total = Double.parseDouble(lblTotal.getText());
-        double preco = (double)modelProduto.getValueAt(indiceProduto, 3);
+        double total = Double.parseDouble(lblTotal.getText().replace(',', '.'));
+        double preco = Double.parseDouble(modelProduto.getValueAt(indiceProduto, 3).toString().replace(',', '.'));
         
         for (int i = 0; i < modelVenda.getRowCount(); i++) {
             //verificar se o produto já está na tbVenda
@@ -88,19 +108,19 @@ public class JTableController {
         
         if (verificar) {
             modelVenda.setValueAt(qtdVenda, indiceVenda, 2);
-            modelVenda.setValueAt(qtdVenda * preco, indiceVenda, 3);
+            modelVenda.setValueAt(String.format("%.2f", qtdVenda * preco).replace('.', ','), indiceVenda, 3);
             total += preco;
         } else {
             modelVenda.addRow(new Object[] {
                 modelProduto.getValueAt(indiceProduto, 0),
                 modelProduto.getValueAt(indiceProduto, 1),
                 qtdVenda,
-                preco * qtdVenda
+                String.format("%.2f", preco * qtdVenda).replace('.', ',')
             });
             total += preco;
         }
         
-        lblTotal.setText(String.valueOf(total));
+        lblTotal.setText(String.format("%.2f", total).replace('.', ','));
     }
     
     public static void removerProduto(JTable tbVenda, JLabel lblTotal) {
@@ -108,16 +128,18 @@ public class JTableController {
 
         int indice = tbVenda.getSelectedRow();
         int qtd = (int)modelVenda.getValueAt(indice, 2);
-        double preco = (double)modelVenda.getValueAt(indice, 3) / qtd;
+        String precoString = modelVenda.getValueAt(indice, 3).toString().replace(',', '.');
+        double precoUnit = Double.parseDouble(precoString) / qtd;
         
         if ((qtd -= 1) > 0) {
             modelVenda.setValueAt(qtd, indice, 2);
-            modelVenda.setValueAt(preco * qtd, indice, 3);
+            modelVenda.setValueAt(String.format("%.2f", precoUnit * qtd), indice, 3);
         } else {
             modelVenda.removeRow(indice);
         }
         
-        lblTotal.setText(String.valueOf(Double.parseDouble(lblTotal.getText()) - preco));
+        precoString = lblTotal.getText().replace(',', '.');
+        lblTotal.setText(String.format("%.2f", Double.parseDouble(precoString) - precoUnit).replace('.', ','));
     }
     
     public static Object getInfo(JTable table, int indiceLinha, int indiceColuna) { 

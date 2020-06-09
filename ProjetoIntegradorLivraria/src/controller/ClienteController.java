@@ -81,6 +81,12 @@ public class ClienteController {
         return listaClientes;
     }
     
+    public static ArrayList<Cliente> consultarNome(String nome) {
+        ArrayList<Cliente> clientes = ClienteDAO.consultarNome(nome);
+        
+        return clientes;
+    }
+    
     /**
      * 
      * @param cliente
